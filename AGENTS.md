@@ -79,3 +79,14 @@ IaFTFC mod であり、ゲームプレイ機能は未実装。runtime の準備�
   screen と log を `.harness-state/runtime/smoke/missing/<mod-id>/` に保存する。テスト後に
   JAR を戻し、正常起動を確認してから次の対象を外す。内包ライブラリは個別の欠落対象に
   しない。
+
+## M02 の公開IDと検証
+
+- 金属素材は `iaftfc:metal/<形態>/<dragonsteel_fire|dragonsteel_ice|dragonsteel_lightning>` の42品。建材と金床は `iaftfc:metal/block/<金属>`、`<金属>_slab`、`<金属>_stairs`、`iaftfc:metal/anvil/<金属>` の12ブロックと12アイテム。
+- 溶融金属は `tfc:metal/<金属>` と `tfc:metal/flowing_<金属>`。金床はTFCのTier 7として登録し、液体ブロックやバケツは登録しない。
+- M02のGameTestは `./gradlew runGameTestServer` で実行し、JUnit XMLは `build/gametest-results.xml` に出力する。表示確認は `tests/e2e/dragonsteel-blocks.mjs` を使用する。ビルド・静的確認と実ゲーム合格は区別する。
+
+- M02のドラゴン骨部品は `iaftfc:dragonbone/<axe_head|hoe_head|pickaxe_head|shovel_head|sword_blade>` の5品。ドラゴン防具は `iaftfc:dragonarmor_<steel|black_steel|red_steel|blue_steel>_<head|neck|body|tail>` の16品。完成した道具とプレイヤー防具は追加しない。
+- 金属はTFCの `tfc/metal` と `tfc/fluid_heat` に融点2000℃、比熱0.00857、Tier 7を定義する。溶融金属の色は炎 `#6E211B`、氷 `#6BADC9`、雷 `#4D3A69`。
+- 素材は対応する `#c:ingots`、`#c:double_ingots`、`#c:sheets`、`#c:double_sheets`、`#c:rods` の属性別・全体タグに加入する。通常ブロックはitem/block両方の `#c:storage_blocks/<金属>` と全体タグに加入し、金床は `#tfc:anvils` に加入する。溶融金属は `#c:molten_<金属>` と `#tfc:molten_metals` に加入する。タグは既存メンバーを保持する。
+- 建材と金床はツルハシ採掘タグを持ち、loot tableは単体1個、二重ハーフのみ2個を落とす。M02の保存・表示についてはGameTestとE2Eの実行結果を確認するまで合格としない。

@@ -1,5 +1,24 @@
 {
-  "gameTests": [],
+  "gameTests": [
+    {
+      "acId": "AC-F007-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonsteeltests.empty",
+      "name": "dragonsteeltests.registeredmaterials"
+    },
+    {
+      "acId": "AC-F007-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonsteeltests.empty",
+      "name": "dragonsteeltests.placedandrecovered"
+    },
+    {
+      "acId": "AC-F007-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonsteeltests.empty",
+      "name": "dragonsteeltests.moltenmetaltransfers"
+    }
+  ],
   "e2e": [
     {
       "acId": "AC-F001-001",
@@ -12,6 +31,14 @@
     {
       "acId": "AC-F001-003",
       "scenario": "tests/e2e/required-environment.mjs"
+    },
+    {
+      "acId": "AC-F007-002",
+      "scenario": "tests/e2e/dragonsteel-blocks.mjs"
+    },
+    {
+      "acId": "AC-F007-003",
+      "scenario": "tests/e2e/dragonsteel-blocks.mjs"
     }
   ]
 }
