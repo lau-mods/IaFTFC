@@ -47,6 +47,7 @@ runtime の準備を IaFTFC の実装完了・AC 合格とは扱わない。
 
 ## 実装と検証
 
+- 基本パッケージは `net.claustra01.iaftfc`
 - 依存 Mod の仕様は対象バージョンの公式ソースまたは実際の JAR/data で確認する。
 - 解析物・補助スクリプトは Git 管理外の `.tmp/` に置く。
 - 製品コードの途中確認は `./gradlew compileJava`、完了確認は `./gradlew build`。
