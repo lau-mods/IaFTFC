@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "item": "tfc:fire_bricks"
+    },
+    "S": {
+      "tag": "iceandfire:storage_blocks/scales/dragon/fire"
+    }
+  },
+  "pattern": [
+    "SBS",
+    "BSB",
+    "SBS"
+  ],
+  "result": {
+    "id": "iceandfire:dragonforge_fire_brick",
+    "count": 4
+  },
+  "show_notification": true
+}

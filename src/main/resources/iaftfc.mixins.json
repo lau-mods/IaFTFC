@@ -1,0 +1,8 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.claustra01.iaftfc.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["DragonForgeBlockEntityMixin"],
+  "injectors": {"defaultRequire": 1}
+}

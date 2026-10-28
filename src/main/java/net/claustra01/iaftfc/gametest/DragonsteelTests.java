@@ -1,9 +1,7 @@
 package net.claustra01.iaftfc.gametest;
 
-import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
-import javax.xml.parsers.ParserConfigurationException;
 import net.claustra01.iaftfc.common.DragonsteelMetal;
 import net.claustra01.iaftfc.registry.ModBlocks;
 import net.claustra01.iaftfc.registry.ModFluids;
@@ -17,8 +15,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.gametest.framework.GlobalTestReporter;
-import net.minecraft.gametest.framework.JUnitLikeTestReporter;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -46,14 +42,7 @@ import net.neoforged.neoforge.gametest.GameTestHolder;
 @GameTestHolder("iaftfc")
 public final class DragonsteelTests {
     static {
-        String report = System.getProperty("iaftfc.gametestReport");
-        if (report != null) {
-            try {
-                GlobalTestReporter.replaceWith(new JUnitLikeTestReporter(new File(report)));
-            } catch (ParserConfigurationException exception) {
-                throw new IllegalStateException("Cannot create GameTest report", exception);
-            }
-        }
+        GameTestReports.configure();
     }
 
     @GameTest(template = "empty")

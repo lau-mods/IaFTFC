@@ -17,6 +17,36 @@
       "report": "build/gametest-results.xml",
       "classname": "iaftfc:dragonsteeltests.empty",
       "name": "dragonsteeltests.moltenmetaltransfers"
+    },
+    {
+      "acId": "AC-F008-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonforgetests.empty",
+      "name": "dragonforgetests.producesallthreeingots"
+    },
+    {
+      "acId": "AC-F008-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonforgetests.empty",
+      "name": "dragonforgetests.heatsonlycompletedoutput"
+    },
+    {
+      "acId": "AC-F008-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonforgetests.empty",
+      "name": "dragonforgetests.rejectsblockedandwrongingredients"
+    },
+    {
+      "acId": "AC-F008-004",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonforgetests.empty",
+      "name": "dragonforgetests.savesinventoryandprogress"
+    },
+    {
+      "acId": "AC-F008-005",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonforgetests.empty",
+      "name": "dragonforgetests.configurableheatchangesonlynewoutput"
     }
   ],
   "e2e": [
@@ -39,6 +69,10 @@
     {
       "acId": "AC-F007-003",
       "scenario": "tests/e2e/dragonsteel-blocks.mjs"
+    },
+    {
+      "acId": "AC-F008-001",
+      "scenario": "tests/e2e/dragonforge-ingots.mjs"
     }
   ]
 }

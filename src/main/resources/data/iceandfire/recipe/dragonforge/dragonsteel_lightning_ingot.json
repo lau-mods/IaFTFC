@@ -1,0 +1,14 @@
+{
+  "type": "iceandfire:dragonforge",
+  "dragonType": "lightning",
+  "cookTime": 1000,
+  "input": {
+    "tag": "c:ingots/black_steel"
+  },
+  "blood": {
+    "item": "iceandfire:lightning_dragon_blood"
+  },
+  "result": {
+    "id": "iaftfc:metal/ingot/dragonsteel_lightning"
+  }
+}

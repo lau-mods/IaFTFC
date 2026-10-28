@@ -93,3 +93,10 @@ IaFTFC mod であり、ゲームプレイ機能は未実装。runtime の準備�
 - 金属はTFCの `tfc/metal` と `tfc/fluid_heat` に融点2000℃、比熱0.00857、Tier 7を定義する。溶融金属の色は炎 `#6E211B`、氷 `#6BADC9`、雷 `#4D3A69`。
 - 素材は対応する `#c:ingots`、`#c:double_ingots`、`#c:sheets`、`#c:double_sheets`、`#c:rods` の属性別・全体タグに加入する。通常ブロックはitem/block両方の `#c:storage_blocks/<金属>` と全体タグに加入し、金床は `#tfc:anvils` に加入する。溶融金属は `#c:molten_<金属>` と `#tfc:molten_metals` に加入する。タグは既存メンバーを保持する。
 - 建材と金床はツルハシ採掘タグを持ち、loot tableは単体1個、二重ハーフのみ2個を落とす。M02の保存・表示についてはGameTestとE2Eの実行結果を確認するまで合格としない。
+
+## M03 の公開IDと検証
+
+- IaF CE の `iceandfire:dragonforge/dragonsteel_<fire|ice|lightning>_ingot` を上書きし、TFC の赤鋼・青鋼・黒鋼と対応する血から `iaftfc:metal/ingot/dragonsteel_<属性>` を製造する。進捗量は1000。
+- 炉の `smeltItem` が正規インゴットを出力に入れた直後、Mixin が出力スタック全体へ温度を設定する。熱容量は3属性共通の `tfc/item_heat/dragonsteel_ingots.json` から読む。既定1800℃は `data/iaftfc/forge_heat/dragonsteel.json` の `temperature` で変更でき、レシピ見本と新規製品へ適用する。0以下・非有限値は警告して1800℃に戻す。保管済みの品は変更せず、取り出した実物はTFCの規則で冷却する。
+- 炉レンガの3レシピは TFC 耐火レンガ4個と属性鱗ブロック5個から4個を得る。炉心・入力部は IaF CE の既存形態を使用する。
+- GameTest の JUnit XML は `build/gametest-results.xml`、表示シナリオは `tests/e2e/dragonforge-ingots.mjs`。保存・複数クライアント・実ゲームの合格は対応する実行証拠を確認して判断する。

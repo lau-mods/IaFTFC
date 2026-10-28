@@ -4,8 +4,9 @@
   "current": null,
   "completed": [
     "M01",
-    "M02"
+    "M02",
+    "M03"
   ],
-  "lastCheckpoint": "e1a892d9c2ca214ae0f51e235c58f6f4e797e125",
+  "lastCheckpoint": "94cc6eef557247a9e9a0f3a4e478b3bc51f93ebc",
   "fatal": null
 }
