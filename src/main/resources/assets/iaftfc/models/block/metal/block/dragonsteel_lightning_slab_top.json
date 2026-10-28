@@ -1,8 +1,0 @@
-{
-  "parent": "block/slab_top",
-  "textures": {
-    "bottom": "iaftfc:block/metal/block/dragonsteel_lightning",
-    "top": "iaftfc:block/metal/block/dragonsteel_lightning",
-    "side": "iaftfc:block/metal/block/dragonsteel_lightning"
-  }
-}

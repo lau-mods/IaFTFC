@@ -1,8 +1,0 @@
-{
-  "ingredient": {
-    "item": "iceandfire:pixie_dust"
-  },
-  "hunger": 1,
-  "decay_modifier": 0.5,
-  "saturation": 0.8
-}

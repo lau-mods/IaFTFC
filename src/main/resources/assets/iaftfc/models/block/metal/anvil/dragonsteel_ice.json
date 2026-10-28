@@ -1,7 +1,0 @@
-{
-  "parent": "tfc:block/anvil",
-  "textures": {
-    "all": "tfc:block/metal/smooth/dragonsteel_ice",
-    "particle": "tfc:block/metal/smooth/dragonsteel_ice"
-  }
-}
