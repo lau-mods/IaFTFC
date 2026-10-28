@@ -83,6 +83,72 @@
       "report": "build/gametest-results.xml",
       "classname": "iaftfc:metalworkingtests.empty",
       "name": "metalworkingtests.castsmatchingingots"
+    },
+    {
+      "acId": "AC-F010-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.onebonecannotstart"
+    },
+    {
+      "acId": "AC-F010-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.boneopenclose"
+    },
+    {
+      "acId": "AC-F010-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.bonecutthencancel"
+    },
+    {
+      "acId": "AC-F010-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.bonefinishandclose"
+    },
+    {
+      "acId": "AC-F010-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.allbonepatterns"
+    },
+    {
+      "acId": "AC-F010-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.witherbonehandles"
+    },
+    {
+      "acId": "AC-F011-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.scalestartandconsumption"
+    },
+    {
+      "acId": "AC-F011-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.allscalepatterns"
+    },
+    {
+      "acId": "AC-F011-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.scalefinishonclose"
+    },
+    {
+      "acId": "AC-F010-004",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.boneremovalduringcut"
+    },
+    {
+      "acId": "AC-F011-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:knappingtests.empty",
+      "name": "knappingtests.scaleremovalatcompletion"
     }
   ],
   "e2e": [
@@ -117,6 +183,22 @@
     {
       "acId": "AC-F009-004",
       "scenario": "tests/e2e/dragonsteel-equipment.mjs"
+    },
+    {
+      "acId": "AC-F010-001",
+      "scenario": "tests/e2e/dragon-knapping.mjs"
+    },
+    {
+      "acId": "AC-F011-001",
+      "scenario": "tests/e2e/dragon-knapping.mjs"
+    },
+    {
+      "acId": "AC-F010-004",
+      "scenario": "tests/e2e/dragon-knapping-multiplayer.mjs"
+    },
+    {
+      "acId": "AC-F011-003",
+      "scenario": "tests/e2e/dragon-knapping-multiplayer.mjs"
     }
   ]
 }
