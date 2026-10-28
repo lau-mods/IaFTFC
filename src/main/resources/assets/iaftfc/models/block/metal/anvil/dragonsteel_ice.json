@@ -1,1 +1,1 @@
-{"parent":"tfc:block/anvil","textures":{"all":"iceandfire:block/dragonsteel_ice_block","particle":"iceandfire:block/dragonsteel_ice_block"}}
+{"parent":"tfc:block/anvil","textures":{"all":"tfc:block/metal/smooth/dragonsteel_ice","particle":"tfc:block/metal/smooth/dragonsteel_ice"}}

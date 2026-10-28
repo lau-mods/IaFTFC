@@ -1,1 +1,1 @@
-{"parent":"block/slab","textures":{"bottom":"iceandfire:block/dragonsteel_lightning_block","top":"iceandfire:block/dragonsteel_lightning_block","side":"iceandfire:block/dragonsteel_lightning_block"}}
+{"parent":"block/slab","textures":{"bottom":"iaftfc:block/metal/block/dragonsteel_lightning","top":"iaftfc:block/metal/block/dragonsteel_lightning","side":"iaftfc:block/metal/block/dragonsteel_lightning"}}
