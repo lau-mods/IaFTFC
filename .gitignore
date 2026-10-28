@@ -40,3 +40,6 @@ repo/
 !**/src/**/repo/
 .harness-state/runs/
 .harness-state/runtime/
+
+# Local inspection and setup artifacts
+.tmp/

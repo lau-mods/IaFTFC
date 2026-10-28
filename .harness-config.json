@@ -23,9 +23,20 @@
     }
   },
   "runtime": {
-    "command": "mct",
-    "server": null,
-    "clients": [],
+    "command": ".harness-state/runtime/pilot/node_modules/.bin/mct",
+    "server": {
+      "directory": ".harness-state/runtime/server",
+      "command": [
+        "./run.sh",
+        "--nogui"
+      ],
+      "address": "127.0.0.1:25585",
+      "world": "harness-world"
+    },
+    "clients": [
+      "iaftfc-a",
+      "iaftfc-b"
+    ],
     "deploy": [],
     "logs": []
   }
