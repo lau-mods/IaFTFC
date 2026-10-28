@@ -1,4 +1,17 @@
 {
   "gameTests": [],
-  "e2e": []
+  "e2e": [
+    {
+      "acId": "AC-F001-001",
+      "scenario": "tests/e2e/required-environment.mjs"
+    },
+    {
+      "acId": "AC-F001-002",
+      "scenario": "tests/e2e/required-environment.mjs"
+    },
+    {
+      "acId": "AC-F001-003",
+      "scenario": "tests/e2e/required-environment.mjs"
+    }
+  ]
 }

@@ -1,25 +1,26 @@
+# IaFTFC
 
-Installation information
-=======
+IaFTFC integrates TerraFirmaCraft with Ice and Fire: Community Edition on
+Minecraft 1.21.1, NeoForge 21.1.265, and Java 21.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+## Required mods
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+- TerraFirmaCraft 4.2.12
+- Ice and Fire: Community Edition 2.1.4
+- Patchouli 1.21.1-93-NEOFORGE
+- Uranus 2.4.1-bugfix for Minecraft 1.21.1 and NeoForge
+- Jupiter 2.3.7 for Minecraft 1.21.1 and NeoForge
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+Uranus already contains Architectury 13.0.8, and Ice and Fire CE already
+contains Integration 0.2. Do not install duplicate copies of those embedded
+libraries.
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+Use the same versions on clients and dedicated servers. A TFC world is the
+supported world type. Verify the actual loaded IDs and versions with
+`/neoforge mods`; filenames alone are not evidence that a mod loaded.
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+## Development
+
+Dependency artifacts are resolved from their published Maven artifacts and are
+not included in the published mod JAR. Run `./gradlew compileJava` for an
+intermediate check and `./gradlew build` for the completed build.

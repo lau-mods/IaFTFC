@@ -2,8 +2,8 @@
 
 製品仕様と Acceptance Criteria の正本は `PROJECT.md`。
 計画は `.harness-state/plan.json`、進捗は `.harness-state/progress.json` に保存する。
-Mod ID は `iaftfc`。現時点の製品コードは Example Mod テンプレートであり、
-runtime の準備を IaFTFC の実装完了・AC 合格とは扱わない。
+Mod ID は `iaftfc`。現時点の製品コードは TFC と IaF CE を必須依存として宣言する
+IaFTFC mod であり、ゲームプレイ機能は未実装。runtime の準備を AC 合格とは扱わない。
 
 ## Harness runtime
 
@@ -27,7 +27,6 @@ runtime の準備を IaFTFC の実装完了・AC 合格とは扱わない。
   `PROJECT.md` が要求する製品および必須依存だけの受け入れ試験は区別する。
   最小構成の AC を MC Pilot mod 入りの確認だけで合格にしない。
 - macOS の server と client は arm64 Java 21 を使用する。
-  この環境では `/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java`。
   client 作成時は `--java` で指定し、server は `run.sh` に指定する。
 - server の `user_jvm_args.txt` と client の `instance.json` の
   `env.JAVA_TOOL_OPTIONS` に `-Dneoforge.readTimeout=120` を指定する。
@@ -54,3 +53,29 @@ runtime の準備を IaFTFC の実装完了・AC 合格とは扱わない。
   JSON は構文を検証し、data 変更には参照先と個数・IDの整合性確認を加える。
 - 必須依存、公開ID、検証手順、実装済みの挙動を変更した場合は本書も更新する。
   仕様の採用やビルド成功だけを実ゲームの動作確認とみなさない。
+
+## 必須依存の照合
+
+- 配布 JAR の `META-INF/neoforge.mods.toml` と Jar-in-Jar metadata を照合する。
+  TFC 4.2.12 は Patchouli 1.21.1-92 以上、IaF CE 2.1.4 は Uranus 2.3.2 以上と
+  Jupiter 2.3 以上を要求する。採用版は `PROJECT.md` の表に固定する。
+- Uranus 2.4.1-bugfix は Architectury 13.0.8、IaF CE 2.1.4 は Integration 0.2 を
+  内包するため、それらを独立した JAR として導入しない。
+- 正常構成の専用 server は既存の検証 world を退避して `level-name=harness-world`、
+  `level-type=tfc:overworld`、`generate-structures=true` で新規作成する。client A/B を同時接続し、
+  TFC 地形が描画された接続完了画面、server log、両 client log、`/neoforge mods` の省略されて
+  いない出力を `.harness-state/runtime/smoke/tfc-world/server/` に保存する。
+- 同じ JAR 集合の client A では既存の singleplayer world を使わず、world preset に TFC を選んだ
+  新規 world を作成する。ロード完了後の TFC 地形、ポーズ画面、全 mod 一覧の各画面と client log を
+  `.harness-state/runtime/smoke/tfc-world/singleplayer/` に保存する。専用 server への接続成功を
+  singleplayer の代用にしない。
+- server と singleplayer の各証拠で `minecraft`、`neoforge`、`iaftfc`、`tfc`、`iceandfire`、
+  `patchouli`、`uranus`、`jupiter`、内包された `architectury`、`integration` の ID と版を照合する。
+  ページ分割された画面は先頭から末尾まで順に保存し、重複 ID、余分な独立 JAR、欠落 ID がないことを
+  log の `Mod List` と相互確認する。MC Pilot の client mod がある自動 E2E の一覧はこの最小構成証拠に
+  含めない。
+- 欠落試験では正常構成を複製し、Patchouli、TFC、Uranus、Jupiter、IaF CE の順に
+  1 JAR だけを外して起動する。各回で欠落 ID または版不適合を示すロード失敗を記録し、
+  screen と log を `.harness-state/runtime/smoke/missing/<mod-id>/` に保存する。テスト後に
+  JAR を戻し、正常起動を確認してから次の対象を外す。内包ライブラリは個別の欠落対象に
+  しない。

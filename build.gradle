@@ -28,6 +28,20 @@ sourceSets.main.resources {
 
 repositories {
     // Add here additional repositories if required by some of the dependencies below.
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "CurseMaven"
+                url = "https://www.cursemaven.com"
+            }
+        }
+        filter { includeGroup "curse.maven" }
+    }
+    maven {
+        name = "BlameJared"
+        url = "https://maven.blamejared.com"
+        content { includeGroup "vazkii.patchouli" }
+    }
 }
 
 base {
@@ -113,6 +127,7 @@ neoForge {
 // "optional", meaning it will not be pulled by dependents of this mod.
 configurations {
     runtimeClasspath.extendsFrom localRuntime
+    dependencyMetadata
 }
 
 dependencies {
@@ -134,6 +149,25 @@ dependencies {
     // Example project dependency using a sister or child project:
     // implementation project(":myproject")
 
+    compileOnly "curse.maven:terrafirmacraft-302973:9184471"
+    compileOnly "curse.maven:iceandfire-ce-1040076:9128508"
+
+    localRuntime "curse.maven:terrafirmacraft-302973:9184471"
+    localRuntime "curse.maven:iceandfire-ce-1040076:9128508"
+    localRuntime "vazkii.patchouli:Patchouli:${patchouli_version}"
+    localRuntime "curse.maven:uranus-1010827:8587525"
+    localRuntime "curse.maven:jupiter-1072905:7738312"
+
+    dependencyMetadata "curse.maven:terrafirmacraft-302973:9184471"
+    dependencyMetadata "curse.maven:iceandfire-ce-1040076:9128508"
+    dependencyMetadata "vazkii.patchouli:Patchouli:${patchouli_version}"
+    dependencyMetadata "curse.maven:uranus-1010827:8587525"
+    dependencyMetadata "curse.maven:jupiter-1072905:7738312"
+
+    testImplementation platform("org.junit:junit-bom:5.11.4")
+    testImplementation "org.junit.jupiter:junit-jupiter"
+    testRuntimeOnly "org.junit.platform:junit-platform-launcher"
+
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
@@ -151,6 +185,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            tfc_version            : tfc_version,
+            iceandfire_version     : iceandfire_version,
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -179,6 +215,22 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+def prepareDependencyMetadata = tasks.register('prepareDependencyMetadata', Sync) {
+    from configurations.dependencyMetadata
+    into layout.buildDirectory.dir('dependency-metadata')
+}
+
+tasks.named('test', Test).configure {
+    useJUnitPlatform()
+    dependsOn prepareDependencyMetadata
+    systemProperty 'dependency.directory', layout.buildDirectory.dir('dependency-metadata').get().asFile.absolutePath
+    systemProperty 'dependency.version.tfc', tfc_version
+    systemProperty 'dependency.version.iceandfire', iceandfire_version
+    systemProperty 'dependency.version.patchouli', patchouli_version
+    systemProperty 'dependency.version.uranus', uranus_version
+    systemProperty 'dependency.version.jupiter', jupiter_version
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
