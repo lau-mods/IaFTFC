@@ -1,46 +1,8 @@
 # Project
 
-Status: draft
+Status: active
 
-Project ID:
-Mod ID:
-
-## Platform
-
-Minecraft:
-NeoForge:
-Java:
-
-## Purpose
-
-## Features
-
-<!-- Add features using the following heading structure. Keep IDs stable.
-### F-001: Feature name
-
-#### Description
-
-#### Acceptance Criteria
-
-##### AC-F001-001: Criterion name
-
-Preconditions:
-
-Action:
-
-Expected Result:
--->
-
-## Global Requirements
-
-## Constraints
-
-## Open Questions
-# Project
-
-Status: draft
-
-Project ID: iaftfc-reimplementation
+Project ID: iaftfc
 Mod ID: iaftfc
 
 ## Platform
@@ -1817,7 +1779,4 @@ Statusがdraftである間は仕様の採用・検証を完了したものと扱
 
 ## Open Questions
 
-**必須依存の実互換性。** F-001に示した現行安定版候補を組み合わせ、クライアントと専用サーバーで起動・公開ID・主要な製品挙動まで実証できるか。配布情報から版の存在と必須依存関係を確認した段階であり、この組合せの実起動・統合試験は完了していない。互換性に問題があれば、不要なmodを追加するのではなく、対応する安定版の選択と該当する本書の条件を再検討する。
-
-**既存アセットの利用許諾。** 再利用・改変・配布を行うアセットとコードについて、必要な許諾条件が確定しているか。権利確認を終えるまで、利用・再配布が自由であると推定しない。
-
+None.

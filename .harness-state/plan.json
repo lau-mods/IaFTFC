@@ -1,0 +1,276 @@
+{
+  "milestones": [
+    {
+      "id": "M01",
+      "features": [
+        "F-001"
+      ],
+      "dependsOn": [],
+      "approach": "テンプレートのexamplemodをiaftfcへ置き換える（mod_id/mod_name/mod_group_id、Modクラス、Config、client entrypoint、lang）。tfc 4.2.12、iceandfire 2.1.4、patchouli 1.21.1-93-NEOFORGE、uranus 2.4.1-bugfix、jupiter 2.3.7 の正式配布JARを入手し、それぞれのneoforge.mods.tomlにある必須依存宣言と対応MC/loader/Javaを照合してから版を確定する（JARは.tmp/に置き、Mavenかflat dirで解決）。ビルドではcompileOnlyとlocalRuntimeに分ける。neoforge.mods.tomlにはtfcとiceandfireをtype=\"required\"で版範囲とordering付き（AFTER）で宣言し、ライブラリは推移的に要求されるものだけにする。最小構成のclient/server/gameTestServer runを用意し、各Featureがこの上にgametestを追加できるgametest基盤（namespace iaftfc）を置く。読込mod一覧を照合する手順と、依存を1つずつ外す欠落試験の手順をAGENTS.mdに記録する。リポジトリAGENTS.mdを作成し、共通規約を反映する。",
+      "scope": [
+        "gradle.properties",
+        "build.gradle",
+        "settings.gradle",
+        "src/main/templates/META-INF/neoforge.mods.toml",
+        "src/main/java/<group>/iaftfc/IaFTFC.java（examplemodパッケージを置換）",
+        "src/main/java/<group>/iaftfc/IaFTFCClient.java",
+        "src/main/java/<group>/iaftfc/Config.java",
+        "src/main/resources/assets/iaftfc/lang/en_us.json",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md",
+        "README.md",
+        ".gitignore"
+      ]
+    },
+    {
+      "id": "M02",
+      "features": [
+        "F-007"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "3属性(m=dragonsteel_fire/ice/lightning)を表すenumを1つ作り、それを展開してDeferredRegisterで登録する。登録対象は14形態の金属素材42種（Rarity.EPIC）、block/slab/stairs/anvilのブロック12種とBlockItem12種。金床はTFCのAnvilBlock/AnvilBlockEntityを再利用し、Tier 7とする。ブロックはTFCのツルハシ相当の採掘tagとloot tableを持ち、slabは二重で2個落とす。溶融金属はTFCのFluidType/FlowingFluidの仕組みでtfc:metal/<m>とtfc:metal/flowing_<m>を登録し、代表色を設定する（液体ブロックとバケツは作らない）。TFCのmetal data（iaftfc側のmetal定義JSON、融点2000、比熱0.00857、tier 7）を同梱する。c:タグ（ingots/double_ingots/sheets/double_sheets/rods/storage_blocks（item・block両方）、molten_<m>）、tfc:molten_metals、TFC金床タグへのreplace=false追加も同梱する。既存アセットのモデル・テクスチャ・英語名を配置する。gametestでは登録数・希少度・タグ・設置回収・容器での液量保持を検証する。",
+      "scope": [
+        "src/main/java/<group>/iaftfc/common/DragonsteelMetal.java",
+        "src/main/java/<group>/iaftfc/registry/（Items, Blocks, BlockEntities, Fluids, FluidTypes）",
+        "src/main/resources/data/iaftfc/tfc/metal/",
+        "src/main/resources/data/c/tags/item/",
+        "src/main/resources/data/c/tags/block/",
+        "src/main/resources/data/c/tags/fluid/",
+        "src/main/resources/data/tfc/tags/",
+        "src/main/resources/data/minecraft/tags/block/mineable/",
+        "src/main/resources/data/iaftfc/loot_table/blocks/",
+        "src/main/resources/assets/iaftfc/models/",
+        "src/main/resources/assets/iaftfc/blockstates/",
+        "src/main/resources/assets/iaftfc/textures/",
+        "src/main/resources/assets/iaftfc/lang/en_us.json",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M03",
+      "features": [
+        "F-008"
+      ],
+      "dependsOn": [
+        "M02"
+      ],
+      "approach": "IaF CEのdragonforgeレシピ形式で、iceandfire:dragonforge/dragonsteel_<e>_ingotの3レシピをiceandfire名前空間に同名で上書きする（入力#c:ingots/<TFC鋼>＋血、出力iaftfcインゴット、cookTime 1000）。完成時のheatはIaF CE炉ブロックエンティティの出力処理へ限定したMixinで付ける。対象は正規のドラゴンスティール出力が成功したときだけで、出力スタック全体にTFC HeatCapabilityの温度を設定する（ash/dragon_iceの代替結果は除外）。温度は管理者が変更できるdata駆動値とし、レシピJSONの追加フィールドか専用のreload listenerで読む。0以下や非有限値は既定値1800へフォールバックし、警告を出す。レシピ表示の完成見本にも同じ温度を載せる。炉部品の属性レンガのレシピ（tfc:fire_bricks＋鱗ブロック、SBS/BSB/SBS）は既存炉心・入力部レシピとの整合を取って上書きする。満杯・異種出力で材料を消費しないことはIaF CEの既存の判定を流用し、gametestで確認する。",
+      "scope": [
+        "src/main/resources/data/iceandfire/recipe/dragonforge/",
+        "src/main/resources/data/iceandfire/recipe/（dragonforge_*_brick 等）",
+        "src/main/java/<group>/iaftfc/mixin/DragonForgeBlockEntityMixin.java",
+        "src/main/resources/iaftfc.mixins.json",
+        "src/main/java/<group>/iaftfc/common/ForgeHeatConfig.java（data reload）",
+        "src/main/resources/data/iaftfc/（forge heat設定）",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M04",
+      "features": [
+        "F-009"
+      ],
+      "dependsOn": [
+        "M02",
+        "M03"
+      ],
+      "approach": "TFCのdata形式でレシピを同梱する。内容はtfc:welding（ingot×2→double_ingotはTier 6、sheet×2→double_sheetはTier 7、防具4部位は未完成部品＋板材→iceandfire:dragonsteel_<e>_<部位>でcombine_forging_bonus）、tfc:anvil（11形態×3属性、規則・出力数・apply_forging_bonusは表どおり）、金床用shaped（### / .#. / ###）、tfc:advanced_shaped_crafting（道具部品＋#c:rods/wooden→IaF道具、forging bonus継承）、tfc:casting（インゴット鋳型100mB、破損率0.1）、tfc:heating（表の全81品目のmBと、耐久で減額する道具のuse_durability）。item_heat dataに熱容量と鍛造1200・溶接1600の温度を設定する。iceandfireの完成品に既存のバニラ形状レシピがある場合は同名で無効化して迂回経路をなくす（ここで扱うのはdragonsteel装備に限る）。境界温度はunitテストで、各レシピはgametestで照合する。",
+      "scope": [
+        "src/main/resources/data/iaftfc/recipe/anvil/",
+        "src/main/resources/data/iaftfc/recipe/welding/",
+        "src/main/resources/data/iaftfc/recipe/heating/",
+        "src/main/resources/data/iaftfc/recipe/casting/",
+        "src/main/resources/data/iaftfc/recipe/crafting/",
+        "src/main/resources/data/iaftfc/tfc/item_heat/",
+        "src/main/resources/data/iceandfire/recipe/（dragonsteel装備の旧形状レシピの上書き）",
+        "src/test/java/",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M05",
+      "features": [
+        "F-010",
+        "F-011"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "骨と鱗はどちらもTFCのknapping_type data（5×5、開始必要数と消費数、消費タイミング、音、粒子、テクスチャ）で定義し、実装を共有する。骨はamount_to_consume=1を初回削り時に消費し、開始必要数は2とする。鱗は12色それぞれを別のknapping_typeにして同色5枚を要求し、完成取得時に5枚を消費する。TFCのknapping仕様がこの消費タイミングを表せない場合だけ、TFC KnappingContainerへの狭いMixinで補う。レシピは骨部品5種＋dragon_flute、鱗防具48種とし、amethystのレシピIDはarmor_amythest_<部位>、helmetは4・5行目を削除済みとする。骨部品5アイテムを登録し、#c:bones/wither（IaF witherboneを含むようタグ補完）を柄とするshaped/advancedレシピでiceandfire:dragonbone_<tool>を作る。既存のiceandfire骨道具の直接レシピは同名上書きで整理する。切断・再接続での複製防止はサーバー側コンテナの消費処理で担保し、gametestで確認する。",
+      "scope": [
+        "src/main/java/<group>/iaftfc/registry/Items.java（dragonbone部品5種）",
+        "src/main/resources/data/iaftfc/tfc/knapping_type/",
+        "src/main/resources/data/iaftfc/recipe/knapping/",
+        "src/main/resources/data/iceandfire/recipe/（armor_<c>_*, armor_amythest_*, dragonbone_* 上書き）",
+        "src/main/resources/data/c/tags/item/bones/wither.json",
+        "src/main/resources/assets/iaftfc/textures/gui/knapping/",
+        "src/main/resources/assets/iaftfc/models/item/dragonbone/",
+        "src/main/java/<group>/iaftfc/mixin/（必要時のみknapping消費）",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M06",
+      "features": [
+        "F-012"
+      ],
+      "dependsOn": [
+        "M02"
+      ],
+      "approach": "IaF CEのドラゴン防具アイテムクラス（ItemDragonArmor等）を流用し、steel/black_steel/red_steel/blue_steelの4材質×4部位の16アイテムをiaftfc:dragonarmor_<材質>_<s>として登録する。保護寄与値3.5/5.5/7.5/7.5はIaF CEのドラゴン防具材料の仕組みに渡す。IaF CEの描画は材質→テクスチャの解決にenumを使っている可能性が高いので、追加材質の装着描画は公開APIで解決できなければクライアント専用の狭いMixinで対応する。8材質×4部位のshapedレシピを#c:double_sheets/<材質>で作る（iron/dragonsteelはiceandfire名前空間の既存IDへ同名上書きか出力指定で対応）。部位スロットの適合判定と保存・同期はIaF CEの既存処理を使い、gametestとpersistenceで確認する。",
+      "scope": [
+        "src/main/java/<group>/iaftfc/registry/Items.java（dragonarmor 16種）",
+        "src/main/java/<group>/iaftfc/common/DragonArmorMaterials.java",
+        "src/main/java/<group>/iaftfc/mixin/client/（ドラゴン防具描画）",
+        "src/main/resources/data/iaftfc/recipe/dragonarmor/",
+        "src/main/resources/data/iceandfire/recipe/（dragonarmor_iron_*, dragonarmor_dragon_steel_*_* 上書き）",
+        "src/main/resources/assets/iaftfc/textures/models/dragonarmor/",
+        "src/main/resources/assets/iaftfc/models/item/",
+        "src/main/resources/assets/iaftfc/lang/en_us.json",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M07",
+      "features": [
+        "F-013",
+        "F-014"
+      ],
+      "dependsOn": [
+        "M02",
+        "M05",
+        "M06"
+      ],
+      "approach": "どちらもIaF CEとiaftfcのアイテムへTFCのitem data（food、item_size、item_damage_resistance、entity_damage_resistance）とタグを付けるdata作業なので、まとめて扱う。食料11種はtfc/food dataに値を設定し、3属性のドラゴン肉は生肉タグ（tfc:foods/raw_meats等）へ加える。サイズは34群の#iaftfc:item_size/<群>タグを作り、タグごとにtfc/item_size dataを置く。iaftfc専用行は個別定義で優先させる。IaF CE側のIDはすべてrequired=falseのタグエントリで書き、版にないIDでロードが失敗しないようにする。耐性は23群のitem_damage_resistance、ドラゴン3種のentity_damage_resistance 30/30/30、武器3分類の#tfc:deals_*_damageタグ、ドラゴンのslashing entityタグを置く。採用版のIaF CE ID一覧と各タグを照合するunitテストを書き、栄養・サイズ・耐性はgametestで確認する。",
+      "scope": [
+        "src/main/resources/data/iaftfc/tfc/food/",
+        "src/main/resources/data/iaftfc/tfc/item_size/",
+        "src/main/resources/data/iaftfc/tfc/item_damage_resistance/",
+        "src/main/resources/data/iaftfc/tfc/entity_damage_resistance/",
+        "src/main/resources/data/iaftfc/tags/item/item_size/",
+        "src/main/resources/data/tfc/tags/item/（deals_*_damage, foods）",
+        "src/main/resources/data/tfc/tags/entity_type/",
+        "src/test/java/",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M08",
+      "features": [
+        "F-015"
+      ],
+      "dependsOn": [
+        "M03",
+        "M04",
+        "M05",
+        "M06"
+      ],
+      "approach": "48の旧レシピIDはiceandfire名前空間に同名ファイルを置き、NeoForgeのneoforge:false条件で無効化する（データパックによる上書きは引き続き可能）。代替経路（M03〜M06）で使う同名上書きと衝突しないことを確認し、旧進行が別IDで復活しないかは全レシピをgametestで走査して確かめる。42アイテムの[DISABLED]表示は#iaftfc:disabledタグで指定する。ItemTooltipEventのリスナーはクライアント専用で登録し、タグに一致した場合だけ末尾にDARK_REDの行を加える。銀鱗防具（armor_silver_*）、TFCの銀・宝石、未稼働の炉心は含めない。アイテムの登録・所持品は変更しない。",
+      "scope": [
+        "src/main/resources/data/iceandfire/recipe/（48 ID の無効化）",
+        "src/main/resources/data/iaftfc/tags/item/disabled.json",
+        "src/main/java/<group>/iaftfc/client/DisabledTooltipHandler.java",
+        "src/main/resources/assets/iaftfc/lang/en_us.json",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M09",
+      "features": [
+        "F-002",
+        "F-003"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "構造物の配置と内容物はまとめて扱う。F-002では、iceandfireの6構造物のbiome tagを17のTFC陸上バイオームへ置き換え、structure_setはiceandfire:dragon_cave/dragon_roostを炎専用に上書きし、iaftfc:{ice,lightning}_dragon_{cave,roost}を新設する（random_spread、間隔30/20と24/10、minecraft:villagesから10チャンク除外、属性ごとに別salt）。同じ構造物を複数のsetへ重複登録しない。気候判定はTFCのChunkData（平均気温、地下水量）を読む純関数で書き、境界をunitテストする。構造物の生成可否へは狭いフック（IaF CE構造物のfindGenerationPointへのMixinか、IaF CEの公開設定経路）で反映し、ChunkDataがない世界では安全に不許可とする。F-003では、IaF CEの構造物生成処理を狭く差し替え、宝箱を属性別のTFCチェストへ、洞窟鉱石を周囲のTFC岩種（不明ならgranite）のrich鉱石・宝石へ置き換える。境界はseedと座標から決定的に選ぶ。9のchest loot tableを同名で上書きし、iaftfc:shared/*のloot tableを作る（雄洞窟の重複行は残す）。gold/silver/copper_pileのblock lootはlayers 1〜8に応じたTFC小鉱石にする。",
+      "scope": [
+        "src/main/resources/data/iceandfire/worldgen/structure_set/",
+        "src/main/resources/data/iaftfc/worldgen/structure_set/",
+        "src/main/resources/data/iceandfire/tags/worldgen/biome/has_structure/",
+        "src/main/resources/data/iceandfire/loot_table/chest/",
+        "src/main/resources/data/iaftfc/loot_table/shared/",
+        "src/main/resources/data/iceandfire/loot_table/blocks/（*_pile）",
+        "src/main/java/<group>/iaftfc/world/DragonClimate.java",
+        "src/main/java/<group>/iaftfc/world/TfcRockResolver.java",
+        "src/main/java/<group>/iaftfc/mixin/（IaF CE構造物・洞窟生成）",
+        "src/test/java/",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M10",
+      "features": [
+        "F-004"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "IaF CEのブレス地形変換処理（炎・氷・雷の変換関数）に狭いMixinを入れ、IaF CE側の破壊許可設定と保護判定が通った後でだけ、TFCのgrass/grass_path/dirt系/rock raw・hardened/cobble・mossy_cobble/gravelをブロックIDの種類で判定する。変換先は属性別のiceandfire:chared_*/frozen_*/crackled_*のdefaultStateとし、元の状態は持ち越さない。TFCの崩落・地すべりの対象には、tfc:can_start_collapse/can_collapse/can_trigger_collapse、tfc:can_landslide、tfc:supports_landslideのブロックタグへ3属性のstone/cobblestone/gravel/dirt_pathを加えて対応する。変換と禁止設定はgametestで確認する。",
+      "scope": [
+        "src/main/java/<group>/iaftfc/mixin/DragonBreathTerrainMixin.java",
+        "src/main/java/<group>/iaftfc/common/BreathConversion.java",
+        "src/main/resources/data/tfc/tags/block/",
+        "src/main/resources/iaftfc.mixins.json",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M11",
+      "features": [
+        "F-005",
+        "F-006"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "どちらもIaF CEのドラゴンと卵へのサーバー側の狭いフックなので、まとめて扱う。F-005では、手渡しの給餌判定と地面アイテム探索・拾得のAI（毎tick・拾得時点）で、TFCのFoodCapabilityが腐敗と判定したら餌としない。新鮮なTFC肉はタグ（tfc:foods/raw_meats等を含むiaftfc:dragon_food）を通じて通常の肉として受け付ける。特殊餌（dragon_meal等）の既存の分岐には触れない。F-006では、卵エンティティの孵化環境判定に条件を追加する。炎の卵は自位置と直下の点火中TFC焚き火（firepitのLIT）と熱を持つ木炭炉、氷の卵はtfc:fresh_water系の水源・流水を条件とし、塩水は含めない。雷の卵は変更しない。孵化の進行・保存・所有者はIaF CEに任せる。いずれもgametestとpersistenceで確認する。",
+      "scope": [
+        "src/main/java/<group>/iaftfc/mixin/DragonFeedingMixin.java",
+        "src/main/java/<group>/iaftfc/mixin/DragonEatItemGoalMixin.java",
+        "src/main/java/<group>/iaftfc/mixin/DragonEggEntityMixin.java",
+        "src/main/java/<group>/iaftfc/common/TfcFoodChecks.java",
+        "src/main/resources/data/iaftfc/tags/item/dragon_food.json",
+        "src/main/resources/iaftfc.mixins.json",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M12",
+      "features": [
+        "F-016"
+      ],
+      "dependsOn": [
+        "M02",
+        "M03",
+        "M04",
+        "M05",
+        "M06",
+        "M08"
+      ],
+      "approach": "表示全体の仕上げと横断的な検証を行う。クリエイティブタブiaftfc:dragonsteel（IaFTFC Dragonsteel、アイコンは炎インゴット）に75アイテムを重複なく並べる。en_us.jsonの命名規則（金属名＋形態、Plated Block/Slab/Stairs/Anvil、Molten、Dragon Bone ...、Steel Dragon Armor Head等）を網羅し、未翻訳キーがないことを検査する。全モデル・テクスチャ参照の欠落（block/slab/stairs/anvil形状、液体色、鋼系ドラゴン防具の装着描画、骨・12色鱗のknapping画面）を、.tmpのスクリプトで全JSONとテクスチャ参照を照合して確認する。完成見本の1800℃と実物の温度表示が別であることはクライアントで目視確認し、visual/e2eの証拠を残す。",
+      "scope": [
+        "src/main/java/<group>/iaftfc/registry/CreativeTabs.java",
+        "src/main/resources/assets/iaftfc/lang/en_us.json",
+        "src/main/resources/assets/iaftfc/models/",
+        "src/main/resources/assets/iaftfc/textures/",
+        "src/main/resources/assets/iaftfc/blockstates/",
+        "src/main/java/<group>/iaftfc/gametest/",
+        "AGENTS.md",
+        "README.md"
+      ]
+    }
+  ]
+}
