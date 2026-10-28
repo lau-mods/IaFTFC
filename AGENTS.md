@@ -100,3 +100,9 @@ IaFTFC mod であり、ゲームプレイ機能は未実装。runtime の準備�
 - 炉の `smeltItem` が正規インゴットを出力に入れた直後、Mixin が出力スタック全体へ温度を設定する。熱容量は3属性共通の `tfc/item_heat/dragonsteel_ingots.json` から読む。既定1800℃は `data/iaftfc/forge_heat/dragonsteel.json` の `temperature` で変更でき、レシピ見本と新規製品へ適用する。0以下・非有限値は警告して1800℃に戻す。保管済みの品は変更せず、取り出した実物はTFCの規則で冷却する。
 - 炉レンガの3レシピは TFC 耐火レンガ4個と属性鱗ブロック5個から4個を得る。炉心・入力部は IaF CE の既存形態を使用する。
 - GameTest の JUnit XML は `build/gametest-results.xml`、表示シナリオは `tests/e2e/dragonforge-ingots.mjs`。保存・複数クライアント・実ゲームの合格は対応する実行証拠を確認して判断する。
+
+## M04 の公開IDと検証
+
+- 3属性それぞれに `iaftfc:anvil/<形態>/<金属>` の11鍛造、`iaftfc:welding/<形態>/<金属>` のダブルインゴット・ダブルシート・防具4部位、`iaftfc:crafting/anvil/<金属>`、`iaftfc:crafting/tool/<金属>_<道具>`、`iaftfc:casting/<金属>_ingot`、`iaftfc:heating/<金属>/<形態>` の27加熱レシピを提供する。IaF CE の dragonsteel 完成装備の旧形状レシピ27件は同IDで無効化する。
+- ダブルインゴットの溶接はTier 6、それ以外の溶接と鍛造はTier 7。鍛造1200℃、溶接1600℃、溶解2000℃を境界値を含めて適用する。道具部品からの組立と防具溶接はTFCの鍛造品質を継承する。
+- M04 の GameTest は `./gradlew runGameTestServer` を使い、結果は `build/gametest-results.xml` に出力する。単体確認は `./gradlew test`、表示確認は `tests/e2e/dragonsteel-metalworking.mjs` と `tests/e2e/dragonsteel-equipment.mjs` を使う。永続化の再起動検証と E2E の溶接・防具仕上げ操作は未実施であり、各実行証拠を確認するまで合格としない。

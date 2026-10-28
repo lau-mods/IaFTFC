@@ -1,0 +1,1 @@
+{"type":"tfc:advanced_shaped_crafting","pattern":["X","S"],"key":{"X":{"item":"iaftfc:metal/sword_blade/dragonsteel_ice"},"S":{"tag":"c:rods/wooden"}},"result":{"stack":{"count":1,"id":"iceandfire:dragonsteel_ice_sword"},"modifiers":[{"type":"tfc:copy_forging_bonus"}]}}

@@ -1,0 +1,1 @@
+{"type":"tfc:anvil","ingredient":{"item":"iaftfc:metal/double_sheet/dragonsteel_lightning"},"result":{"count":1,"id":"iaftfc:metal/unfinished_helmet/dragonsteel_lightning"},"rules":["hit_last","bend_second_last","bend_third_last"],"tier":7,"apply_bonus":true}

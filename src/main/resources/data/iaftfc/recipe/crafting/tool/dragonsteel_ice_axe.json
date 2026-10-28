@@ -1,0 +1,1 @@
+{"type":"tfc:advanced_shaped_crafting","pattern":["X","S"],"key":{"X":{"item":"iaftfc:metal/axe_head/dragonsteel_ice"},"S":{"tag":"c:rods/wooden"}},"result":{"stack":{"count":1,"id":"iceandfire:dragonsteel_ice_axe"},"modifiers":[{"type":"tfc:copy_forging_bonus"}]}}

@@ -1,0 +1,1 @@
+{"type":"tfc:advanced_shaped_crafting","pattern":["X","S"],"key":{"X":{"item":"iaftfc:metal/hoe_head/dragonsteel_lightning"},"S":{"tag":"c:rods/wooden"}},"result":{"stack":{"count":1,"id":"iceandfire:dragonsteel_lightning_hoe"},"modifiers":[{"type":"tfc:copy_forging_bonus"}]}}

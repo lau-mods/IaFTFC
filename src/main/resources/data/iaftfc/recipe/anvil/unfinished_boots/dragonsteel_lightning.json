@@ -1,0 +1,1 @@
+{"type":"tfc:anvil","ingredient":{"item":"iaftfc:metal/sheet/dragonsteel_lightning"},"result":{"count":1,"id":"iaftfc:metal/unfinished_boots/dragonsteel_lightning"},"rules":["bend_last","bend_second_last","shrink_third_last"],"tier":7,"apply_bonus":true}

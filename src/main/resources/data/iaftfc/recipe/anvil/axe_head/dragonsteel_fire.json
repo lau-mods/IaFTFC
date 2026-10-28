@@ -1,0 +1,1 @@
+{"type":"tfc:anvil","ingredient":{"item":"iaftfc:metal/ingot/dragonsteel_fire"},"result":{"count":1,"id":"iaftfc:metal/axe_head/dragonsteel_fire"},"rules":["punch_last","hit_second_last","upset_third_last"],"tier":7,"apply_bonus":true}

@@ -1,0 +1,1 @@
+{"type":"tfc:anvil","ingredient":{"item":"iaftfc:metal/double_sheet/dragonsteel_ice"},"result":{"count":1,"id":"iaftfc:metal/unfinished_greaves/dragonsteel_ice"},"rules":["hit_any","draw_any","bend_any"],"tier":7,"apply_bonus":true}

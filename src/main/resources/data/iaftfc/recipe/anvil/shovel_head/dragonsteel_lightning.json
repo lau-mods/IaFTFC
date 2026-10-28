@@ -1,0 +1,1 @@
+{"type":"tfc:anvil","ingredient":{"item":"iaftfc:metal/ingot/dragonsteel_lightning"},"result":{"count":1,"id":"iaftfc:metal/shovel_head/dragonsteel_lightning"},"rules":["punch_last","hit_not_last"],"tier":7,"apply_bonus":true}

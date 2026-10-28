@@ -47,6 +47,42 @@
       "report": "build/gametest-results.xml",
       "classname": "iaftfc:dragonforgetests.empty",
       "name": "dragonforgetests.configurableheatchangesonlynewoutput"
+    },
+    {
+      "acId": "AC-F009-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:metalworkingtests.empty",
+      "name": "metalworkingtests.reachestierseven"
+    },
+    {
+      "acId": "AC-F009-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:metalworkingtests.empty",
+      "name": "metalworkingtests.respectstemperatureandtier"
+    },
+    {
+      "acId": "AC-F009-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:metalworkingtests.empty",
+      "name": "metalworkingtests.forgeseveryform"
+    },
+    {
+      "acId": "AC-F009-004",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:metalworkingtests.empty",
+      "name": "metalworkingtests.craftsfinishedequipment"
+    },
+    {
+      "acId": "AC-F009-005",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:metalworkingtests.empty",
+      "name": "metalworkingtests.meltsallamounts"
+    },
+    {
+      "acId": "AC-F009-006",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:metalworkingtests.empty",
+      "name": "metalworkingtests.castsmatchingingots"
     }
   ],
   "e2e": [
@@ -73,6 +109,14 @@
     {
       "acId": "AC-F008-001",
       "scenario": "tests/e2e/dragonforge-ingots.mjs"
+    },
+    {
+      "acId": "AC-F009-001",
+      "scenario": "tests/e2e/dragonsteel-metalworking.mjs"
+    },
+    {
+      "acId": "AC-F009-004",
+      "scenario": "tests/e2e/dragonsteel-equipment.mjs"
     }
   ]
 }

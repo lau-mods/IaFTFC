@@ -1,0 +1,1 @@
+{"type":"tfc:anvil","ingredient":{"item":"iaftfc:metal/double_ingot/dragonsteel_fire"},"result":{"count":1,"id":"iaftfc:metal/sword_blade/dragonsteel_fire"},"rules":["hit_last","bend_second_last","bend_third_last"],"tier":7,"apply_bonus":true}

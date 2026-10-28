@@ -1,0 +1,1 @@
+{"type":"tfc:advanced_shaped_crafting","pattern":["X","S"],"key":{"X":{"item":"iaftfc:metal/pickaxe_head/dragonsteel_fire"},"S":{"tag":"c:rods/wooden"}},"result":{"stack":{"count":1,"id":"iceandfire:dragonsteel_fire_pickaxe"},"modifiers":[{"type":"tfc:copy_forging_bonus"}]}}
