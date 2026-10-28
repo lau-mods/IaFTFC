@@ -38,6 +38,9 @@ IaFTFC mod であり、ゲームプレイ機能は未実装。runtime の準備�
 - `npm --prefix .harness run build` で Harness をビルドする。
   `node .harness/dist/cli/main.js doctor` と `validate` で構成を確認する。
   `node .harness/dist/cli/main.js plan` は Claude を使用し、仕様・計画・初期進捗を commit する。
+- Harness の画像レビューは対象 AC に関する Mod の描画を対象とし、チャット・通知・
+  バニラ HUD・F3・画面内のログ文字列は対象外とする。E2E 起動時はチュートリアル、
+  コマンド応答と進捗通知を抑制する。画像レビューの通過だけで起動・依存条件の AC を合格にしない。
 - 起動確認後は client と server を停止する。runtime、依存 JAR、log は commit しない。
 - 現行の必須依存構成は TFC world への2クライアント同時接続まで確認済み。
   server では IaF CE の任意連携レシピ5件の読み込みエラーと、client 専用クラスの
