@@ -149,6 +149,18 @@
       "report": "build/gametest-results.xml",
       "classname": "iaftfc:knappingtests.empty",
       "name": "knappingtests.scaleremovalatcompletion"
+    },
+    {
+      "acId": "AC-F012-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonarmortests.empty",
+      "name": "dragonarmortests.craftsallmaterialsandparts"
+    },
+    {
+      "acId": "AC-F012-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:dragonarmortests.empty",
+      "name": "dragonarmortests.equipsandsavesprotection"
     }
   ],
   "e2e": [
@@ -199,6 +211,14 @@
     {
       "acId": "AC-F011-003",
       "scenario": "tests/e2e/dragon-knapping-multiplayer.mjs"
+    },
+    {
+      "acId": "AC-F012-002",
+      "scenario": "tests/e2e/dragonarmor.mjs"
+    },
+    {
+      "acId": "AC-F012-003",
+      "scenario": "tests/e2e/dragonarmor-multiplayer.mjs"
     }
   ]
 }

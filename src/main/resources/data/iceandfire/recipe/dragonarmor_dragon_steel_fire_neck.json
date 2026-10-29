@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {"tag": "c:double_sheets/dragonsteel_fire"}
+  },
+  "pattern": [
+    "   ",
+    "###",
+    " ##"
+  ],
+  "result": {
+    "id": "iceandfire:dragonarmor_dragon_steel_fire_neck",
+    "count": 1
+  }
+}

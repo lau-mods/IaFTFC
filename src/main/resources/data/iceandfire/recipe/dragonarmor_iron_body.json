@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {"tag": "c:double_sheets/wrought_iron"}
+  },
+  "pattern": [
+    "###",
+    "###",
+    "# #"
+  ],
+  "result": {
+    "id": "iceandfire:dragonarmor_iron_body",
+    "count": 1
+  }
+}

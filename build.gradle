@@ -152,6 +152,7 @@ dependencies {
 
     compileOnly "curse.maven:terrafirmacraft-302973:9184471"
     compileOnly "curse.maven:iceandfire-ce-1040076:9128508"
+    compileOnly "curse.maven:uranus-1010827:8587525"
 
     localRuntime "curse.maven:terrafirmacraft-302973:9184471"
     localRuntime "curse.maven:iceandfire-ce-1040076:9128508"

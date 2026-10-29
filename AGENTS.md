@@ -112,3 +112,9 @@ IaFTFC mod であり、ゲームプレイ機能は未実装。runtime の準備�
 - 骨加工は `iaftfc:dragonbone` knapping type を使う。骨1個では開始できず、2個以上で開始する。開閉だけなら消費せず、初回削りで1個を消費し、完成・途中終了で追加消費や返却をしない。`iaftfc:recipe/knapping/dragonbone_<部品|dragon_flute>` の6レシピから骨部品5種と `iceandfire:dragon_flute` を作る。
 - 鱗加工は12色それぞれの `iaftfc:dragonscales_<色>` knapping type を使う。同色4枚や混色合計5枚では開始できず、同色5枚で開始する。未完成終了では消費せず、結果取得または完成状態の終了時に5枚を消費する。防具48レシピは既存 `iceandfire:armor_<色>_<部位>` を上書きし、amethyst のレシピIDだけ `amythest` の綴りを保つ。helmet の4・5行目は削除済みで、余分なマスが残れば不一致とする。
 - 骨部品と `#c:bones/wither` から IaF CE の骨道具5種を縦に組み立てる。タグには `iceandfire:witherbone` を補う。TFC 4.2.12 の KnappingScreen は入力アイテム名から `tfc:textures/gui/knapping/` を固定参照するため、骨と鱗の画面テクスチャ13枚だけを同場所に配置する。検証は `./gradlew runGameTestServer` の `build/gametest-results.xml`、画面撮影は `tests/e2e/dragon-knapping.mjs`、再接続のシナリオは `tests/e2e/dragon-knapping-multiplayer.mjs` を使用する。E2E は画面の証拠であり、再接続を含む複数クライアントの合否は実行証拠を確認するまで未判定とする。
+
+## M06 の公開IDと検証
+
+- ドラゴン防具は `iaftfc:dragonarmor_<steel|black_steel|red_steel|blue_steel>_<head|neck|body|tail>` の16品を IaF CE のドラゴン防具として登録する。部位ごとの保護寄与値は順に 3.5、5.5、7.5、7.5。
+- 8材質×4部位の製作は `#c:double_sheets/<材質>` を使用する。頭5、首5、胴8、尾3枚を消費し、iron と dragonsteel 3属性のレシピは IaF CE の公開IDを上書きする。
+- GameTest は `./gradlew runGameTestServer` と `build/gametest-results.xml`、装着表示は `tests/e2e/dragonarmor.mjs` で確認する。ビルド・静的確認だけで装着表示、保存、複数クライアントの合格としない。

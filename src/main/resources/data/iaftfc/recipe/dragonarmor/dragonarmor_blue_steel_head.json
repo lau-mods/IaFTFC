@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {"tag": "c:double_sheets/blue_steel"}
+  },
+  "pattern": [
+    "   ",
+    " ##",
+    "###"
+  ],
+  "result": {
+    "id": "iaftfc:dragonarmor_blue_steel_head",
+    "count": 1
+  }
+}

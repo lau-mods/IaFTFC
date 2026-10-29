@@ -1,5 +1,8 @@
 package net.claustra01.iaftfc.registry;
 
+import com.iafenvoy.iceandfire.data.DragonArmorPart;
+import com.iafenvoy.iceandfire.item.DragonArmorItem;
+import net.claustra01.iaftfc.common.DragonArmorMaterials;
 import net.claustra01.iaftfc.common.DragonsteelMetal;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.BlockItem;
@@ -23,10 +26,15 @@ public final class ModItems {
             String id = "dragonbone/" + part;
             ITEMS.register(id, () -> new Item(new Item.Properties()));
         }
-        for (String metal : new String[] {"steel", "black_steel", "red_steel", "blue_steel"}) {
-            for (String part : new String[] {"head", "neck", "body", "tail"}) {
-                String id = "dragonarmor_" + metal + "_" + part;
-                ITEMS.register(id, () -> new Item(new Item.Properties()));
+        for (var material : DragonArmorMaterials.ALL) {
+            for (DragonArmorPart part : DragonArmorPart.values()) {
+                String id = "dragonarmor_" + material.name() + "_" + part.getId();
+                ITEMS.register(id, () -> new DragonArmorItem(material, part) {
+                    @Override
+                    public String getDescriptionId() {
+                        return "item.iaftfc." + id;
+                    }
+                });
             }
         }
         ModBlocks.ALL.forEach((id, block) -> ITEMS.register(id, () -> new BlockItem(block.get(), new Item.Properties())));
