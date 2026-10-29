@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "iaftfc:item_damage_resistance/iaf_iaftfc_dragon_armor_red_steel"
+  },
+  "piercing": 62.5,
+  "slashing": 50.0,
+  "crushing": 50.0
+}

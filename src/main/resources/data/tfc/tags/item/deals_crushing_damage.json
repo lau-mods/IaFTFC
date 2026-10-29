@@ -1,0 +1,73 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "iceandfire:copper_shovel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_gauntlet_red",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_gauntlet_white",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_gauntlet_yellow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_shovel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_shovel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_shovel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_shovel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hippocampus_slapper",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_shovel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_column",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_column_forest",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_column_frost",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_hammer",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_trunk",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_trunk_frost",
+      "required": false
+    }
+  ]
+}

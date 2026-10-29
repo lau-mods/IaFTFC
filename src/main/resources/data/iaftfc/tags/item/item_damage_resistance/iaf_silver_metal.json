@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:armor_silver_metal_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:armor_silver_metal_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:armor_silver_metal_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:armor_silver_metal_boots",
+      "required": false
+    }
+  ]
+}

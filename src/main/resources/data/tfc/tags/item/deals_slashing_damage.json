@@ -1,0 +1,117 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "iceandfire:amphithere_macuahuitl",
+      "required": false
+    },
+    {
+      "id": "iceandfire:copper_axe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:copper_hoe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:copper_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_axe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_hoe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_sword_fire",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_sword_ice",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_sword_lightning",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_axe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_hoe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_axe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_hoe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_axe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_hoe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_knight_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_queen_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:ghost_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hippogryph_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_axe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_hoe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_sword",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_weapon_axe",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:amphithere_arrow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_tounge",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_horn",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_stick",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_arrow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hippocampus_fin",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hippogryph_talon",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hydra_arrow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hydra_fang",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_arrow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_fang",
+      "required": false
+    },
+    {
+      "id": "iceandfire:stymphalian_arrow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:troll_tusk",
+      "required": false
+    },
+    {
+      "id": "iceandfire:witherbone",
+      "required": false
+    }
+  ]
+}

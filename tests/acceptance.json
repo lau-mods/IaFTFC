@@ -161,6 +161,42 @@
       "report": "build/gametest-results.xml",
       "classname": "iaftfc:dragonarmortests.empty",
       "name": "dragonarmortests.equipsandsavesprotection"
+    },
+    {
+      "acId": "AC-F013-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:foodsizeanddamagetests.empty",
+      "name": "foodsizeanddamagetests.foodnutritionanddecay"
+    },
+    {
+      "acId": "AC-F013-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:foodsizeanddamagetests.empty",
+      "name": "foodsizeanddamagetests.foodinventorypersistence"
+    },
+    {
+      "acId": "AC-F013-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:foodsizeanddamagetests.empty",
+      "name": "foodsizeanddamagetests.allitemsizes"
+    },
+    {
+      "acId": "AC-F013-003",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:foodsizeanddamagetests.empty",
+      "name": "foodsizeanddamagetests.optionalidsdonotcreateitems"
+    },
+    {
+      "acId": "AC-F014-001",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:foodsizeanddamagetests.empty",
+      "name": "foodsizeanddamagetests.armorresistances"
+    },
+    {
+      "acId": "AC-F014-002",
+      "report": "build/gametest-results.xml",
+      "classname": "iaftfc:foodsizeanddamagetests.empty",
+      "name": "foodsizeanddamagetests.dragonandweapondamagetypes"
     }
   ],
   "e2e": [
@@ -219,6 +255,14 @@
     {
       "acId": "AC-F012-003",
       "scenario": "tests/e2e/dragonarmor-multiplayer.mjs"
+    },
+    {
+      "acId": "AC-F013-002",
+      "scenario": "tests/e2e/food-size.mjs"
+    },
+    {
+      "acId": "AC-F014-003",
+      "scenario": "tests/e2e/physical-resistance-multiplayer.mjs"
     }
   ]
 }

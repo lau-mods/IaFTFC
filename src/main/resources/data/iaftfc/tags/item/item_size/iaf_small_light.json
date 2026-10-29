@@ -1,0 +1,172 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:creative_dragon_meal",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_chitin_red",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_chitin_white",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_chitin_yellow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_egg",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_egg_giant",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_meal",
+      "required": false
+    },
+    {
+      "id": "iceandfire:fire_dragon_heart",
+      "required": false
+    },
+    {
+      "id": "iceandfire:fire_stew",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frost_stew",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hippogryph_egg",
+      "required": false
+    },
+    {
+      "id": "iceandfire:hydra_heart",
+      "required": false
+    },
+    {
+      "id": "iceandfire:ice_dragon_heart",
+      "required": false
+    },
+    {
+      "id": "iceandfire:lightning_dragon_heart",
+      "required": false
+    },
+    {
+      "id": "iceandfire:lightning_stew",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_wings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:rotten_egg",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sickly_dragon_meal",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_amphithere",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_cockatrice",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_cyclops",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_death_worm",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_dread_beast",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_dread_ghoul",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_dread_horse",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_dread_knight",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_dread_scuttler",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_dread_thrall",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_fire_dragon",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_ghost",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_gorgon",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_hippocampus",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_hippogryph",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_hydra",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_ice_dragon",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_lich",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_lightning_dragon",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_pixie",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_sea_serpent",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_siren",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_stymphalian_bird",
+      "required": false
+    },
+    {
+      "id": "iceandfire:spawn_egg_troll",
+      "required": false
+    }
+  ]
+}

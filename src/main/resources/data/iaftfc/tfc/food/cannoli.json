@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "iceandfire:cannoli"
+  },
+  "hunger": 20,
+  "saturation": 5,
+  "grain": 1.5,
+  "dairy": 3,
+  "decay_modifier": 2.5
+}

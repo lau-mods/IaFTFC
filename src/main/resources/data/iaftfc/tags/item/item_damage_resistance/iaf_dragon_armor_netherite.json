@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:dragonarmor_netherite_head",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonarmor_netherite_neck",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonarmor_netherite_body",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonarmor_netherite_tail",
+      "required": false
+    }
+  ]
+}

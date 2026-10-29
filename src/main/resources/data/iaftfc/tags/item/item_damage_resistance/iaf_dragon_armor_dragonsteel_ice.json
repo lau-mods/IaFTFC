@@ -1,0 +1,20 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:dragonarmor_dragon_steel_ice_head",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonarmor_dragon_steel_ice_neck",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonarmor_dragon_steel_ice_body",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonarmor_dragon_steel_ice_tail",
+      "required": false
+    }
+  ]
+}

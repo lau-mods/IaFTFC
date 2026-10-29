@@ -1,0 +1,44 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:cockatrice_scepter",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_flute",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_seeker",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_queen_staff",
+      "required": false
+    },
+    {
+      "id": "iceandfire:epic_dragon_seeker",
+      "required": false
+    },
+    {
+      "id": "iceandfire:godly_dragon_seeker",
+      "required": false
+    },
+    {
+      "id": "iceandfire:legendary_dragon_seeker",
+      "required": false
+    },
+    {
+      "id": "iceandfire:lich_staff",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_wand",
+      "required": false
+    },
+    {
+      "id": "iceandfire:siren_flute",
+      "required": false
+    }
+  ]
+}

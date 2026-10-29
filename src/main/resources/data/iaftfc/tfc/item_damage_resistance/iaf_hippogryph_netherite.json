@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "iaftfc:item_damage_resistance/iaf_hippogryph_netherite"
+  },
+  "piercing": 45.0,
+  "slashing": 33.0,
+  "crushing": 50.0
+}

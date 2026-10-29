@@ -1,0 +1,54 @@
+{
+  "ingredient": [
+    {
+      "item": "iaftfc:dragonarmor_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_tail"
+    }
+  ],
+  "size": "very_large",
+  "weight": "very_heavy"
+}

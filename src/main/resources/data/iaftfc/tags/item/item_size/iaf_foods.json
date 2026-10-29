@@ -1,0 +1,48 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:ambrosia",
+      "required": false
+    },
+    {
+      "id": "iceandfire:cannoli",
+      "required": false
+    },
+    {
+      "id": "iceandfire:cooked_rice_with_fire_dragon_meat",
+      "required": false
+    },
+    {
+      "id": "iceandfire:cooked_rice_with_ice_dragon_meat",
+      "required": false
+    },
+    {
+      "id": "iceandfire:cooked_rice_with_lightning_dragon_meat",
+      "required": false
+    },
+    {
+      "id": "iceandfire:fire_dragon_flesh",
+      "required": false
+    },
+    {
+      "id": "iceandfire:ghost_cream",
+      "required": false
+    },
+    {
+      "id": "iceandfire:ice_dragon_flesh",
+      "required": false
+    },
+    {
+      "id": "iceandfire:lightning_dragon_flesh",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_dust",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_dust_milky_tea",
+      "required": false
+    }
+  ]
+}

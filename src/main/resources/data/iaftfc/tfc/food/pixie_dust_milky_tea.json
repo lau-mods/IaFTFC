@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "iceandfire:pixie_dust_milky_tea"
+  },
+  "hunger": 4,
+  "saturation": 1.5,
+  "water": 20,
+  "dairy": 2,
+  "decay_modifier": 2.5
+}

@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "iceandfire:ambrosia"
+  },
+  "hunger": 5,
+  "saturation": 1.5,
+  "fruit": 0.8,
+  "dairy": 0.3,
+  "decay_modifier": 2.5
+}

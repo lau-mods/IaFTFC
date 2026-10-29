@@ -1,0 +1,24 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:dreadwood_leaves",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dreadwood_sapling",
+      "required": false
+    },
+    {
+      "id": "iceandfire:fire_lily",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frost_lily",
+      "required": false
+    },
+    {
+      "id": "iceandfire:lightning_lily",
+      "required": false
+    }
+  ]
+}

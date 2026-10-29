@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "iaftfc:item_damage_resistance/iaf_robust_hide"
+  },
+  "piercing": 20.0,
+  "slashing": 13.2,
+  "crushing": 20.0
+}

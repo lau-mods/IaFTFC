@@ -1,0 +1,15 @@
+{
+  "ingredient": [
+    {
+      "item": "iaftfc:metal/block/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/block/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/block/dragonsteel_lightning"
+    }
+  ],
+  "size": "small",
+  "weight": "light"
+}

@@ -1,0 +1,21 @@
+{
+  "ingredient": [
+    {
+      "item": "iaftfc:dragonbone/axe_head"
+    },
+    {
+      "item": "iaftfc:dragonbone/hoe_head"
+    },
+    {
+      "item": "iaftfc:dragonbone/pickaxe_head"
+    },
+    {
+      "item": "iaftfc:dragonbone/shovel_head"
+    },
+    {
+      "item": "iaftfc:dragonbone/sword_blade"
+    }
+  ],
+  "size": "large",
+  "weight": "medium"
+}

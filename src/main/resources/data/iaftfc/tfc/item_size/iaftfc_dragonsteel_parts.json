@@ -1,0 +1,87 @@
+{
+  "ingredient": [
+    {
+      "item": "iaftfc:metal/axe_head/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/hoe_head/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/pickaxe_head/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/shovel_head/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/sword_blade/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_helmet/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_chestplate/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_greaves/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_boots/dragonsteel_fire"
+    },
+    {
+      "item": "iaftfc:metal/axe_head/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/hoe_head/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/pickaxe_head/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/shovel_head/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/sword_blade/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_helmet/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_chestplate/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_greaves/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_boots/dragonsteel_ice"
+    },
+    {
+      "item": "iaftfc:metal/axe_head/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/hoe_head/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/pickaxe_head/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/shovel_head/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/sword_blade/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_helmet/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_chestplate/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_greaves/dragonsteel_lightning"
+    },
+    {
+      "item": "iaftfc:metal/unfinished_boots/dragonsteel_lightning"
+    }
+  ],
+  "size": "large",
+  "weight": "medium"
+}

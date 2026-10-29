@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:copper_ingot",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_ingot",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_ingot",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_ingot",
+      "required": false
+    },
+    {
+      "id": "iceandfire:ghost_ingot",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_ingot",
+      "required": false
+    }
+  ]
+}

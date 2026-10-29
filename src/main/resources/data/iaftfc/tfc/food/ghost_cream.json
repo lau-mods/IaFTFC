@@ -1,0 +1,10 @@
+{
+  "ingredient": {
+    "item": "iceandfire:ghost_cream"
+  },
+  "hunger": 4,
+  "saturation": 1.5,
+  "water": 10,
+  "dairy": 2,
+  "decay_modifier": 2.5
+}

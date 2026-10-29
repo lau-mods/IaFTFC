@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:blindfold",
+      "required": false
+    },
+    {
+      "id": "iceandfire:earplugs",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sheep_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sheep_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sheep_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sheep_boots",
+      "required": false
+    }
+  ]
+}

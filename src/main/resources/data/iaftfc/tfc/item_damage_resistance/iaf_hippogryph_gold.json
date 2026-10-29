@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "iaftfc:item_damage_resistance/iaf_hippogryph_gold"
+  },
+  "piercing": 12.5,
+  "slashing": 8.25,
+  "crushing": 12.5
+}

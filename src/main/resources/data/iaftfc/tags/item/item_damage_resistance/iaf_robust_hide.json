@@ -1,0 +1,100 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:deathworm_red_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_red_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_red_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_red_boots",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_white_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_white_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_white_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_white_boots",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_yellow_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_yellow_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_yellow_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deathworm_yellow_boots",
+      "required": false
+    },
+    {
+      "id": "iceandfire:forest_troll_leather_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:forest_troll_leather_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:forest_troll_leather_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:forest_troll_leather_boots",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frost_troll_leather_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frost_troll_leather_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frost_troll_leather_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frost_troll_leather_boots",
+      "required": false
+    },
+    {
+      "id": "iceandfire:mountain_troll_leather_helmet",
+      "required": false
+    },
+    {
+      "id": "iceandfire:mountain_troll_leather_chestplate",
+      "required": false
+    },
+    {
+      "id": "iceandfire:mountain_troll_leather_leggings",
+      "required": false
+    },
+    {
+      "id": "iceandfire:mountain_troll_leather_boots",
+      "required": false
+    }
+  ]
+}

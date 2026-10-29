@@ -1,0 +1,28 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:pixie_jar_0",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_jar_1",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_jar_2",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_jar_3",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_jar_4",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_jar_5",
+      "required": false
+    }
+  ]
+}

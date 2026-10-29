@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "iaftfc:item_damage_resistance/iaf_copper_metal"
+  },
+  "piercing": 10.0,
+  "slashing": 6.25,
+  "crushing": 10.0
+}

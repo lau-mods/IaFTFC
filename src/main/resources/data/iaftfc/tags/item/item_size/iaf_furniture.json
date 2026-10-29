@@ -1,0 +1,32 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:lectern",
+      "required": false
+    },
+    {
+      "id": "iceandfire:podium_acacia",
+      "required": false
+    },
+    {
+      "id": "iceandfire:podium_birch",
+      "required": false
+    },
+    {
+      "id": "iceandfire:podium_dark_oak",
+      "required": false
+    },
+    {
+      "id": "iceandfire:podium_jungle",
+      "required": false
+    },
+    {
+      "id": "iceandfire:podium_oak",
+      "required": false
+    },
+    {
+      "id": "iceandfire:podium_spruce",
+      "required": false
+    }
+  ]
+}

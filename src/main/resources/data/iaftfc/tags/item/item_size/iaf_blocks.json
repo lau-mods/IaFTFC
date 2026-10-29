@@ -1,0 +1,360 @@
+{
+  "values": [
+    {
+      "id": "iceandfire:ash",
+      "required": false
+    },
+    {
+      "id": "iceandfire:burnt_torch",
+      "required": false
+    },
+    {
+      "id": "iceandfire:chared_cobblestone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:chared_dirt",
+      "required": false
+    },
+    {
+      "id": "iceandfire:chared_dirt_path",
+      "required": false
+    },
+    {
+      "id": "iceandfire:chared_grass",
+      "required": false
+    },
+    {
+      "id": "iceandfire:chared_gravel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:chared_stone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:copper_pile",
+      "required": false
+    },
+    {
+      "id": "iceandfire:crackled_cobblestone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:crackled_dirt",
+      "required": false
+    },
+    {
+      "id": "iceandfire:crackled_dirt_path",
+      "required": false
+    },
+    {
+      "id": "iceandfire:crackled_grass",
+      "required": false
+    },
+    {
+      "id": "iceandfire:crackled_gravel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:crackled_stone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:deepslate_silver_ore",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_bone_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_bone_wall",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_ice",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragon_ice_spikes",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_fire_brick",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_fire_core",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_fire_core_disabled",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_fire_input",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_ice_brick",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_ice_core",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_ice_core_disabled",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_ice_input",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_lightning_brick",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_lightning_core",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_lightning_core_disabled",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonforge_lightning_input",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_amethyst",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_black",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_blue",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_bronze",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_copper",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_electric",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_gray",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_green",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_red",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_sapphire",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_silver",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonscale_white",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_spawner",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_bricks",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_bricks_chiseled",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_bricks_cracked",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_bricks_mossy",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_face",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_slab_double",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_stone_tile",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dread_torch",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dreadwood_planks",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dreadwood_planks_lock",
+      "required": false
+    },
+    {
+      "id": "iceandfire:egginice",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_cobblestone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_dirt",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_dirt_path",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_grass",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_gravel",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_splinters",
+      "required": false
+    },
+    {
+      "id": "iceandfire:frozen_stone",
+      "required": false
+    },
+    {
+      "id": "iceandfire:gold_pile",
+      "required": false
+    },
+    {
+      "id": "iceandfire:graveyard_soil",
+      "required": false
+    },
+    {
+      "id": "iceandfire:nest",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_house_birch",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_house_dark_oak",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_house_mushroom_brown",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_house_mushroom_red",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_house_oak",
+      "required": false
+    },
+    {
+      "id": "iceandfire:pixie_house_spruce",
+      "required": false
+    },
+    {
+      "id": "iceandfire:raw_silver_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sapphire_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sapphire_ore",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_blue",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_bronze",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_deepblue",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_green",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_purple",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_red",
+      "required": false
+    },
+    {
+      "id": "iceandfire:sea_serpent_scale_block_teal",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_block",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_ore",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_pile",
+      "required": false
+    }
+  ]
+}

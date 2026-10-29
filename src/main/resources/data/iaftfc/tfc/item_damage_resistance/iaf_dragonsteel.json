@@ -1,0 +1,8 @@
+{
+  "ingredient": {
+    "tag": "iaftfc:item_damage_resistance/iaf_dragonsteel"
+  },
+  "piercing": 70.0,
+  "slashing": 60.0,
+  "crushing": 70.0
+}

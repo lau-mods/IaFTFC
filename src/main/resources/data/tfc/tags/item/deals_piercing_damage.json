@@ -1,0 +1,65 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "iceandfire:copper_pickaxe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_bow",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_bow_pulling_0",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_bow_pulling_1",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_bow_pulling_2",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonbone_pickaxe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_fire_pickaxe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_ice_pickaxe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:dragonsteel_lightning_pickaxe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:fishing_spear",
+      "required": false
+    },
+    {
+      "id": "iceandfire:silver_pickaxe",
+      "required": false
+    },
+    {
+      "id": "iceandfire:stymphalian_bird_dagger",
+      "required": false
+    },
+    {
+      "id": "iceandfire:tide_trident",
+      "required": false
+    },
+    {
+      "id": "iceandfire:tide_trident_inventory",
+      "required": false
+    },
+    {
+      "id": "iceandfire:tide_trident_throwing",
+      "required": false
+    }
+  ]
+}
