@@ -17,7 +17,7 @@
         "effort": "high"
       },
       "retry": {
-        "model": "gpt-6.1-terra",
+        "model": "gpt-6-sol",
         "effort": "medium"
       },
       "fast": false,

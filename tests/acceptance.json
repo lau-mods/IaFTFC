@@ -1,4 +1,10 @@
 {
-  "gameTests": [],
-  "e2e": []
+  "gameTests": [
+    {"acId":"AC-F001-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"requiredmods"},
+    {"acId":"AC-F001-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"onlyallowedoverrides"},
+    {"acId":"AC-F001-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"legacyitemsaveroundtrip"}
+  ],
+  "e2e": [
+    {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"}
+  ]
 }

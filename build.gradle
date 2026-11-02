@@ -27,7 +27,18 @@ sourceSets.main.resources {
 }
 
 repositories {
-    // Add here additional repositories if required by some of the dependencies below.
+    maven {
+        url = 'https://cursemaven.com'
+        content { includeGroup 'curse.maven' }
+    }
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+    maven {
+        url = 'https://maven.architectury.dev/'
+        content { includeGroup 'dev.architectury' }
+    }
 }
 
 base {
@@ -40,6 +51,10 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 neoForge {
     // Specify the version of NeoForge to use.
     version = project.neo_version
+
+    unitTest {
+        enable()
+    }
 
     parchment {
         mappingsVersion = project.parchment_mappings_version
@@ -69,7 +84,9 @@ neoForge {
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
             type = "gameTestServer"
+            gameDirectory = project.file('run/gametest')
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
+            systemProperty 'iaftfc.gametest.report', file('build/test-results/gametest/TEST-iaftfc.xml').getAbsolutePath()
         }
 
         data {
@@ -103,6 +120,7 @@ neoForge {
         // multi mod projects should define one per mod
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet(sourceSets.test)
         }
     }
 }
@@ -116,6 +134,12 @@ configurations {
 }
 
 dependencies {
+    localRuntime "maven.modrinth:terrafirmacraft:${tfc_version}"
+    localRuntime "curse.maven:iceandfire-ce-1040076:${iceandfire_file_id}"
+    localRuntime "curse.maven:jupiter-1072905:${jupiter_file_id}"
+    localRuntime "curse.maven:uranus-1010827:${uranus_file_id}"
+    localRuntime "maven.modrinth:patchouli:${patchouli_version}"
+    localRuntime "dev.architectury:architectury-neoforge:${architectury_version}"
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
@@ -151,6 +175,8 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_name               : mod_name,
             mod_license            : mod_license,
             mod_version            : mod_version,
+            tfc_version            : tfc_version,
+            iceandfire_version     : iceandfire_version,
     ]
     inputs.properties replaceProperties
     expand replaceProperties
@@ -179,6 +205,10 @@ publishing {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+tasks.named('test', Test).configure {
+    failOnNoDiscoveredTests = false
 }
 
 // IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
