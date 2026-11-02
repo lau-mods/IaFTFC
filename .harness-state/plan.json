@@ -1,0 +1,296 @@
+{
+  "milestones": [
+    {
+      "id": "M01",
+      "features": [
+        "F-001"
+      ],
+      "dependsOn": [],
+      "approach": "MDKの雛形をiaftfcへ置き換え、以後の全milestoneが使う基盤を作る。\n- gradle.propertiesのmod_id/mod_name/mod_group_id/mod_licenseを更新し、examplemodのクラスとassetsを削除して、iaftfcを含む固有packageへ移す。\n- mods.tomlでtfc(4.2.12)とiceandfire(2.1.4)をrequired、ordering=AFTER、side=BOTHとする。Jupiter/UranusなどIaF自身の依存は宣言せず、runtime配置だけにする。\n- TFC 4.2.12とIaF 2.1.4は公開リポジトリの固定版artifactで参照し、clone直後やCIでもbuildできるようにする。JARのcommitや.tmp前提にはしない。依存版はgradle.propertiesで固定し、Patchouli/Architectury等のruntime依存は localRuntime に置く。\n- 固定版の検証として、起動ログのNeoForge版が21.1.248であることをserver/client双方で確認する。cacheには別版のNeoForgeが含まれるため(GR-001)、異なれば合格扱いにしない。\n- GameTest基盤: runGameTestServerがbuild/test-results/gametest/へJUnit XMLを出すよう構成する(GlobalTestReporterをJUnitLikeTestReporterへ差し替える)。TFC Overworldのseed固定worldgenを検査できるhelperもここで用意する。\n- データ基盤: NeoForge DataProvider(runData)をsrc/generated/resourcesへ出力する唯一の正式generatorとして立てる。以後のレシピ・Loot・PNG生成はここへ集約し、tools/やscripts/は作らない。\n- 上流レシピ等を上書きする全ファイルの許可リスト(override manifest)をテストresourceとして持つ。AC-F001-002はこれと実際の上書きを照合し、許可外のIaF/TFCデータ差分と非ドラゴン機能の変更を検出する。以後のmilestoneはこの許可リストへ追記する。\n- AC-F001-001はGameTest起動とE2Eの実server/client接続の両方で確認する。client-only classはDist分離し、専用serverでのclass loadingをログで確認する。\n- AC-F001-003はIaF由来の龍素材・装備・Horn・Bestiaryを含むNBT fixtureのロードで検証する。\n- 親AGENTS.mdの要求に従い共通規約を写したAGENTS.mdを追加する。製品仕様はPROJECT.mdへのポインタに留め(GR-001)、runDataを正式generatorとして明記する。\n- LICENCEへIaF/TFCの参照元表示を追加する(GR-004)。",
+      "scope": [
+        "gradle.properties",
+        "build.gradle",
+        "settings.gradle",
+        ".gitignore",
+        "AGENTS.md",
+        "LICENCE",
+        "src/main/templates/META-INF/neoforge.mods.toml",
+        "src/main/java/com/example/examplemod (削除)",
+        "src/main/java/**/iaftfc/ (mod entrypoint、client分離、datagen entrypoint)",
+        "src/main/resources/assets/iaftfc/lang/{en_us,ja_jp}.json",
+        "src/test/java または gametest source (基盤、起動、適用範囲、旧ID保持)",
+        "tests/acceptance.json",
+        "tests/e2e/ (起動・ログイン)"
+      ]
+    },
+    {
+      "id": "M02",
+      "features": [
+        "F-002",
+        "F-003",
+        "F-004"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "Roost/Cave生成への互換差分を1 milestoneで実装する。TFC地表で6種の構造物が成立しないとAC-F002-003を満たせず、3 Featureは同じ生成クラスとfixtureを共有するため。\n\n[F-002] 気候選択は純粋計算のクラスとして実装する。\n- SplitMix64標本4096点、母平均/母標準偏差、score、64回のb更新、softmax、上位53bitの一様値、Fire→Ice→Lightningの累積選択までを、PROJECT.mdの式どおり書く。\n- bはworld seed単位でキャッシュする。F-017/F-021も同じscore APIを使うのでpublicに保つ。\n- 気候値はチャンク生成を伴わないTFCの気候ノイズAPIからserver側でのみ取得する。実際のAPIは4.2.12 JARで確認する。\n- 配置はStructure SetのJSON値(spacing/separation/salt)を変更せず、候補点から属性別Structureを選ぶ箇所だけを狭く差し替える。実際のdata構造はIaF 2.1.4 JARで確認して決める。TFC Overworld以外、および元設定で無効の場合は元処理へ素通しする。\n- 検証: 標本平均[0.32,0.35]を固定seed群で、実生成比率[0.27,0.40]を500件以上の成功例で測る。単調性と再現性は純粋関数テストで固定する。候補座標の列挙で、候補総数と村回避が元のままであることを比較する。\n\n[F-003] 地表判定と置換比較をTFCの岩石・砂利・土へ一般化する。\n- タグ追加を優先し、Vanilla固定比較を残すIaF箇所だけ狭いMixinで補う。F-020も同じ判定を使えるようにカテゴリを定義する。\n- 新しいBlockは追加しない。個数と半径は元のまま変えず、Block Entity、破壊不可ブロック、保護対象の扱いも維持する。\n\n[F-004] Caveの鉱石選択枝だけを置換する。\n- 位置とcave seedから0～8を安定導出し、9 Gem×固定3母岩のTFC normal鉱石へ1対1で写す。Block IDは4.2.12のレジストリで実在確認して固定する。\n- 選択関数は入力注入でテストできる形にし、AC-F004-002を厳密に検証する。\n\n元IaFのみの場合との比較値(形状、Chest数、Pile数、年齢、性別)はIaF実装から取得して検査する。Mixinは対象を最小限にし、専用serverで安全にする。",
+      "scope": [
+        "src/main/java/**/iaftfc/worldgen/ (気候選択、SplitMix64、属性選択、Cave鉱石選択)",
+        "src/main/java/**/iaftfc/mixin/ (IaF Structure/Roost/Cave生成の狭いMixin)",
+        "src/main/resources/iaftfc.mixins.json",
+        "src/main/templates/META-INF/neoforge.mods.toml ([[mixins]])",
+        "src/generated/resources/data/**/tags/block/ (TFC地形カテゴリ)",
+        "gametest source (気候、構造物、Roost地表、Cave鉱石)",
+        "tests/acceptance.json",
+        "tests/e2e/ (必要に応じて6構造物の外観)"
+      ]
+    },
+    {
+      "id": "M03",
+      "features": [
+        "F-006",
+        "F-007"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "Lootのデータ生成をrunData内のJavaで実装する。\n\n[F-006]\n- datagen時にIaF 2.1.4 JARのクラスパスから9 ChestのJSONを読み、固定入力のハッシュと一致しなければ失敗で停止する(GR-005)。\n- 元JSONを木のまま走査し、対象entryだけをカテゴリ変換表で置換する。pool構造、rolls、bonus_rolls、weight、conditions、count provider、固有アイテムは手を付けない。\n- 共有テーブルshared/gems、ingots/{profile}、coal_like、utility、equipment/{profile}/{family}をPROJECT.mdの候補で生成する。equipmentの比率は重み6(部品4:完成2を候補数で等分)等の整数で正確に表す。\n- TFCのItem ID(Graphite採掘時アイテムを含む)は4.2.12レジストリで実在確認する。\n- Enchantは親entryの関数のまま残す。Head/Unfinishedで無作用かを関数の種類ごとにGameTestで確認し、作用する関数があれば完成品だけに効くよう条件で限定する。元のレベルと数値は変えない。\n- F-014で無効化するCopper/Silver/Gold/Diamond/NetheriteのDragon Armorが9テーブルに含まれる場合は、同一weightのempty entryへ置換して、entry数と抽選確率を保ったまま入手経路だけを消す。この判断は意図的な削除として検査側にも明記する。\n- AC-F006-001/GR-005の機械検査は、JARの元JSONと生成JSONの正規化AST比較としてGameTestに実装し、GR-005の検査項目を全て含める。実抽選は固定seedのLootContextで行う。\n\n[F-007]\n- 3 Pileのblock loot table(iceandfire名前空間)をlayer 1～8で2*layers個のSmall Native Oreへ差し替える。元のSilk Touch分岐等はJAR定義をそのまま保つ。\n- 上書き対象を全てoverride manifestへ追記する。",
+      "scope": [
+        "src/main/java/**/iaftfc/datagen/ (Loot変換、共有テーブル生成)",
+        "src/generated/resources/data/iceandfire/loot_table/chest/*",
+        "src/generated/resources/data/iceandfire/loot_table/blocks/{gold,silver,copper}_pile.json",
+        "src/generated/resources/data/iaftfc/loot_table/shared/**",
+        "gametest source (AST比較、Profile、Enchant、Pile)",
+        "override manifest",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M04",
+      "features": [
+        "F-008",
+        "F-010"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "3金属の登録と鍛造・溶接を同時に実装する。溶融・溶接の温度仕様とAnvil設備が同じ登録とデータを共有するため。\n\n[登録]\n- PROJECT.mdの表にある型だけをDeferredRegisterで明示的に登録する。RegistryMetalの包括展開は使わない。\n- 金属定義はtier=7、融点2000、鍛造1200、溶接1600。Heat CapacityはRed Steel同型品の実測値に金属量比で揃え、Ingot基準2.857143と一致させる。\n- tfc:item_heat、tfc:fluid_heat、金属データ、molten/ingot mold系タグ、c:*タグ、iaftfc:dragonsteel_ingots(新規3種のみ)を4.2.12の実データ形式で生成する。\n- Molten Fluidと容器連携は既存のTFC金属Fluidと揃える。描画拡張はclient専用classへ分離する。\n- Metal BlockはRed Steel同型、Anvilは既存のTFC Anvilクラス/BlockEntityを再利用する。Tierを7にし、BlockEntityTypeへの追加は最小の方法で行う。独自GUIは作らない。\n\n[レシピ]\n- Anvil/Weldingレシピは表どおりにdatagenで生成する。Forge Rule列は4.2.12 JARのRed Steelレシピと順序一致をGameTestで機械照合し、Forge Bonusフラグも同じにする。\n- 完成防具Welding(Tier 6、copy_best)はIaF既存IDを出力とする。\n- Double Ingot×7のAnvilクラフトとMetal Block 8個のadvanced_shaped_craftingはRed Steel定義から写す。\n\n[検証]\n- AC-F008-002は実Charcoal Forge+Crucible+Bellowsを動かす。Coal+Bellowsで2000℃超で溶融し、Charcoal+BellowsとCoal単独では溶融しないことを実測する。\n- 物質保存は100/800/1400 mBと鋳造・再溶融で確認し、交差属性や旧Ingotへ変換されないことも確かめる。\n- 温度境界1199/1200、1599/1600、1999/2000は実判定で確認する。\n- 熱・量の保存はItemStackとBlock EntityのNBT往復で確認する。\n- Tier 6/7の可否はAC-F010の各工程をAnvilBlockEntityの実処理で確認する。\n- Tooltip表示とAnvil UIはE2Eでスクリーンショットを撮影する。\n- GR-003のサイズ/重量は該当部品を付与し、継承結果を検査する。\n- 全金属部品のモデル/テクスチャと日英言語も用意する(既存素材の流用やIaFTFC旧assetの流用はしない)。",
+      "scope": [
+        "src/main/java/**/iaftfc/metal/ (登録、Fluid、Anvil)",
+        "src/main/java/**/iaftfc/client/ (Fluid描画拡張等)",
+        "src/main/java/**/iaftfc/datagen/ (金属データ、heat、タグ、Anvil/Welding、size)",
+        "src/generated/resources/data/iaftfc/tfc/**",
+        "src/generated/resources/data/iaftfc/recipe/**",
+        "src/generated/resources/data/{c,tfc,iaftfc}/tags/**",
+        "src/main/resources/assets/iaftfc/ (models, textures, blockstates, lang)",
+        "gametest source (登録、溶融、境界温度、Anvil、Welding)",
+        "tests/e2e/ (tooltip, Anvil UI)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M05",
+      "features": [
+        "F-009",
+        "F-011"
+      ],
+      "dependsOn": [
+        "M04"
+      ],
+      "approach": "M04の金属を使い、Dragonsteelの入口(Forge)と出口(完成品)をつなげて旧経路を遮断する。\n\n[F-009]\n- 元recipe IDと同じパスでdragonforge recipeを上書きする(Red→Fire、Blue→Ice、Black→Lightning、cookTime=1000、出力iaftfc Ingot)。\n- Blood製法はcookTime=750のまま触らない。\n- Brickは#minecraft:stone_bricksへ、Inputは#c:ingots/wrought_ironへ変更し、Coreは元のまま維持する。Brick/Input/Coreはパターンと個数を保つ。\n- 実Forge BEへ龍息を供給して、1000/750 cookTimeの完了を確認する。異属性、Vanilla Iron、旧Ingotが不成立であることも確認する。ドラゴンの実ブレス動作もテストする。\n\n[F-011]\n- 旧Ingot直結のTool/Armor/Block相互変換レシピは、対象IDを実JARから列挙して個別にneoforge:false条件で無効化する。\n- 5 Toolの組み立ては、TFCの同種Tool組み立てと同じレシピ型とIngredient(棒材)で定義し、Forge Bonusを転写する。\n- 完成27種にheat/再溶融を付与する。固定金属量はPROJECT.mdの値とし、耐久・Bonus・Enchantで量を変えない。Red Steel同品目の実データと量が一致することも機械照合する。\n- 採掘tierや道具タグの整合はタグ優先で行い、IaFアイテムの登録や値は変更しない。\n- AC-F011-003の基準値はIaF 2.1.4のアイテム定義と同じ値(攻撃力、耐久、Config倍率)を比較し、属性Abilityとドラゴン戦闘はGameTestで確認する。\n- GR-003の完成品サイズ/重量をRed Steel同部位に合わせる。",
+      "scope": [
+        "src/main/java/**/iaftfc/datagen/ (dragonforge, 旧レシピ無効化, 組み立て, heat, タグ, size)",
+        "src/generated/resources/data/iceandfire/recipe/**",
+        "src/generated/resources/data/iaftfc/recipe/**",
+        "src/generated/resources/data/iaftfc/tfc/**",
+        "src/generated/resources/data/{minecraft,c,tfc}/tags/**",
+        "override manifest",
+        "gametest source (Forge, 組み立て, 再溶融, 性能, 採掘)",
+        "tests/e2e/ (Forge GUIとブレス)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M06",
+      "features": [
+        "F-012",
+        "F-013"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "TFCのKnappingデータ機構に2つのKnapping Typeを追加する。\n- iaftfc:dragonbone と iaftfc:dragonscale をTFCの実データ形式で定義する。UI/消費/中断の挙動はRock/Leatherと同じになるよう、4.2.12 JARの定義を基準に合わせる。独自GUIは作らず、Knappingに必要なtexture/soundは既存の仕組みに従う。\n- Knapping recipeのパターンはPROJECT.mdの厳密な行列をそのまま生成し、ASCII図は参照しない。鏡映可否はTFC該当recipe(石Axe/Hoe/Shovel、陶器Pickaxe/Sword Blade Mold、Leather防具)のフラグと同じにする。Leather防具パターンは4.2.12のJSONとも機械照合する。\n- 部品5種iaftfc:dragonbone/* を登録し、モデル・言語・サイズを追加する。TFC棒材と組み合わせる組み立てレシピを作り、元のDragonbone直接Craftingを無効化する。属性Swordは完成Sword+BloodのShapelessを維持し、Blade+Bloodでは成立しないことを検査する。\n- Scale Armorは色×部位=48レシピをdatagenで生成する。入力は同色Scaleの1個で、元レシピのID一覧を実JARから列挙して無効化する。\n- 検証: 全パターンの完成と不一致、別素材、別色をメニュー実処理でGameTestする。Knapping UIの表示と装備Textureの維持はE2Eで撮影する。\n- Dragonbone Bow/Arrow等には触れない。",
+      "scope": [
+        "src/main/java/**/iaftfc/knapping/ および登録 (dragonbone部品)",
+        "src/main/java/**/iaftfc/datagen/ (knapping, 組み立て, 無効化, size)",
+        "src/generated/resources/data/iaftfc/tfc/knapping_type/**",
+        "src/generated/resources/data/iaftfc/recipe/**",
+        "src/generated/resources/data/iceandfire/recipe/**",
+        "src/main/resources/assets/iaftfc/ (部品model, texture, Knapping用texture, lang)",
+        "override manifest",
+        "gametest source",
+        "tests/e2e/ (Knapping UI, Scale Armor)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M07",
+      "features": [
+        "F-014"
+      ],
+      "dependsOn": [
+        "M03",
+        "M04"
+      ],
+      "approach": "新規16個のDragon Armorと有効素材の制限を実装する。\n\n[アイテム]\n- 4つのDragonArmorMaterialはname、fireProof=false、dragonSteel=false、Protection 5/7/8/8とする。実クラス構造は2.1.4 JARで確認する。\n- 新規16 ItemはIaFのDragonArmorItemを継承し、getDescriptionIdをitem.iaftfc.dragonarmor_<metal>_<part>へ上書きする。Slot、Synced Data、Rendererは既存のまま互換とする。\n\n[レシピ]\n- 全素材×全部位をPROJECT.mdの形状で生成する。#=同一素材のDouble Sheet。iron/dragonsteelは元IDの上書きで材料を置換する。\n- Copper/Silver/Gold/Diamond/Netheriteの通常レシピとSmithingはneoforge:falseで無効化する。\n- Creative表示を除去し(登録自体は維持)、Loot全体を検索してM03の9テーブル以外に無効素材の供給元がないことも確認する。\n\n[Equip制限]\n- 無効素材の新規Equipと能力適用を、狭いMixinまたはイベントで止める。既装着分はロード時に保持し、その部位のProtectionを0として扱い、手動取り外しを可能にする。NBT往復で旧セーブが壊れないことを検査する。\n\n[Assets]\n- 色変換はrunData内のJavaでPROJECT.mdの式どおりに実装する。Iron item spriteとentity overlayはIaF JARから読む。\n- 出力先はassets/iaftfc/textures/item/ と assets/iceandfire/textures/entity/dragon_armor/。既存名を上書きしない。PNGはファイル時刻やメタデータを持たない決定的なエンコードとし、静的に同梱する。実行時生成はしない。\n- assets/iaftfc/items/*.json は1.21.1のpack layoutでは読まれないがPROJECT.mdの要求どおり配置する。実際の描画はmodels/item/*.jsonが担う。\n- 日英言語を追加する。\n\n[検証]\n- GameTestでProtection値を実際の防御計算で確認する。\n- E2Eで4素材×4部位のItem spriteと竜本体を撮影し、missing textureがないことを確認する(AC-F014-004)。\n- PNG演算は別実装の計算をGameTestで照合し、ピクセル単位で確認する。\n- GR-003のサイズ/重量は部位ごとに素材によらず同じ値にする。",
+      "scope": [
+        "src/main/java/**/iaftfc/dragonarmor/ (material, item, 登録)",
+        "src/main/java/**/iaftfc/mixin/ (Equip/Protection)",
+        "src/main/java/**/iaftfc/datagen/ (レシピ, 無効化, size, PNG変換)",
+        "src/generated/resources/data/iceandfire/recipe/**",
+        "src/generated/resources/data/iaftfc/recipe/**",
+        "src/generated/resources/assets/iaftfc/{items,models/item,textures/item}/**",
+        "src/generated/resources/assets/iceandfire/textures/entity/dragon_armor/armor_*_{steel,black_steel,red_steel,blue_steel}.png",
+        "src/main/resources/assets/iaftfc/lang/*.json",
+        "override manifest",
+        "gametest source",
+        "tests/e2e/ (item sprite, dragon overlay)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M08",
+      "features": [
+        "F-005",
+        "F-017",
+        "F-021"
+      ],
+      "dependsOn": [
+        "M02",
+        "M07"
+      ],
+      "approach": "IaFのBiome Modifier/Featureの差し替えをまとめて実装する。\n\n[F-005]\n- 2.1.4 JARのbiome_modifierとfeature参照を確認し、Silver/Sapphire鉱脈の該当ファイルだけを同一IDでneoforge:noneへ上書きする。\n- ドラゴン関連レシピ全件の入力を走査し、IaF固有Silver/Sapphireを要求するものをTFC素材へ置換する。Silver Dragon ArmorはM07で無効化済みであることを前提に検査する。\n- 非ドラゴンのレシピ(銀の武器等)には手を付けない。IaFの鉱石ブロック/アイテムの登録は維持する。\n\n[F-017/F-021]\n- 元Featureの個数と試行分布を保ったままTFCのバイオームへ接続し、M02のscore APIで「対象属性が3種中最大または同値最高」の地点に絞る。Lily、Skeletonとも同じ機構を使う。\n- フィルタはPlacementModifierとしてserver側で気候APIを使用し、チャンク生成を伴わない。Skeletonの元frequencyとLootは変更しない。\n- Lilyの地面はTFCの砂、雪/氷、土/草をタグで適格化する。手動植栽は元IaFの判定を基本とし、自然生成の判定だけを変える。\n- TFC Overworld以外には影響を与えない。\n\n[検証]\n- 固定seedのTFC worldgenでチャンクを生成し、Silver/Sapphire鉱脈が新規に生成されないことを確認する。\n- 属性ごとの自然生成と異属性環境での不生成を確認する。\n- Skeletonの回収Lootが元IaFと一致することと、Stew/繁殖が元どおりであることを確認する。",
+      "scope": [
+        "src/generated/resources/data/iceandfire/neoforge/biome_modifier/**",
+        "src/generated/resources/data/iaftfc/neoforge/biome_modifier/**",
+        "src/main/java/**/iaftfc/worldgen/ (属性適性Placement Modifier)",
+        "src/main/java/**/iaftfc/datagen/ (biome modifier, タグ, レシピ置換)",
+        "src/generated/resources/data/**/tags/**",
+        "src/generated/resources/data/iceandfire/recipe/**",
+        "override manifest",
+        "gametest source (鉱脈, Lily, Skeleton)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M09",
+      "features": [
+        "F-020"
+      ],
+      "dependsOn": [
+        "M02",
+        "M05"
+      ],
+      "approach": "生きたドラゴンのブレスをTFC地形へ対応させる。\n- IaFのブレス変換処理(2.1.4 JARのDestruction系)を読み、Vanilla固定比較やタグ判定のうちTFC岩石、土、砂利、原木、作物が漏れる箇所だけを、M02のカテゴリタグの追加または狭いMixinで補う。\n- DragonFireDamageWorldEventのCancelは使わない。Entity DamageとForge供給の経路には手を付けない。\n- IceのWater凍結はFresh WaterのみVanilla Water相当にする。Salt Waterには適用しない。実際の流体IDとタグは4.2.12で確認する。\n- 変換先はIaFの単一石で固定し、can_collapse等の落盤タグは追加しない。TFC設備の全面保護タグも作らない。\n- 判定にはmobGriefing、dragonGriefing、DragonBlockBreakBlacklist、Block Entity保護をそのまま通す。Roost/Caveの生成時処理はM02の経路のままにして、ブレスと混ぜない。\n- 検証: GameTestでブレス処理を実際に実行し、3属性×(TFC生岩、土、砂利、木、水2種、作物)の変換結果を確認する。Forge Inputの供給とEntity Damageが同時に成立することを確認する。griefingの切替とTFC Anvil/Crucible/Bloomery/Ore/Chestの破壊可否を、元IaFの判定と比較する。",
+      "scope": [
+        "src/main/java/**/iaftfc/mixin/ (ブレス地形判定の狭いMixin)",
+        "src/main/java/**/iaftfc/datagen/ (タグ)",
+        "src/generated/resources/data/**/tags/block/**",
+        "src/main/resources/iaftfc.mixins.json",
+        "gametest source (ブレス変換, Forge/Damage, griefing)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M10",
+      "features": [
+        "F-015"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "卵の孵化条件とドラゴン成長を分けて実装する。\n\n[卵]\n- eggBornTime(7200)とtimerは元のtick方式のまま維持し、孵化可否の判定にだけ条件を足す。\n- Fire: 元の炎判定をORで残し、真下1ブロックのTFC Heat Block Capabilityの実温度が1500℃以上の場合にも進行を許す。\n- Ice: 水判定にFresh WaterをVanilla相当で追加し、Salt Waterは拒否する。Spring WaterはTFCの淡水タグ所属時のみ許可する。1/500の確率とEgg in Iceのtimerは触らない。\n- Lightning: 空の視認かつ雨を要求し、Thunderstormは要求しない。\n\n[成長]\n- IaF Dragonの年齢進行をTFC Calendarに差し替える。Dragon Age 1日=Calendar 1日で、余りを蓄積して小数日の二重加算を防ぐ。\n- 最後のCalendar値と余りをDragon NBTへ保存し、ロード時の差分を反映して未ロード期間も加算する。\n- Horn等に収納中の個体は元IaF同様に成長しない扱いとする。解放時に基準点を更新し、収納期間を一括加算しない。これは既存の収納仕様を維持するための判断である。\n- 既存の成長停止、Config、成長アイテム(Dragon Meal等)による年齢変更とも矛盾しないよう、差分は基準点からの加算にする。\n- サーバー専用処理とし、clientは既存の同期をそのまま使う。\n\n[検証]\n- GameTestで1499/1500/2000℃、斜め下と隣の熱源を確認する。\n- 流体3種を固定乱数で確認する。\n- 空/雨の4条件を確認する。\n- Calendar日長2設定でEgg tick不変と、Age進行差を確認する。\n- NBT往復とアンロード相当の差分処理で、二重加算がないことを確認する。\n- 誕生演出が残っていることはE2Eで撮影する。",
+      "scope": [
+        "src/main/java/**/iaftfc/mixin/ (Egg条件、Dragon年齢)",
+        "src/main/java/**/iaftfc/dragon/ (Calendar成長)",
+        "src/main/resources/iaftfc.mixins.json",
+        "gametest source (卵3属性, Calendar成長)",
+        "tests/e2e/ (孵化演出)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M11",
+      "features": [
+        "F-016",
+        "F-018"
+      ],
+      "dependsOn": [
+        "M04",
+        "M10"
+      ],
+      "approach": "残りのレシピ置換と食料データをまとめて実装する。\n\n[F-016]\n- iaftfc:dragon_food_meatタグは4.2.12の実登録から生の陸上動物肉のみを列挙してdatagenで生成する。存在しないIDは出力せず、魚介、調理品、IaF肉を除外する。\n- Dragon MealはBMB/MBM/BMBの形を維持する。腐敗肉をデータで拒否するため、肉のIngredientはTFCのnot_rotten相当でタグを包む。実際の型は4.2.12で確認する。\n- Flesh/StewのFoodDataはPROJECT.mdの値を厳密に生成する。腐敗無効は付けない。\n- IaF固有の食用効果とボウル返却、Stewレシピは維持する。\n- M10のCalendar成長の上でもDragon Mealの成長効果が保たれることをGameTestで確認する。\n- GR-003のsmall/lightを適用する。\n\n[F-018]\n- dragon_seekerの上書き: a/x/x、a=#iceandfire:dragon_skulls、x=tfc:metal/ingot/steel。\n- epic_dragon_seeker: 元IDを無効化し、Red用とBlue用の別々のsmithing_transform 2本を追加する(Templateは同色Ingot、Additionも同色Ingot)。\n- legendary: #iceandfire:dragon_steelsを#iaftfc:dragonsteel_ingotsへ差し替える。Godlyは触らない。\n- 使えない構成(異色混合、旧Netherite)は実Smithingメニューで不成立を検査する。\n- Seeker範囲150/200/300/500はコードに手を入れず、元どおりであることをGameTestで確認する。Horn/Flute/Staff/Crystal/騎乗も元の動作確認をGameTestまたはE2Eで行う。チャンク強制生成は追加しない。",
+      "scope": [
+        "src/main/java/**/iaftfc/datagen/ (肉タグ, FoodData, Dragon Meal, Seeker)",
+        "src/generated/resources/data/iaftfc/tags/item/dragon_food_meat.json",
+        "src/generated/resources/data/iaftfc/tfc/food/**",
+        "src/generated/resources/data/iaftfc/recipe/**",
+        "src/generated/resources/data/iceandfire/recipe/**",
+        "override manifest",
+        "gametest source (Meal, FoodData, Seeker, 制御)",
+        "tests/e2e/ (Seeker/騎乗 必要時)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M12",
+      "features": [
+        "F-019"
+      ],
+      "dependsOn": [
+        "M04",
+        "M05",
+        "M07"
+      ],
+      "approach": "Bestiaryは全ページと解禁進行を変更せず、説明だけを新製法へ更新する。\n- Lecternレシピの板材を#minecraft:planksへ変更する。それ以外(3 Manuscript→Bestiary、1ページ3個)は触らない。\n- 2.1.4 JARのBestiaryのページ定義とレシピ図の描画方式を確認する。Dragon Forge/Dragonsteel/Dragon Armor該当ページの言語リソースとページデータを上書きする。\n- ハードコードされたレシピ図がある場合は、client側の対象描画だけを狭いMixinで新レシピへ差し替える(serverではロードしない)。ページ数、解禁順、非ドラゴンページは変更しない。\n- 日英言語を用意する。\n- GameTest: ページ列挙が元と一致すること、Lecternで解禁候補が絞られないこと、3 Manuscript消費を確認する。\n- E2E: Dragonsteel/Forge/Dragon Armorのページを実画面で撮影し、旧Iron直接変換や旧Block製作を正規製法として示していないことをレビューする(AC-F019-002)。",
+      "scope": [
+        "src/main/java/**/iaftfc/datagen/ (Lectern レシピ, 言語)",
+        "src/generated/resources/data/iceandfire/recipe/**",
+        "src/main/resources/assets/iceandfire/ (上書き対象のBestiaryページ)",
+        "src/main/resources/assets/iaftfc/lang/*.json",
+        "src/main/java/**/iaftfc/client/mixin/ (必要時のみ)",
+        "override manifest",
+        "gametest source",
+        "tests/e2e/ (Bestiaryページ)",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M13",
+      "features": [
+        "F-022"
+      ],
+      "dependsOn": [
+        "M02",
+        "M03",
+        "M05",
+        "M06",
+        "M07",
+        "M08",
+        "M09",
+        "M10",
+        "M11",
+        "M12"
+      ],
+      "approach": "全体を貫く検証を追加し、見つかった矛盾を該当データで修正する。\n\n[AC-F022-001]\n- 実レシピと実設備を順番に動かすGameTestパイプラインを作る(Skeleton回収→Knapping、Scale→Armor、TFC Steel→Dragon Forge→Tier 6 Double Ingot→Anvil→Tool/Armor、卵→成長→ブレス供給)。前工程の出力を次の入力に使い、creative補給しない。\n- さらにRecipeManagerとLootから到達可能性を解析し、全有効Armorと全Dragonsteel装備に入手不能な中間品がないことを確認する。\n\n[AC-F022-002]\n- Harnessのシナリオlibには途中再起動の機能がなく、Harness本体も変更できない。そこでGradle側で2段階のGameTestサーバー実行を構成する。runGameTestServerからfixtureを保存して完全停止し、同じworldで再起動して検証して、結果を同じbuild/test-results/gametest/へXMLで出力する。\n- Forge、熱いDragonsteel、Crucible溶融金属、卵、育成中Dragon、Horn収納、Armor、Bestiary解禁、食料腐敗を対象にする。\n- client再接続とclient/serverの視覚一致はE2Eシナリオの再ログインと撮影で確認する。\n\n[AC-F022-003]\n- 許可リスト(override manifest)と全レシピ列挙を照合する否定テストを行う。RecipeManager照会だけでなく実クラフトメニュー、Dragon Forge、Anvil、Welding、Mold、Loot抽選で不成立を確認する。Vanilla Iron/Netherite/Silver/Sapphire、旧Dragonsteelなどを網羅し、無効化対象外のドラゴン専用レシピが存続することも確かめる。\n\n[AC-F022-004]\n- 2つの独立したoutput dirへrunDataを実行するGradle taskを追加し、全JSONのバイト比較とPNGピクセル比較を行う。結果はbuild/test-results/gametest/のJUnit XMLで出力する。\n- src/generated/resourcesと一致することも確認する。\n- 抽選の再現性は2回実行の比較で確認する。\n- 全ACのtests/acceptance.jsonへの対応と実在を検査し、skipが0件であること、missing textureとmissing translationがないことも確かめる。\n\n判定基準を緩めるのではなく、不整合は該当データを修正する。PROJECT.md、.harness、plan.jsonは変更しない。",
+      "scope": [
+        "build.gradle (2段階GameTest, datagen再現性タスク)",
+        "gametest source (進行パイプライン, 到達可能性, 再起動, 否定テスト, AC対応検査)",
+        "tests/e2e/ (再ログイン, 総合表示)",
+        "tests/acceptance.json",
+        "src/generated/resources/** (統合で発見した不整合の修正のみ)",
+        "src/main/java/**/iaftfc/ (統合で発見した不整合の修正のみ)"
+      ]
+    }
+  ]
+}
