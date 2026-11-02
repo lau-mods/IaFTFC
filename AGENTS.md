@@ -49,3 +49,5 @@
 - 固定版は Minecraft 1.21.1、NeoForge 21.1.248、TFC 4.2.12、IaF CE 2.1.4。版の変更は `PROJECT.md` に基づく検証を伴う。
 - `./gradlew runData` をレシピ、Loot、PNGを含む生成物の唯一の正式 generator とし、出力を `src/generated/resources` に置く。補助的な `tools/` と `scripts/` は作らない。
 - 元 Mod のデータを上書きする場合、`src/test/resources/iaftfc/gametest/override_manifest.json` の許可リストへ対象 ID を追加し、GameTestで実際の上書きと照合する。
+- Dragon構造物の気候選択とCave鉱石選択は `src/main/java/dev/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/dev/iaftfc/mixin/`、検証入口は `src/test/java/dev/iaftfc/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
+- Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。

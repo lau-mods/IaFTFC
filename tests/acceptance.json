@@ -2,9 +2,24 @@
   "gameTests": [
     {"acId":"AC-F001-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"requiredmods"},
     {"acId":"AC-F001-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"onlyallowedoverrides"},
-    {"acId":"AC-F001-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"legacyitemsaveroundtrip"}
+    {"acId":"AC-F001-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"legacyitemsaveroundtrip"},
+    {"acId":"AC-F002-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"climateselection"},
+    {"acId":"AC-F002-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"tfcclimatenoisewithoutchunks"},
+    {"acId":"AC-F002-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"structurefrequency"},
+    {"acId":"AC-F002-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"tfcclimatebalanced"},
+    {"acId":"AC-F002-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"sixdragonstructures"},
+    {"acId":"AC-F002-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonbiomesbeforeplacement"},
+    {"acId":"AC-F003-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"roostterrain"},
+    {"acId":"AC-F003-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"roostboulderground"},
+    {"acId":"AC-F004-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"caveorehostrock"},
+    {"acId":"AC-F004-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"caveoreindependent"},
+    {"acId":"AC-F004-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"cavepreservesblockentities"}
   ],
   "e2e": [
-    {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"}
+    {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"},
+    {"acId":"AC-F002-003","scenario":"tests/e2e/dragon-structures.mjs"},
+    {"acId":"AC-F003-001","scenario":"tests/e2e/dragon-structures.mjs"},
+    {"acId":"AC-F003-002","scenario":"tests/e2e/dragon-structures.mjs"},
+    {"acId":"AC-F004-003","scenario":"tests/e2e/dragon-structures.mjs"}
   ]
 }

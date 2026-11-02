@@ -1,4 +1,11 @@
 {
-  "allowed_overrides": [],
+  "allowed_overrides": [
+    "iceandfire:tags/worldgen/biome/structure_gen/fire_roost.json",
+    "iceandfire:tags/worldgen/biome/structure_gen/fire_cave.json",
+    "iceandfire:tags/worldgen/biome/structure_gen/ice_roost.json",
+    "iceandfire:tags/worldgen/biome/structure_gen/ice_cave.json",
+    "iceandfire:tags/worldgen/biome/structure_gen/lightning_roost.json",
+    "iceandfire:tags/worldgen/biome/structure_gen/lightning_cave.json"
+  ],
   "disabled_recipes": []
 }

@@ -13,6 +13,7 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.mojang.logging.LogUtils;
+import dev.iaftfc.worldgen.DragonBiomeTags;
 
 @Mod(IaFTFC.MOD_ID)
 public final class IaFTFC {
@@ -42,6 +43,8 @@ public final class IaFTFC {
     }
 
     private void gatherData(GatherDataEvent event) {
+        event.getGenerator().addProvider(event.includeServer(), new DragonBiomeTags(event.getGenerator().getPackOutput(),
+            event.getLookupProvider(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeClient(), new LanguageProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us") {
             @Override
             protected void addTranslations() {
