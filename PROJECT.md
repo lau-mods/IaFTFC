@@ -13,7 +13,7 @@ Java: 21
 
 ## Purpose
 
-`iaftfc` は、Ice and Fire: Community Edition 2.1.4 のドラゴン関連コンテンツを TerraFirmaCraft 4.2.12 の世界生成、鉱物、製錬、鍛造、食料、重量および暦へ接続する NeoForge アドオンである。既存の IaFTFC 実装・仕様・アセットは一切引き継がず、`iaftfc` という名称と Mod ID だけを使用する。必須のゲーム内依存関係は `tfc` および `iceandfire` とする。IaF CE がそれ自体の動作に必要とする Jupiter / Uranus 等は IaF CE の既存依存関係に従って配置し、本アドオン独自の前提 Mod にはしない。TFC Overdims、JEI、EMI、Jade 等への依存は設けない。
+`iaftfc` は、Ice and Fire: Community Edition 2.1.4 のドラゴン関連コンテンツを TerraFirmaCraft 4.2.12 の世界生成、鉱物、製錬、鍛造、食料、重量および暦へ接続する NeoForge アドオンである。必須のゲーム内依存関係は `tfc` および `iceandfire` とする。IaF CE がそれ自体の動作に必要とする Jupiter / Uranus 等は IaF CE の既存依存関係に従って配置し、本アドオン独自の前提 Mod にはしない。TFC Overdims、JEI、EMI、Jade 等への依存は設けない。
 
 本書は実装の唯一の製品仕様である。**指示のないゲームデザイン上の変更を禁止する**。元 Mod の挙動を維持する箇所は、指定したリリースに含まれるクラス・データを規範とし、その仕組みに対する互換差分だけを実装する。実装言語、Mixin とイベントの選択などの内部構造は任意とするが、登録 ID、入力、出力、データ、確率、温度、進行段階、表示、セーブ結果および以下の AC は一致しなければならない。
 
@@ -634,7 +634,7 @@ tail: ["   ","  #","## "]
 
 新規DragonArmorMaterialは`name={steel,black_steel,red_steel,blue_steel}`、`fireProof=false`、`dragonSteel=false`とし、Protectionのみ表の値とする。既存3属性Dragonsteelは元IaFの`dragonSteel=true`を維持する。IaFの`DragonArmorFeatureRenderer.getArmorTexture`はnamespaceを`iceandfire`へ固定するので、新規4素材の本体表示用Overlayは**`assets/iceandfire/textures/entity/dragon_armor/armor_<part>_<metal>.png`** に追加する。既存同名ファイルは上書きしない。新規ItemのModelは**`assets/iaftfc/items/dragonarmor_<metal>_<part>.json`**および`assets/iaftfc/models/item/dragonarmor_<metal>_<part>.json`に、画像は`assets/iaftfc/textures/item/dragonarmor_<metal>_<part>.png`に置く。IaF標準`DragonArmorItem.getDescriptionId()`が`iceandfire`名前空間へ固定されているため、新規16Itemは説明キーを`item.iaftfc.dragonarmor_<metal>_<part>`に上書きし、部位名と各素材名を含むローカライズを登録する。
 
-新規4素材のDragonArmorItemはIaF既存のDragon Armorスロット、Synced Data、Rendererに完全互換とする。新規4素材×4部位のItem spriteとドラゴン本体表示overlayを用意する。素材ごとの色はSteel=`#A7ADB6`、Black Steel=`#3B414B`、Red Steel=`#B13A46`、Blue Steel=`#397DAE`とする。**Assetの生成方法**は、IaFの同部位Iron Dragon Armor item spriteおよびentity overlayを色変換する方式に固定する。原画像の各画素alphaは保持し、RGBは `gray=(77R+150G+29B+128)>>8`、`factor=(115+140*gray/255)/255` とし、各出力channelを `round(baseChannel*factor)` にして0～255へclampする。完全透明画素はRGBAすべて0。ソース画像の解像度・UV・透明領域・部位別shapeは変更しない。生成物は静的PNGとしてリポジトリへ含め、実行時の動的生成にしない。
+新規4素材のDragonArmorItemはIaF既存のDragon Armorスロット、Synced Data、Rendererに完全互換とする。新規4素材×4部位のItem spriteとドラゴン本体表示overlayを用意する。
 
 #### Acceptance Criteria
 
@@ -680,7 +680,7 @@ Action:
 4素材×4部位のItem sprite・Dragon overlayをスクリーンショットで検査する。
 
 Expected Result:
-定義したRGBA変換の画像が正しく描画され、missing texture、UVずれ、部位不一致がない。
+missing texture、UVずれ、部位不一致がない。
 
 ### F-015: Egg孵化とDragon成長
 
@@ -973,10 +973,10 @@ Preconditions:
 同一TFC/IaF/NeoForgeバージョン、同一SourceおよびWorld Seedの2つの独立Workspaceを用意する。
 
 Action:
-Data Generationを各々実行し、生成されたレシピ、タグ、Loot、モデルJSON、テクスチャ、自然生成選択を比較する。またすべてのACのGameTest/E2E対応を検査する。
+Data Generationを各々実行し、生成されたレシピ、タグ、Loot、モデルJSON、自然生成選択を比較する。またすべてのACのGameTest/E2E対応を検査する。
 
 Expected Result:
-生成物はバイト列またはPNGピクセル単位で一致し、抽選出力は同座標・同シードで一致する。全ACが `tests/acceptance.json` に存在し、検証不能のAC、単なるskip、意図しないmissing textureを残さない。
+生成物はバイト列単位で一致し、抽選出力は同座標・同シードで一致する。全ACが `tests/acceptance.json` に存在し、検証不能のAC、単なるskip、意図しないmissing textureを残さない。
 
 ## Global Requirements
 
@@ -1019,14 +1019,14 @@ TFCのItem Size/Weightを、次の同用途TFCカテゴリと同じ仕様で付�
 - 主要登録IDは各Feature表に従う。データパスはNeoForge 1.21.1に従い`data/iaftfc/recipe/`、`data/iaftfc/tfc/`、`data/iaftfc/tags/`、`assets/iaftfc/`、元IaF上書きは`data/iceandfire/recipe/`、`data/iceandfire/loot_table/`などの正規パスを使用する。内部Java package名は`iaftfc`を含む固有のものとし、元IaFTFCのコードを転用しない。
 - 金属タグは少なくとも `c:ingots/<metal>`、`c:double_ingots/<metal>`、`c:sheets/<metal>`、`c:double_sheets/<metal>`、`c:rods/<metal>` と各共通上位タグ、TFCの必要な金属/加熱タグへ追加する。3金属をまとめるタグ `iaftfc:dragonsteel_ingots` は新規正規Ingot3種**だけ**を含め、IaF旧Ingotを含めない。既存のTFC Red/Blue/Black Steelタグや別Modの同名アイテムは再定義しない。
 - GemはTFC Gem 9種類のItem IDを参照する。Rockは`basalt,quartzite,diorite`だけをCave用に指定する。動的なRock判定を経由して他のRockIDのGem鉱石を生成しない。
-- Resource Packは元IaFやTFCの既存Assetを壊さない。新規装備PNGはF-014のピクセル演算で固定生成し、生成Scriptと生成済み画像を同梱する。Texture Atlas、モデル、表示用言語ファイルは`ja_jp`、`en_us`の双方を用意し、Missing Translationが残らないようにする。IaFのライセンスと再配布条件を遵守し、参照元をリポジトリの著作権表示に記載する。
+- Resource Packは元IaFやTFCの既存Assetを壊さない。Texture Atlas、モデル、表示用言語ファイルは`ja_jp`、`en_us`の双方を用意し、Missing Translationが残らないようにする。IaFのライセンスと再配布条件を遵守し、参照元をリポジトリの著作権表示に記載する。
 
 ### GR-005: Lootとデータ生成
 
 - Loot変換の正本はF-006と本GR-005である。変換元の正本はIaF CE 2.1.4のJARに格納された9Chest JSONであり、生成スクリプトは当該固定入力から生成する。旧IaFTFCの仕様書や外部Markdownを必要としない。別Mod向けルールは本アドオンに実装しない。
 - データ生成時に元IaF JARから9Chestの元JSONを取り出して読込み、対象のentryだけをカテゴリ単位に翻訳する。元pool構造、rolls、bonus_rolls、weight、conditions、count provider、元IaF固有アイテムを保存する。元JSONが固定版から異なる場合は失敗として停止し、何も黙って補間しない。
 - 必須の機械的バリデーション：9テーブルの存在、元と同一pool数、同一rolls/bonus_rolls、親entry数・weight、count provider、条件、NuggetのSmall Ore化、IngotのIngot化、属性Gem/金属だけの固定変換、非属性Gemの共通表、装備部位維持、Tool Family内重み等価、2:1割合、Player装備のTier上限、Red/Blue Steel Lootなし、Black Steel完成装備なし、Graphite Powderなし、Bow/Crossbow分離、Enchant未完成品不可、1entryで二重set_countなし、IaF固有Loot保存。
-- データ生成とPNG色変換は決定論的であること。生成される識別子・確率・配列順序は安定させ、Git差分に乱数、ファイル時刻、実行環境依存値を含めない。
+- データ生成は決定論的であること。生成される識別子・確率・配列順序は安定させ、Git差分に乱数、ファイル時刻、実行環境依存値を含めない。
 
 ### GR-006: ワールド生成と他Modへの影響
 
@@ -1070,19 +1070,18 @@ TFCのItem Size/Weightを、次の同用途TFCカテゴリと同じ仕様で付�
 ### GR-008: クライアント、セーブ、後方互換
 
 - Modはサーバー側判定を正本とする。温度、Recipe、Dragon Age、卵年齢、DragonのOwner、Dragon Armor装着・Protection、Structure配置、Loot抽選はサーバーで確定し、clientへ必要な状態だけ同期する。描画専用クラスをDedicated Serverへロードしない。
-- 旧IaFの持ち物/ドラゴン/卵/Bestiary/Forge設備を含むセーブをクラッシュさせずロードする。IaF旧IDを欠番にしない。無効化したItemのセーブ保持は許すが、新規取得ルート・能力は本書どおりに制限する。IaFTFC過去版のセーブ・独自データの移行は実装せず、過去の実装アセットを流用しない。
+- 旧IaFの持ち物/ドラゴン/卵/Bestiary/Forge設備を含むセーブをクラッシュさせずロードする。IaF旧IDを欠番にしない。無効化したItemのセーブ保持は許すが、新規取得ルート・能力は本書どおりに制限する。
 - IaFのDragonsteel Toolの耐久・特殊能力やプレイヤー防具の属性耐性は元実装を参照する。新しいDragonsteel TFC金属、Weapon/Armorの製作経路を作るだけで、元クラスを二重登録しない。
 - ローカライズの英語・日本語、Model/Texture、Loot、Recipe、GameTest、E2Eの各仕様を同時に完成させる。未実装ACを省略する、Testを常時skipする、テストの成功条件を成果に合わせて緩める、GameTest/E2Eの結果を偽造することは禁止する。
 
 ## Constraints
 
 - **対象機能**：IaF CEのFire/Ice/Lightning Dragon、その卵、自然死骸、Roost/Cave、Dragon Forge、Dragonsteel、Dragonbone/Dragonscale、防具、Manuscript/Bestiary、Dragon Meal/Flesh/Stew、属性Lily、ドラゴン用ユーティリティ、およびそれらの最低限の基盤のみ。その他のIaF Mob・構造物・装備などには手を加えない。
-- **名前**：以前のIaFTFCから引き継ぐのは `iaftfc` の名前・Mod IDのみであり、既存のソースコード、仕様、アセット、生成成果物を流用しない。
 - **バージョン**：上記固定版を正本とし、将来のIaF/TFCの変更は本書に基づき互換性を再検証してから採用する。必要依存以外のModのサポートを暗黙に要求しない。
 - **追加コンテンツ**：Dragonsteelは3属性の金属加工、Forge、TFC用金属フォームおよびIaF既存の5Tool/4PlayerArmorに限定する。未存在のTFC専用Tool、未指定の魔法設備、新鉱石種、新ドラゴン種、独自ゲームプレイ機能を追加しない。
 - **進行**：Tier 7加工・元素別Dragon Forgeの要件を緩和しない。異属性混合や旧Vanilla生産経路を復活させない。Lootの変換で高Tier装備を直接報酬に追加しない。
 - **ワールド**：TFC世界生成と元IaF世界生成を尊重し、標準のDragon構造物頻度・数・素材ドロップ量を変更しない。TFCの他環境を無条件にドラゴン生成可能としない。
-- **表示**：既存IaFのアニメーションや3D形状、TFC GUI操作感を保持し、新規アセットは本文の変換手順だけを使用する。解像度変更による品質差を発生させない。
+- **表示**：解像度変更による品質差を発生させない。
 - **実装手段**：上流API/タグ/データパックによる解決を優先する。Mixinが必要な場合は対象メソッドの特定の呼び出しを狭く変更し、関連しない元IaF/TFC処理に副作用を与えない。
 - **ライセンス**：IaF CEとTFCそれぞれのライセンスを順守し、リリースのAssetsや参考ソースを使用する場合は許諾条件に従う。
 
