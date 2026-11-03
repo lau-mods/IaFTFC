@@ -18,6 +18,8 @@ import dev.iaftfc.datagen.DragonLoot;
 import dev.iaftfc.loot.EnchantEquipment;
 import dev.iaftfc.metal.Dragonsteel;
 import dev.iaftfc.datagen.DragonsteelData;
+import dev.iaftfc.datagen.KnappingData;
+import dev.iaftfc.knapping.DragonboneParts;
 
 @Mod(IaFTFC.MOD_ID)
 public final class IaFTFC {
@@ -28,6 +30,7 @@ public final class IaFTFC {
         modBus.addListener(this::gatherData);
         EnchantEquipment.FUNCTIONS.register(modBus);
         Dragonsteel.ITEMS.register(modBus);
+        DragonboneParts.ITEMS.register(modBus);
         Dragonsteel.BLOCKS.register(modBus);
         Dragonsteel.FLUIDS.register(modBus);
         Dragonsteel.FLUID_TYPES.register(modBus);
@@ -55,12 +58,18 @@ public final class IaFTFC {
     private void gatherData(GatherDataEvent event) {
         event.getGenerator().addProvider(event.includeServer(), new DragonLoot(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonsteelData(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(event.includeServer(), new KnappingData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonBiomeTags(event.getGenerator().getPackOutput(),
             event.getLookupProvider(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeClient(), new LanguageProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us") {
             @Override
             protected void addTranslations() {
                 add("fml.menu.mods.info.description.iaftfc", "Connects Ice and Fire dragons with TerraFirmaCraft.");
+                String[] parts = {"Sword Blade", "Pickaxe Head", "Axe Head", "Shovel Head", "Hoe Head"};
+                for (int index = 0; index < DragonboneParts.TOOLS.length; index++) {
+                    add("item.iaftfc.dragonbone." + DragonboneParts.PARTS[index],
+                        "Dragonbone " + parts[index]);
+                }
                 for (String metal : Dragonsteel.METALS) {
                     String name = switch (metal) {
                         case "dragonsteel_fire" -> "Fire Dragonsteel";
@@ -85,6 +94,11 @@ public final class IaFTFC {
             @Override
             protected void addTranslations() {
                 add("fml.menu.mods.info.description.iaftfc", "Ice and Fire のドラゴンを TerraFirmaCraft に接続します。");
+                String[] parts = {"剣刃", "ツルハシ頭部", "斧頭", "シャベル頭部", "クワ頭部"};
+                for (int index = 0; index < DragonboneParts.TOOLS.length; index++) {
+                    add("item.iaftfc.dragonbone." + DragonboneParts.PARTS[index],
+                        "ドラゴンの骨の" + parts[index]);
+                }
                 for (String metal : Dragonsteel.METALS) {
                     String name = switch (metal) {
                         case "dragonsteel_fire" -> "炎のドラゴンスチール";

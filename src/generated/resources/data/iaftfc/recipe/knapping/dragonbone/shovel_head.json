@@ -1,0 +1,18 @@
+{
+  "type": "tfc:knapping",
+  "default_on": false,
+  "ingredient": {
+    "item": "iceandfire:dragonbone"
+  },
+  "knapping_type": "iaftfc:dragonbone",
+  "pattern": [
+    "###  ",
+    "###  ",
+    "###  ",
+    "###  ",
+    " #   "
+  ],
+  "result": {
+    "id": "iaftfc:dragonbone/shovel_head"
+  }
+}

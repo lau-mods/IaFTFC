@@ -1,0 +1,17 @@
+{
+  "type": "tfc:knapping",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_bronze"
+  },
+  "knapping_type": "iaftfc:dragonscale",
+  "pattern": [
+    "#   #",
+    "#####",
+    "#####",
+    "#####",
+    "#####"
+  ],
+  "result": {
+    "id": "iceandfire:armor_bronze_chestplate"
+  }
+}

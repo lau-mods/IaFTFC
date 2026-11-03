@@ -1,0 +1,17 @@
+{
+  "type": "tfc:knapping",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_electric"
+  },
+  "knapping_type": "iaftfc:dragonscale",
+  "pattern": [
+    "#   #",
+    "#####",
+    "#####",
+    "#####",
+    "#####"
+  ],
+  "result": {
+    "id": "iceandfire:armor_electric_chestplate"
+  }
+}

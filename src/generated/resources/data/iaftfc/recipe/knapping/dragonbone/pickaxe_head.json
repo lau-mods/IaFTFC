@@ -1,0 +1,18 @@
+{
+  "type": "tfc:knapping",
+  "default_on": true,
+  "ingredient": {
+    "item": "iceandfire:dragonbone"
+  },
+  "knapping_type": "iaftfc:dragonbone",
+  "pattern": [
+    "#####",
+    "#   #",
+    " ### ",
+    "#####",
+    "     "
+  ],
+  "result": {
+    "id": "iaftfc:dragonbone/pickaxe_head"
+  }
+}
