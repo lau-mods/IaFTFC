@@ -59,3 +59,4 @@
 - Dragonbone部品の登録は `knapping/DragonboneParts`、Knapping Type・レシピ・旧製法の無効化・表示素材の生成は `datagen/KnappingData` を入口とする。生成物は `./gradlew runData` で更新する。
 - DragonboneとDragonscaleのメニュー処理、組み立て、旧レシピの検証入口は `gametest/KnappingGameTests`、描画確認は `tests/e2e/knapping.mjs` と `tests/e2e/scale-armor.mjs` とする。
 - Dragon Armorの登録は `dragonarmor/DragonArmor`、レシピ・レシピ無効化・TFC item_size・モデルとitems JSONの生成は `datagen/DragonArmorData` とする。PNGは `src/main/resources/assets/iaftfc/textures/item/` と `src/main/resources/assets/iceandfire/textures/entity/dragon_armor/` に置く。装着と防御制限は専用Mixin、検証入口は `gametest/DragonArmorGameTests` と `tests/e2e/dragon-armor.mjs` とする。
+- 生きたDragonのブレスによるTFC地形変換は `mixin/DragonBreathTerrainMixin`、Forge・Entity Damage・griefing境界の検証は `gametest/DragonBreathGameTests` を入口とする。TFCの既存カテゴリタグを参照し、IaFのWorldEventと破壊判定は維持する。

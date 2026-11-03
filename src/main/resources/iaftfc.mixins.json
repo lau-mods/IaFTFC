@@ -11,6 +11,7 @@
     "StructureManagerAccessor",
     "DragonArmorSlotMixin",
     "DragonArmorProtectionMixin",
+    "DragonBreathTerrainMixin",
     "ElementalFlowerSoilMixin",
     "GameTestWorldPresetMixin"
   ],

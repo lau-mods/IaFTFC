@@ -62,7 +62,10 @@
     {"acId":"AC-F013-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonscalearmorlegacyroutes"},
     {"acId":"AC-F014-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"newdragonarmor"},
     {"acId":"AC-F014-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"existingdragonarmor"},
-    {"acId":"AC-F014-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"disableddragonarmor"}
+    {"acId":"AC-F014-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"disableddragonarmor"},
+    {"acId":"AC-F020-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"breathconvertstfcterrain"},
+    {"acId":"AC-F020-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:dragon_forge","name":"breathfeedsforgeanddamagesentity"},
+    {"acId":"AC-F020-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"griefingkeepsiafprotection"}
   ],
   "e2e": [
     {"acId":"AC-F014-001","scenario":"tests/e2e/dragon-armor.mjs"},
