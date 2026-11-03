@@ -24,7 +24,7 @@ public final class DragonForgeGameTests {
     private static final String[] ELEMENTS = {"fire", "ice", "lightning"};
     private static final String[] STEELS = {"red_steel", "blue_steel", "black_steel"};
 
-    @GameTest(template = "empty")
+    @GameTest(template = "dragon_forge")
     public static void forgeRecipesAndAssembly(GameTestHelper helper) {
         for (int index = 0; index < ELEMENTS.length; index++) {
             String element = ELEMENTS[index];
@@ -63,17 +63,17 @@ public final class DragonForgeGameTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty", timeoutTicks = 120)
+    @GameTest(template = "dragon_forge", timeoutTicks = 120)
     public static void forgeFireDragonsteelIngot(GameTestHelper helper) {
         forgeDragonsteelIngot(helper, 0);
     }
 
-    @GameTest(template = "empty", timeoutTicks = 120)
+    @GameTest(template = "dragon_forge", timeoutTicks = 120)
     public static void forgeIceDragonsteelIngot(GameTestHelper helper) {
         forgeDragonsteelIngot(helper, 1);
     }
 
-    @GameTest(template = "empty", timeoutTicks = 120)
+    @GameTest(template = "dragon_forge", timeoutTicks = 120)
     public static void forgeLightningDragonsteelIngot(GameTestHelper helper) {
         forgeDragonsteelIngot(helper, 2);
     }
@@ -113,7 +113,7 @@ public final class DragonForgeGameTests {
         });
     }
 
-    @GameTest(template = "empty", timeoutTicks = 120)
+    @GameTest(template = "dragon_forge", timeoutTicks = 120)
     public static void forgeBlood(GameTestHelper helper) {
         for (int index = 0; index < ELEMENTS.length; index++) {
             buildForge(helper, index);
@@ -147,17 +147,17 @@ public final class DragonForgeGameTests {
         });
     }
 
-    @GameTest(template = "empty", timeoutTicks = 200)
+    @GameTest(template = "dragon_forge", timeoutTicks = 200)
     public static void fireDragonBreathFeedsForge(GameTestHelper helper) {
         dragonBreathFeedsForge(helper, 0);
     }
 
-    @GameTest(template = "empty", timeoutTicks = 200)
+    @GameTest(template = "dragon_forge", timeoutTicks = 200)
     public static void iceDragonBreathFeedsForge(GameTestHelper helper) {
         dragonBreathFeedsForge(helper, 1);
     }
 
-    @GameTest(template = "empty", timeoutTicks = 200)
+    @GameTest(template = "dragon_forge", timeoutTicks = 200)
     public static void lightningDragonBreathFeedsForge(GameTestHelper helper) {
         dragonBreathFeedsForge(helper, 2);
     }
@@ -172,28 +172,32 @@ public final class DragonForgeGameTests {
                 ResourceLocation.parse("iceandfire:" + ELEMENTS[index] + "_dragon")).create(helper.getLevel());
             dragon.setAgeInDays(30);
             dragon.setTame(true, false);
-            BlockPos dragonPos = helper.absolutePos(new BlockPos(3, 1, -4));
+            // Keep the breath path fixed while IaF advances the breath timers normally.
+            dragon.setNoAi(true);
+            dragon.setNoGravity(true);
+            BlockPos dragonPos = helper.absolutePos(new BlockPos(3, 1, 6));
             dragon.setPos(dragonPos.getX() + 0.5, dragonPos.getY(), dragonPos.getZ() + 0.5);
             helper.getLevel().addFreshEntity(dragon);
-            BlockPos pos = helper.absolutePos(new BlockPos(3, 3, 2));
+            BlockPos pos = helper.absolutePos(new BlockPos(3, 3, 12));
             DragonForgeInputBlockEntity forgeInput = inputAt(helper, 3);
             helper.assertTrue(forgeInput.isAssembled(), "Forge input is not assembled");
             DragonForgeInputBlockEntity.tick(helper.getLevel(), pos,
                 helper.getLevel().getBlockState(pos), forgeInput);
             helper.assertTrue(pos.equals(dragon.burningTarget),
                 "Forge input did not lure " + ELEMENTS[index] + " dragon");
+            helper.assertTrue(dragon.canPositionBeSeen(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5),
+                "Dragon cannot see the forge input: " + ELEMENTS[index]);
             dragon.updateBurnTarget();
             helper.assertTrue(dragon.isBreathingFire(),
                 "Lured " + ELEMENTS[index] + " dragon cannot start its breath");
             helper.succeedWhen(() -> {
                 DragonForgeInputBlockEntity.tick(helper.getLevel(), pos,
                     helper.getLevel().getBlockState(pos), forgeInput);
-                dragon.setBreathingFire(true);
-                dragon.fireBreathTicks = 21;
-                dragon.burnProgress = 40;
                 dragon.updateBurnTarget();
                 helper.assertTrue(forgeCore.isBurning(),
-                    "Dragon did not power " + ELEMENTS[index] + " forge through its breath");
+                    "Dragon did not power " + ELEMENTS[index] + " forge through its breath"
+                        + " (breath ticks=" + dragon.fireBreathTicks + ", progress=" + dragon.burnProgress
+                        + ", target=" + dragon.burningTarget + ", position=" + dragon.position() + ")");
             });
         });
     }
@@ -204,7 +208,7 @@ public final class DragonForgeGameTests {
 
     private static void buildForge(GameTestHelper helper, int index, int centerX) {
         String element = ELEMENTS[index];
-        BlockPos center = new BlockPos(centerX, 3, 3);
+        BlockPos center = new BlockPos(centerX, 3, 13);
         for (int dy = -1; dy <= 1; dy++) {
             for (int dx = -1; dx <= 1; dx++) {
                 for (int dz = -1; dz <= 1; dz++) {
@@ -230,7 +234,7 @@ public final class DragonForgeGameTests {
     }
 
     private static DragonForgeBlockEntity coreAt(GameTestHelper helper, int centerX) {
-        BlockPos pos = new BlockPos(centerX, 3, 3);
+        BlockPos pos = new BlockPos(centerX, 3, 13);
         var entity = helper.getBlockEntity(pos);
         helper.assertTrue(entity instanceof DragonForgeBlockEntity,
             "Expected Forge core at " + centerX + " but found " + entity.getClass().getSimpleName());
@@ -242,7 +246,7 @@ public final class DragonForgeGameTests {
     }
 
     private static DragonForgeInputBlockEntity inputAt(GameTestHelper helper, int centerX) {
-        return (DragonForgeInputBlockEntity) helper.getBlockEntity(new BlockPos(centerX, 3, 2));
+        return (DragonForgeInputBlockEntity) helper.getBlockEntity(new BlockPos(centerX, 3, 12));
     }
 
     private static DragonForgeRecipe forgeRecipe(GameTestHelper helper, String name) {
