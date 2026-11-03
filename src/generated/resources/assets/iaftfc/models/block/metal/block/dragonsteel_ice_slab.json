@@ -1,0 +1,8 @@
+{
+  "parent": "block/slab",
+  "textures": {
+    "bottom": "iaftfc:block/metal/block/dragonsteel_ice",
+    "side": "iaftfc:block/metal/block/dragonsteel_ice",
+    "top": "iaftfc:block/metal/block/dragonsteel_ice"
+  }
+}

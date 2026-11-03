@@ -1,5 +1,9 @@
 {
   "allowed_overrides": [
+    "minecraft:tags/block/slabs.json",
+    "minecraft:tags/block/stairs.json",
+    "minecraft:tags/item/slabs.json",
+    "minecraft:tags/item/stairs.json",
     "iceandfire:tags/worldgen/biome/structure_gen/fire_roost.json",
     "iceandfire:tags/worldgen/biome/structure_gen/fire_cave.json",
     "iceandfire:tags/worldgen/biome/structure_gen/ice_roost.json",

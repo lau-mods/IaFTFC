@@ -10,6 +10,10 @@ await scenario(async ({ clients }) => {
     const x = (index - 1) * 3;
     command(client, `setblock ${x} 80 3 iaftfc:metal/block/${metal}`);
     command(client, `setblock ${x} 80 5 iaftfc:metal/anvil/${metal}`);
+    command(client, `setblock ${x} 80 1 iaftfc:metal/block/${metal}_slab[type=bottom]`);
+    command(client, `setblock ${x + 1} 80 1 iaftfc:metal/block/${metal}_slab[type=top]`);
+    command(client, `setblock ${x} 80 0 iaftfc:metal/block/${metal}_stairs[facing=north,half=bottom]`);
+    command(client, `setblock ${x + 1} 80 0 iaftfc:metal/block/${metal}_stairs[facing=north,half=top]`);
     for (const [dx, dz] of [[-1, 0], [1, 0], [0, -1], [0, 1]]) {
       command(client, `setblock ${x + dx} 80 ${7 + dz} minecraft:glass`);
     }
@@ -52,6 +56,13 @@ await scenario(async ({ clients }) => {
   ]) {
     captureHeat(part, metal, 1700, `${part}-heated`);
   }
+  for (const [slot, metal] of ['dragonsteel_fire', 'dragonsteel_ice', 'dragonsteel_lightning'].entries()) {
+    command(client, `item replace entity @s hotbar.${slot} with iaftfc:bucket/metal/${metal}`);
+  }
+  mct(client, 'input', 'key', 'press', 'e');
+  mct(client, 'gui', 'wait-open', '--timeout', '15');
+  screenshot(client, 'AC-F008-001', 'three-molten-bucket-colors');
+  mct(client, 'gui', 'close');
   command(client, 'item replace entity @s weapon.mainhand with minecraft:air');
   await camera(client, { x: -2.5, y: 81.6, z: 3, yaw: 0, pitch: 15 });
   mct(client, 'block', 'interact', '-3', '80', '5');

@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200,
+  "heat_capacity": 2.14285725,
+  "ingredient": {
+    "item": "iaftfc:metal/block/dragonsteel_fire_stairs"
+  },
+  "welding_temperature": 1600
+}
