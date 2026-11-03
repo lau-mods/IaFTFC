@@ -14,6 +14,8 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.mojang.logging.LogUtils;
 import net.claustra01.iaftfc.worldgen.DragonBiomeTags;
+import net.claustra01.iaftfc.worldgen.ElementalPlacements;
+import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.DragonLoot;
 import net.claustra01.iaftfc.loot.EnchantEquipment;
 import net.claustra01.iaftfc.metal.Dragonsteel;
@@ -38,6 +40,7 @@ public final class IaFTFC {
         Dragonsteel.BLOCKS.register(modBus);
         Dragonsteel.FLUIDS.register(modBus);
         Dragonsteel.FLUID_TYPES.register(modBus);
+        ElementalPlacements.TYPES.register(modBus);
         modBus.addListener(Dragonsteel::addAnvilBlocks);
         modBus.addListener(this::registerGameTests);
     }
@@ -63,6 +66,7 @@ public final class IaFTFC {
         event.getGenerator().addProvider(event.includeServer(), new DragonLoot(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonsteelData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new KnappingData(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(event.includeServer(), new ElementalWorldgenData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer() || event.includeClient(),
             new DragonArmorData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonBiomeTags(event.getGenerator().getPackOutput(),

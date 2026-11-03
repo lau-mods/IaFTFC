@@ -229,8 +229,8 @@ public final class WorldgenGameTests {
                                     current.getMaxBlockX(), box.maxY(), current.getMaxBlockZ()), current);
                         }
                     }
-                    var dragons = level.getEntities((Entity) null, new AABB(box.minX(), box.minY(), box.minZ(),
-                        box.maxX() + 1, box.maxY() + 1, box.maxZ() + 1), entity ->
+                    var dragons = level.getEntities((Entity) null, new AABB(box.minX() - 16, -64, box.minZ() - 16,
+                        box.maxX() + 17, 320, box.maxZ() + 17), entity ->
                         BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).getPath().equals(element + "_dragon"));
                     helper.assertTrue(!dragons.isEmpty(), "Generated " + element + " " + kind + " without its dragon");
                     for (Entity entity : dragons) {

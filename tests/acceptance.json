@@ -14,6 +14,12 @@
     {"acId":"AC-F004-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"caveorehostrock"},
     {"acId":"AC-F004-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"caveoreindependent"},
     {"acId":"AC-F004-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"cavepreservesblockentities"},
+    {"acId":"AC-F005-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"silversapphireveinsandrecipes"},
+    {"acId":"AC-F017-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"lilyclimategroundandstew"},
+    {"acId":"AC-F017-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"lilyfeatureplacesontfcsoil"},
+    {"acId":"AC-F021-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"skeletonclimateandloot"},
+    {"acId":"AC-F021-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"skeletonfeaturesuppliesbone"},
+    {"acId":"AC-F021-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonboneknapping"},
     {"acId":"AC-F006-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"chestast"},
     {"acId":"AC-F006-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"profiles"},
     {"acId":"AC-F006-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"toolfamilies"},
@@ -72,6 +78,8 @@
     {"acId":"AC-F009-002","scenario":"tests/e2e/dragon-forge.mjs"},
     {"acId":"AC-F012-001","scenario":"tests/e2e/knapping.mjs"},
     {"acId":"AC-F013-001","scenario":"tests/e2e/knapping.mjs"},
-    {"acId":"AC-F013-002","scenario":"tests/e2e/scale-armor.mjs"}
+    {"acId":"AC-F013-002","scenario":"tests/e2e/scale-armor.mjs"},
+    {"acId":"AC-F017-001","scenario":"tests/e2e/elemental-worldgen.mjs"},
+    {"acId":"AC-F021-001","scenario":"tests/e2e/elemental-worldgen.mjs"}
   ]
 }

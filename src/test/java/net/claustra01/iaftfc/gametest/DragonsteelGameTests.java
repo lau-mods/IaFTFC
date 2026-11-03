@@ -48,6 +48,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SlabBlock;
 import net.minecraft.world.level.block.StairBlock;
 import net.minecraft.world.level.block.state.properties.SlabType;
@@ -215,14 +216,18 @@ public final class DragonsteelGameTests {
     @GameTest(template = "empty", timeoutTicks = 4700)
     public static void charcoalForgeMelting(GameTestHelper helper) {
         int[] positions = {2, 5, 8, 11, 14};
+        int forgeY = 250;
         String[] metals = {Dragonsteel.METALS[0], Dragonsteel.METALS[1], Dragonsteel.METALS[2],
             Dragonsteel.METALS[0], Dragonsteel.METALS[1]};
         for (int index = 0; index < positions.length; index++) {
             int x = positions[index];
-            BlockPos forgePos = new BlockPos(x, 2, 3);
+            BlockPos forgePos = new BlockPos(x, forgeY, 3);
+            for (int clearX = -1; clearX <= 1; clearX++) for (int clearZ = -1; clearZ <= 1; clearZ++)
+                for (int clearY = 0; clearY <= 4; clearY++)
+                    helper.setBlock(forgePos.offset(clearX, clearY, clearZ), Blocks.AIR);
             for (Direction direction : List.of(Direction.NORTH, Direction.EAST, Direction.SOUTH, Direction.WEST, Direction.DOWN)) {
                 helper.setBlock(forgePos.relative(direction),
-                    BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:rock/raw/basalt")));
+                    BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:fire_bricks")));
             }
             helper.setBlock(forgePos, BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:charcoal_forge")));
             helper.setBlock(forgePos.above(), BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:crucible")));
@@ -238,7 +243,7 @@ public final class DragonsteelGameTests {
             helper.assertTrue(forge.light(helper.getLevel().getBlockState(helper.absolutePos(forgePos))),
                 "Charcoal Forge could not be lit");
             if (index < 4) {
-                BlockPos bellowsPos = new BlockPos(x + 1, 3, 3);
+                BlockPos bellowsPos = new BlockPos(x + 1, forgeY + 1, 3);
                 helper.setBlock(bellowsPos, BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:bellows"))
                     .defaultBlockState().setValue(BellowsBlock.FACING, Direction.WEST));
                 BellowsBlockEntity bellows = (BellowsBlockEntity) helper.getBlockEntity(bellowsPos);
@@ -248,8 +253,8 @@ public final class DragonsteelGameTests {
         helper.runAfterDelay(2400, () -> {
             for (int index = 0; index < positions.length; index++) {
                 int x = positions[index];
-                CharcoalForgeBlockEntity forge = (CharcoalForgeBlockEntity) helper.getBlockEntity(new BlockPos(x, 2, 3));
-                CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(x, 3, 3));
+                CharcoalForgeBlockEntity forge = (CharcoalForgeBlockEntity) helper.getBlockEntity(new BlockPos(x, forgeY, 3));
+                CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(x, forgeY + 1, 3));
                 if (index < 3) {
                     helper.assertTrue(forge.getTemperature() > 2000 && crucible.getTemperature() >= 2000,
                         "Coal plus Bellows did not heat Crucible above melting point: forge="
@@ -277,12 +282,12 @@ public final class DragonsteelGameTests {
                         "TFC fuel or Bellows exceeded its specified target temperature");
                     helper.assertTrue(forge.getTemperature() >= (index == 3 ? 1850 : 1350),
                         "Forge did not approach its specified fuel target temperature");
-                    helper.assertTrue(helper.getLevel().getBlockState(helper.absolutePos(new BlockPos(x, 2, 3)))
+                    helper.assertTrue(helper.getLevel().getBlockState(helper.absolutePos(new BlockPos(x, forgeY, 3)))
                         .getValue(CharcoalForgeBlock.HEAT) > 0, "Forge went out before the negative check");
                 }
             }
             for (int index = 0; index < 3; index++) {
-                CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], 3, 3));
+                CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], forgeY + 1, 3));
                 IFluidHandler output = crucible.getSidedFluidInventory(Direction.NORTH);
                 FluidStack poured = output.drain(100, IFluidHandler.FluidAction.EXECUTE);
                 helper.assertTrue(poured.getAmount() == 100
@@ -302,7 +307,7 @@ public final class DragonsteelGameTests {
             }
             helper.runAfterDelay(1000, () -> {
                 for (int index = 0; index < 3; index++) {
-                    CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], 3, 3));
+                    CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], forgeY + 1, 3));
                     helper.assertTrue(crucible.getAlloy().getAmount() == 100
                         && crucible.getAlloyResult().getFluid() == Dragonsteel.METAL_PARTS.get(metals[index]).fluid().getSource(),
                         "Cast ingot did not re-melt into 100 mB of its own fluid: amount="
@@ -311,7 +316,7 @@ public final class DragonsteelGameTests {
                             + " itemTemperature=" + HeatCapability.getTemperature(crucible.getInventory().getStackInSlot(0)));
                 }
                 for (int index = 0; index < 2; index++) {
-                    CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], 3, 3));
+                    CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], forgeY + 1, 3));
                     helper.assertTrue(crucible.getSidedFluidInventory(Direction.NORTH).drain(100,
                         IFluidHandler.FluidAction.EXECUTE).getAmount() == 100, "Could not empty re-melted ingot");
                     if (index == 0) {
@@ -339,7 +344,7 @@ public final class DragonsteelGameTests {
                 }
                 helper.runAfterDelay(1000, () -> {
                     for (int index = 0; index < 2; index++) {
-                        CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], 3, 3));
+                        CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(new BlockPos(positions[index], forgeY + 1, 3));
                         helper.assertTrue(crucible.getAlloy().getAmount() == (index == 0 ? 800 : 1400)
                             && crucible.getAlloyResult().getFluid()
                                 == Dragonsteel.METAL_PARTS.get(metals[index]).fluid().getSource(),
@@ -868,6 +873,8 @@ public final class DragonsteelGameTests {
     @GameTest(template = "empty")
     public static void dragonsteelElementalCombat(GameTestHelper helper) {
         var attacker = FakePlayerFactory.getMinecraft(helper.getLevel());
+        for (int x = 1; x <= 9; x++) for (int y = 1; y <= 4; y++) for (int z = 0; z <= 4; z++)
+            helper.setBlock(new BlockPos(x, y, z), Blocks.AIR);
         var frozenTarget = helper.spawn(EntityType.PIG, new BlockPos(2, 2, 2));
         ItemStack iceSword = new ItemStack(BuiltInRegistries.ITEM.get(
             ResourceLocation.parse("iceandfire:dragonsteel_ice_sword")));

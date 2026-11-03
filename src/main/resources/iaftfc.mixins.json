@@ -10,7 +10,9 @@
     "DragonRoostProtectionMixin",
     "StructureManagerAccessor",
     "DragonArmorSlotMixin",
-    "DragonArmorProtectionMixin"
+    "DragonArmorProtectionMixin",
+    "ElementalFlowerSoilMixin",
+    "GameTestWorldPresetMixin"
   ],
   "injectors": {
     "defaultRequire": 1
