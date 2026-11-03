@@ -1,0 +1,408 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 30,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/gems",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "tfc:gem/sapphire",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 25,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/ingots/lategame",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 25,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:bone",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/utility",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "iceandfire:manuscript",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 25,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/ingots/lategame",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 16
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "tfc:ore/small_native_gold",
+          "weight": 30
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:skeleton_skull",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/utility",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:diamond_sword",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/sword",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:diamond_helmet",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:diamond_chestplate",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:diamond_leggings",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:diamond_boots",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:iron_sword",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/sword",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:iron_helmet",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:iron_chestplate",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:iron_leggings",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "iaftfc:enchant_equipment",
+              "levels": 25,
+              "source": "minecraft:iron_boots",
+              "treasure": true
+            }
+          ],
+          "value": "iaftfc:shared/equipment/lategame/boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/utility",
+          "weight": 7
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_golden_apple",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:experience_bottle",
+          "weight": 1
+        }
+      ],
+      "name": "ice_dragon_cave",
+      "rolls": {
+        "max": 6,
+        "min": 1
+      }
+    }
+  ]
+}

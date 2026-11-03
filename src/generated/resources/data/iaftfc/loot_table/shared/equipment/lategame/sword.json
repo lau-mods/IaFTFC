@@ -1,0 +1,40 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/sword_blade/steel",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/sword/steel",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/javelin_head/steel",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/javelin/steel",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/mace_head/steel",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/mace/steel",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/unfinished_helmet/steel",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/helmet/steel",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

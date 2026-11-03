@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shovel_head/steel",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shovel/steel",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

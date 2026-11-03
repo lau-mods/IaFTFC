@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/axe_head/wrought_iron",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/axe/wrought_iron",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/saw_blade/wrought_iron",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/saw/wrought_iron",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

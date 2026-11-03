@@ -1,0 +1,90 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe_head/copper",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe/copper",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe_blade/copper",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe/copper",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe_head/bronze",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe/bronze",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe_blade/bronze",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe/bronze",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe_head/bismuth_bronze",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe/bismuth_bronze",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe_blade/bismuth_bronze",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe/bismuth_bronze",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe_head/black_bronze",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/hoe/black_bronze",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe_blade/black_bronze",
+          "weight": 4
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/scythe/black_bronze",
+          "weight": 2
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

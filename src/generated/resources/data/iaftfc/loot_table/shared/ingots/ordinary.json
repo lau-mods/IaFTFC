@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/ingot/copper",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/ingot/bronze",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/ingot/bismuth_bronze",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/ingot/black_bronze",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/ingot/wrought_iron",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

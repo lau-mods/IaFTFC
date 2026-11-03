@@ -1,0 +1,55 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/amethyst",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/diamond",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/emerald",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/lapis_lazuli",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/opal",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/pyrite",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/ruby",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/sapphire",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:gem/topaz",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

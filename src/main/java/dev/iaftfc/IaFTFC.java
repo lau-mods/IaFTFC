@@ -14,6 +14,8 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import com.mojang.logging.LogUtils;
 import dev.iaftfc.worldgen.DragonBiomeTags;
+import dev.iaftfc.datagen.DragonLoot;
+import dev.iaftfc.loot.EnchantEquipment;
 
 @Mod(IaFTFC.MOD_ID)
 public final class IaFTFC {
@@ -22,6 +24,7 @@ public final class IaFTFC {
     public IaFTFC(IEventBus modBus) {
         LogUtils.getLogger().info("IaFTFC loaded on {}", FMLEnvironment.dist);
         modBus.addListener(this::gatherData);
+        EnchantEquipment.FUNCTIONS.register(modBus);
         modBus.addListener(this::registerGameTests);
     }
 
@@ -43,6 +46,7 @@ public final class IaFTFC {
     }
 
     private void gatherData(GatherDataEvent event) {
+        event.getGenerator().addProvider(event.includeServer(), new DragonLoot(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonBiomeTags(event.getGenerator().getPackOutput(),
             event.getLookupProvider(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeClient(), new LanguageProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us") {

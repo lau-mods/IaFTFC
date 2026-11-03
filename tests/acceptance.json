@@ -13,7 +13,14 @@
     {"acId":"AC-F003-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"roostboulderground"},
     {"acId":"AC-F004-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"caveorehostrock"},
     {"acId":"AC-F004-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"caveoreindependent"},
-    {"acId":"AC-F004-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"cavepreservesblockentities"}
+    {"acId":"AC-F004-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"cavepreservesblockentities"},
+    {"acId":"AC-F006-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"chestast"},
+    {"acId":"AC-F006-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"profiles"},
+    {"acId":"AC-F006-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"toolfamilies"},
+    {"acId":"AC-F006-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"attributedrops"},
+    {"acId":"AC-F006-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"equipmentenchant"},
+    {"acId":"AC-F006-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"enchantreference"},
+    {"acId":"AC-F007-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"piledrops"}
   ],
   "e2e": [
     {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"},

@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shears/copper",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shears/bronze",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shears/bismuth_bronze",
+          "weight": 1
+        },
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shears/black_bronze",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}

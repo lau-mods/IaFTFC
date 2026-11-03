@@ -1,0 +1,273 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/gems",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "tfc:gem/sapphire",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 10
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/ingots/dangerous",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 10
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:bone",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/utility",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "iceandfire:manuscript",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 10
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "tfc:metal/ingot/silver",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 16
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "tfc:ore/small_native_silver",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:skeleton_skull",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/utility",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/sword",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/leggings",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "value": "iaftfc:shared/utility",
+          "weight": 7
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:experience_bottle",
+          "weight": 1
+        }
+      ],
+      "name": "ice_dragon_cave",
+      "rolls": {
+        "max": 4,
+        "min": 1
+      }
+    }
+  ]
+}

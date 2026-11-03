@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tfc:metal/shield/steel",
+          "weight": 1
+        }
+      ],
+      "rolls": 1
+    }
+  ]
+}
