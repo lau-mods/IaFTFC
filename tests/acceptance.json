@@ -65,7 +65,12 @@
     {"acId":"AC-F014-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"disableddragonarmor"},
     {"acId":"AC-F020-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"breathconvertstfcterrain"},
     {"acId":"AC-F020-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:dragon_forge","name":"breathfeedsforgeanddamagesentity"},
-    {"acId":"AC-F020-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"griefingkeepsiafprotection"}
+    {"acId":"AC-F020-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"griefingkeepsiafprotection"},
+    {"acId":"AC-F015-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"fireeggdirectheat"},
+    {"acId":"AC-F015-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"iceeggfreshwater"},
+    {"acId":"AC-F015-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"lightningeggrainandsky"},
+    {"acId":"AC-F015-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"eggticksandcalendargrowth"},
+    {"acId":"AC-F015-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"hornstorageskipscalendar"}
   ],
   "e2e": [
     {"acId":"AC-F014-001","scenario":"tests/e2e/dragon-armor.mjs"},
@@ -83,6 +88,7 @@
     {"acId":"AC-F013-001","scenario":"tests/e2e/knapping.mjs"},
     {"acId":"AC-F013-002","scenario":"tests/e2e/scale-armor.mjs"},
     {"acId":"AC-F017-001","scenario":"tests/e2e/elemental-worldgen.mjs"},
-    {"acId":"AC-F021-001","scenario":"tests/e2e/elemental-worldgen.mjs"}
+    {"acId":"AC-F021-001","scenario":"tests/e2e/elemental-worldgen.mjs"},
+    {"acId":"AC-F015-004","scenario":"tests/e2e/dragon-egg-hatch.mjs"}
   ]
 }

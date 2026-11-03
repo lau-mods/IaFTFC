@@ -12,6 +12,10 @@
     "DragonArmorSlotMixin",
     "DragonArmorProtectionMixin",
     "DragonBreathTerrainMixin",
+    "DragonEggConditionsMixin",
+    "DragonCalendarGrowthMixin",
+    "DragonCalendarLogicMixin",
+    "DragonHornCalendarMixin",
     "ElementalFlowerSoilMixin",
     "GameTestWorldPresetMixin"
   ],
