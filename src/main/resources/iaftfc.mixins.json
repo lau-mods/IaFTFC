@@ -8,7 +8,11 @@
     "DragonCaveOreMixin",
     "DragonRoostBoulderMixin",
     "DragonRoostProtectionMixin",
-    "StructureManagerAccessor"
+    "StructureManagerAccessor",
+    "DragonArmorSlotMixin",
+    "DragonArmorProtectionMixin"
   ],
-  "injectors": {"defaultRequire": 1}
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

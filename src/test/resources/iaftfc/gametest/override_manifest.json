@@ -151,7 +151,43 @@
     "iceandfire:recipe/armor_black_helmet.json",
     "iceandfire:recipe/armor_black_chestplate.json",
     "iceandfire:recipe/armor_black_leggings.json",
-    "iceandfire:recipe/armor_black_boots.json"
+    "iceandfire:recipe/armor_black_boots.json",
+    "iceandfire:recipe/dragonarmor_iron_head.json",
+    "iceandfire:recipe/dragonarmor_iron_neck.json",
+    "iceandfire:recipe/dragonarmor_iron_body.json",
+    "iceandfire:recipe/dragonarmor_iron_tail.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_fire_head.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_fire_neck.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_fire_body.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_fire_tail.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_ice_head.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_ice_neck.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_ice_body.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_ice_tail.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_lightning_head.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_lightning_neck.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_lightning_body.json",
+    "iceandfire:recipe/dragonarmor_dragon_steel_lightning_tail.json",
+    "iceandfire:recipe/dragonarmor_copper_head.json",
+    "iceandfire:recipe/dragonarmor_copper_neck.json",
+    "iceandfire:recipe/dragonarmor_copper_body.json",
+    "iceandfire:recipe/dragonarmor_copper_tail.json",
+    "iceandfire:recipe/dragonarmor_silver_head.json",
+    "iceandfire:recipe/dragonarmor_silver_neck.json",
+    "iceandfire:recipe/dragonarmor_silver_body.json",
+    "iceandfire:recipe/dragonarmor_silver_tail.json",
+    "iceandfire:recipe/dragonarmor_gold_head.json",
+    "iceandfire:recipe/dragonarmor_gold_neck.json",
+    "iceandfire:recipe/dragonarmor_gold_body.json",
+    "iceandfire:recipe/dragonarmor_gold_tail.json",
+    "iceandfire:recipe/dragonarmor_diamond_head.json",
+    "iceandfire:recipe/dragonarmor_diamond_neck.json",
+    "iceandfire:recipe/dragonarmor_diamond_body.json",
+    "iceandfire:recipe/dragonarmor_diamond_tail.json",
+    "iceandfire:recipe/dragonarmor_netherite_head.json",
+    "iceandfire:recipe/dragonarmor_netherite_neck.json",
+    "iceandfire:recipe/dragonarmor_netherite_body.json",
+    "iceandfire:recipe/dragonarmor_netherite_tail.json"
   ],
   "disabled_recipes": [
     {
@@ -497,6 +533,86 @@
     {
       "recipe": "iceandfire:armor_black_boots",
       "item": "iceandfire:armor_black_boots"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_copper_head",
+      "item": "iceandfire:dragonarmor_copper_head"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_copper_neck",
+      "item": "iceandfire:dragonarmor_copper_neck"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_copper_body",
+      "item": "iceandfire:dragonarmor_copper_body"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_copper_tail",
+      "item": "iceandfire:dragonarmor_copper_tail"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_silver_head",
+      "item": "iceandfire:dragonarmor_silver_head"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_silver_neck",
+      "item": "iceandfire:dragonarmor_silver_neck"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_silver_body",
+      "item": "iceandfire:dragonarmor_silver_body"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_silver_tail",
+      "item": "iceandfire:dragonarmor_silver_tail"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_gold_head",
+      "item": "iceandfire:dragonarmor_gold_head"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_gold_neck",
+      "item": "iceandfire:dragonarmor_gold_neck"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_gold_body",
+      "item": "iceandfire:dragonarmor_gold_body"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_gold_tail",
+      "item": "iceandfire:dragonarmor_gold_tail"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_diamond_head",
+      "item": "iceandfire:dragonarmor_diamond_head"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_diamond_neck",
+      "item": "iceandfire:dragonarmor_diamond_neck"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_diamond_body",
+      "item": "iceandfire:dragonarmor_diamond_body"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_diamond_tail",
+      "item": "iceandfire:dragonarmor_diamond_tail"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_netherite_head",
+      "item": "iceandfire:dragonarmor_netherite_head"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_netherite_neck",
+      "item": "iceandfire:dragonarmor_netherite_neck"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_netherite_body",
+      "item": "iceandfire:dragonarmor_netherite_body"
+    },
+    {
+      "recipe": "iceandfire:dragonarmor_netherite_tail",
+      "item": "iceandfire:dragonarmor_netherite_tail"
     }
   ]
 }

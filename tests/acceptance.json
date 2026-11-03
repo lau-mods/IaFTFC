@@ -53,9 +53,14 @@
     {"acId":"AC-F012-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonboneknapping"},
     {"acId":"AC-F012-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonboneassembly"},
     {"acId":"AC-F013-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonscaleknapping"},
-    {"acId":"AC-F013-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonscalearmorlegacyroutes"}
+    {"acId":"AC-F013-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonscalearmorlegacyroutes"},
+    {"acId":"AC-F014-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"newdragonarmor"},
+    {"acId":"AC-F014-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"existingdragonarmor"},
+    {"acId":"AC-F014-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"disableddragonarmor"}
   ],
   "e2e": [
+    {"acId":"AC-F014-001","scenario":"tests/e2e/dragon-armor.mjs"},
+    {"acId":"AC-F014-004","scenario":"tests/e2e/dragon-armor.mjs"},
     {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"},
     {"acId":"AC-F002-003","scenario":"tests/e2e/dragon-structures.mjs"},
     {"acId":"AC-F003-001","scenario":"tests/e2e/dragon-structures.mjs"},

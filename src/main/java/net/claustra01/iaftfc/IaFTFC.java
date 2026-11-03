@@ -19,6 +19,8 @@ import net.claustra01.iaftfc.loot.EnchantEquipment;
 import net.claustra01.iaftfc.metal.Dragonsteel;
 import net.claustra01.iaftfc.datagen.DragonsteelData;
 import net.claustra01.iaftfc.datagen.KnappingData;
+import net.claustra01.iaftfc.datagen.DragonArmorData;
+import net.claustra01.iaftfc.dragonarmor.DragonArmor;
 import net.claustra01.iaftfc.knapping.DragonboneParts;
 
 @Mod(IaFTFC.MOD_ID)
@@ -31,6 +33,8 @@ public final class IaFTFC {
         EnchantEquipment.FUNCTIONS.register(modBus);
         Dragonsteel.ITEMS.register(modBus);
         DragonboneParts.ITEMS.register(modBus);
+        DragonArmor.ITEMS.register(modBus);
+        modBus.addListener(DragonArmor::buildCreativeTabs);
         Dragonsteel.BLOCKS.register(modBus);
         Dragonsteel.FLUIDS.register(modBus);
         Dragonsteel.FLUID_TYPES.register(modBus);
@@ -59,6 +63,8 @@ public final class IaFTFC {
         event.getGenerator().addProvider(event.includeServer(), new DragonLoot(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonsteelData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new KnappingData(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(event.includeServer() || event.includeClient(),
+            new DragonArmorData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonBiomeTags(event.getGenerator().getPackOutput(),
             event.getLookupProvider(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeClient(), new LanguageProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us") {
@@ -69,6 +75,14 @@ public final class IaFTFC {
                 for (int index = 0; index < DragonboneParts.TOOLS.length; index++) {
                     add("item.iaftfc.dragonbone." + DragonboneParts.PARTS[index],
                         "Dragonbone " + parts[index]);
+                }
+                String[] armorNames = {"Steel", "Black Steel", "Red Steel", "Blue Steel"};
+                String[] armorParts = {"Head", "Neck", "Body", "Tail"};
+                for (int metal = 0; metal < DragonArmor.METALS.length; metal++) {
+                    for (int part = 0; part < DragonArmor.PARTS.length; part++) {
+                        add("item.iaftfc.dragonarmor_" + DragonArmor.METALS[metal] + "_"
+                            + DragonArmor.PARTS[part], armorNames[metal] + " Dragon Armor " + armorParts[part]);
+                    }
                 }
                 for (String metal : Dragonsteel.METALS) {
                     String name = switch (metal) {
@@ -100,6 +114,14 @@ public final class IaFTFC {
                 for (int index = 0; index < DragonboneParts.TOOLS.length; index++) {
                     add("item.iaftfc.dragonbone." + DragonboneParts.PARTS[index],
                         "ドラゴンの骨の" + parts[index]);
+                }
+                String[] armorNames = {"鋼", "黒鋼", "赤鋼", "青鋼"};
+                String[] armorParts = {"頭", "首", "胴", "尾"};
+                for (int metal = 0; metal < DragonArmor.METALS.length; metal++) {
+                    for (int part = 0; part < DragonArmor.PARTS.length; part++) {
+                        add("item.iaftfc.dragonarmor_" + DragonArmor.METALS[metal] + "_"
+                            + DragonArmor.PARTS[part], armorNames[metal] + "のドラゴン防具（" + armorParts[part] + "）");
+                    }
                 }
                 for (String metal : Dragonsteel.METALS) {
                     String name = switch (metal) {

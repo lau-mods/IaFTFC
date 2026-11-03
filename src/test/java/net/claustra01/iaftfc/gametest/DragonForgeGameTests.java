@@ -170,7 +170,7 @@ public final class DragonForgeGameTests {
             forgeCore.setItem(1, item("iceandfire:" + ELEMENTS[index] + "_dragon_blood"));
             DragonBaseEntity dragon = (DragonBaseEntity) BuiltInRegistries.ENTITY_TYPE.get(
                 ResourceLocation.parse("iceandfire:" + ELEMENTS[index] + "_dragon")).create(helper.getLevel());
-            dragon.setAgeInDays(30);
+            dragon.setAgeInDays(100);
             dragon.setTame(true, false);
             // Keep the breath path fixed while IaF advances the breath timers normally.
             dragon.setNoAi(true);
