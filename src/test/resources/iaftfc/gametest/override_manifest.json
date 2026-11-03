@@ -48,10 +48,186 @@
     "c:tags/item/storage_blocks/dragonsteel_fire.json",
     "c:tags/item/storage_blocks/dragonsteel_ice.json",
     "tfc:tags/fluid/molten_metals.json",
+    "c:tags/item/tools/melee_weapon.json",
     "tfc:tags/item/anvils.json",
     "tfc:tags/item/metal_plated_blocks.json",
     "minecraft:tags/block/mineable/pickaxe.json",
-    "tfc:tags/block/anvils.json"
+    "tfc:tags/block/anvils.json",
+    "iceandfire:recipe/dragonforge/dragonsteel_fire_ingot.json",
+    "iceandfire:recipe/dragonforge_fire_brick.json",
+    "iceandfire:recipe/dragonforge_fire_input.json",
+    "iceandfire:recipe/dragonsteel_fire_sword.json",
+    "iceandfire:recipe/dragonsteel_fire_pickaxe.json",
+    "iceandfire:recipe/dragonsteel_fire_axe.json",
+    "iceandfire:recipe/dragonsteel_fire_shovel.json",
+    "iceandfire:recipe/dragonsteel_fire_hoe.json",
+    "iceandfire:recipe/dragonsteel_fire_helmet.json",
+    "iceandfire:recipe/dragonsteel_fire_chestplate.json",
+    "iceandfire:recipe/dragonsteel_fire_leggings.json",
+    "iceandfire:recipe/dragonsteel_fire_boots.json",
+    "iceandfire:recipe/dragonsteel_fire_block_to_dragonsteel_fire_ingot.json",
+    "iceandfire:recipe/dragonsteel_fire_ingot_to_dragonsteel_fire_block.json",
+    "iceandfire:recipe/dragonforge/dragonsteel_ice_ingot.json",
+    "iceandfire:recipe/dragonforge_ice_brick.json",
+    "iceandfire:recipe/dragonforge_ice_input.json",
+    "iceandfire:recipe/dragonsteel_ice_sword.json",
+    "iceandfire:recipe/dragonsteel_ice_pickaxe.json",
+    "iceandfire:recipe/dragonsteel_ice_axe.json",
+    "iceandfire:recipe/dragonsteel_ice_shovel.json",
+    "iceandfire:recipe/dragonsteel_ice_hoe.json",
+    "iceandfire:recipe/dragonsteel_ice_helmet.json",
+    "iceandfire:recipe/dragonsteel_ice_chestplate.json",
+    "iceandfire:recipe/dragonsteel_ice_leggings.json",
+    "iceandfire:recipe/dragonsteel_ice_boots.json",
+    "iceandfire:recipe/dragonsteel_ice_block_to_dragonsteel_ice_ingot.json",
+    "iceandfire:recipe/dragonsteel_ice_ingot_to_dragonsteel_ice_block.json",
+    "iceandfire:recipe/dragonforge/dragonsteel_lightning_ingot.json",
+    "iceandfire:recipe/dragonforge_lightning_brick.json",
+    "iceandfire:recipe/dragonforge_lightning_input.json",
+    "iceandfire:recipe/dragonsteel_lightning_sword.json",
+    "iceandfire:recipe/dragonsteel_lightning_pickaxe.json",
+    "iceandfire:recipe/dragonsteel_lightning_axe.json",
+    "iceandfire:recipe/dragonsteel_lightning_shovel.json",
+    "iceandfire:recipe/dragonsteel_lightning_hoe.json",
+    "iceandfire:recipe/dragonsteel_lightning_helmet.json",
+    "iceandfire:recipe/dragonsteel_lightning_chestplate.json",
+    "iceandfire:recipe/dragonsteel_lightning_leggings.json",
+    "iceandfire:recipe/dragonsteel_lightning_boots.json",
+    "iceandfire:recipe/dragonsteel_lightning_block_to_dragonsteel_lightning_ingot.json",
+    "iceandfire:recipe/dragonsteel_lightning_ingot_to_dragonsteel_lightning_block.json"
   ],
-  "disabled_recipes": []
+  "disabled_recipes": [
+    {
+      "recipe": "iceandfire:dragonsteel_fire_sword",
+      "item": "iceandfire:dragonsteel_fire_sword"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_pickaxe",
+      "item": "iceandfire:dragonsteel_fire_pickaxe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_axe",
+      "item": "iceandfire:dragonsteel_fire_axe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_shovel",
+      "item": "iceandfire:dragonsteel_fire_shovel"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_hoe",
+      "item": "iceandfire:dragonsteel_fire_hoe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_helmet",
+      "item": "iceandfire:dragonsteel_fire_helmet"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_chestplate",
+      "item": "iceandfire:dragonsteel_fire_chestplate"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_leggings",
+      "item": "iceandfire:dragonsteel_fire_leggings"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_boots",
+      "item": "iceandfire:dragonsteel_fire_boots"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_block_to_dragonsteel_fire_ingot",
+      "item": "iceandfire:dragonsteel_fire_ingot"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_fire_ingot_to_dragonsteel_fire_block",
+      "item": "iceandfire:dragonsteel_fire_block"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_sword",
+      "item": "iceandfire:dragonsteel_ice_sword"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_pickaxe",
+      "item": "iceandfire:dragonsteel_ice_pickaxe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_axe",
+      "item": "iceandfire:dragonsteel_ice_axe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_shovel",
+      "item": "iceandfire:dragonsteel_ice_shovel"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_hoe",
+      "item": "iceandfire:dragonsteel_ice_hoe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_helmet",
+      "item": "iceandfire:dragonsteel_ice_helmet"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_chestplate",
+      "item": "iceandfire:dragonsteel_ice_chestplate"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_leggings",
+      "item": "iceandfire:dragonsteel_ice_leggings"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_boots",
+      "item": "iceandfire:dragonsteel_ice_boots"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_block_to_dragonsteel_ice_ingot",
+      "item": "iceandfire:dragonsteel_ice_ingot"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_ice_ingot_to_dragonsteel_ice_block",
+      "item": "iceandfire:dragonsteel_ice_block"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_sword",
+      "item": "iceandfire:dragonsteel_lightning_sword"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_pickaxe",
+      "item": "iceandfire:dragonsteel_lightning_pickaxe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_axe",
+      "item": "iceandfire:dragonsteel_lightning_axe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_shovel",
+      "item": "iceandfire:dragonsteel_lightning_shovel"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_hoe",
+      "item": "iceandfire:dragonsteel_lightning_hoe"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_helmet",
+      "item": "iceandfire:dragonsteel_lightning_helmet"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_chestplate",
+      "item": "iceandfire:dragonsteel_lightning_chestplate"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_leggings",
+      "item": "iceandfire:dragonsteel_lightning_leggings"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_boots",
+      "item": "iceandfire:dragonsteel_lightning_boots"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_block_to_dragonsteel_lightning_ingot",
+      "item": "iceandfire:dragonsteel_lightning_ingot"
+    },
+    {
+      "recipe": "iceandfire:dragonsteel_lightning_ingot_to_dragonsteel_lightning_block",
+      "item": "iceandfire:dragonsteel_lightning_block"
+    }
+  ]
 }

@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200,
+  "heat_capacity": 2.857143,
+  "ingredient": {
+    "item": "iceandfire:dragonsteel_fire_pickaxe"
+  },
+  "welding_temperature": 1600
+}

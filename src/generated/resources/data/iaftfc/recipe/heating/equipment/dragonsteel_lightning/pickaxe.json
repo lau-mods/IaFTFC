@@ -1,0 +1,11 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "item": "iceandfire:dragonsteel_lightning_pickaxe"
+  },
+  "result_fluid": {
+    "amount": 100,
+    "id": "iaftfc:metal/dragonsteel_lightning"
+  },
+  "temperature": 2000
+}

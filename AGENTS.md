@@ -53,3 +53,4 @@
 - Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。
 - Dragonsteelの指定部品・Fluid・金床登録は `metal/Dragonsteel`、金属加工データと表示素材の生成は `datagen/DragonsteelData`、GameTest入口は `gametest/DragonsteelGameTests` とする。生成と検証には `./gradlew runData`、`./gradlew runGameTestServer` を使う。
 - DragonsteelのBlock Loot、採掘・金床タグ、2種のIngot Mold鋳造レシピは `DragonsteelData` から生成し、描画は `tests/e2e/dragonsteel.mjs` で確認する。
+- Dragon Forgeの既存レシピ上書き、旧Dragonsteel製法の無効化、完成装備の組み立て・加熱データは `DragonsteelData` から生成する。Forge本体は `gametest/DragonForgeGameTests`、完成装備は `gametest/DragonsteelGameTests`、Forge表示は `tests/e2e/dragon-forge.mjs` で検証する。

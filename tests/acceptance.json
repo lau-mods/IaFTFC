@@ -34,7 +34,22 @@
     {"acId":"AC-F010-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"toolheadrules"},
     {"acId":"AC-F010-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeheadsattierseven"},
     {"acId":"AC-F010-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"armorwelding"},
-    {"acId":"AC-F010-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeandweldarmor"}
+    {"acId":"AC-F010-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeandweldarmor"},
+    {"acId":"AC-F009-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgerecipesandassembly"},
+    {"acId":"AC-F009-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeblood"},
+    {"acId":"AC-F011-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"assembledragonsteeltools"},
+    {"acId":"AC-F011-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"legacyitemsaveroundtrip"},
+    {"acId":"AC-F011-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeandweldarmor"},
+    {"acId":"AC-F011-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"legacyitemsaveroundtrip"},
+    {"acId":"AC-F011-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"finishedequipmentmelts"},
+    {"acId":"AC-F011-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonsteelcombatandmining"},
+    {"acId":"AC-F011-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonsteelelementalcombat"},
+    {"acId":"AC-F009-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"firedragonbreathfeedsforge"},
+    {"acId":"AC-F009-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"icedragonbreathfeedsforge"},
+    {"acId":"AC-F009-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"lightningdragonbreathfeedsforge"},
+    {"acId":"AC-F009-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgefiredragonsteelingot"},
+    {"acId":"AC-F009-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeicedragonsteelingot"},
+    {"acId":"AC-F009-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgelightningdragonsteelingot"}
   ],
   "e2e": [
     {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"},
@@ -44,6 +59,7 @@
     {"acId":"AC-F004-003","scenario":"tests/e2e/dragon-structures.mjs"},
     {"acId":"AC-F008-001","scenario":"tests/e2e/dragonsteel.mjs"},
     {"acId":"AC-F008-003","scenario":"tests/e2e/dragonsteel.mjs"},
-    {"acId":"AC-F010-001","scenario":"tests/e2e/dragonsteel.mjs"}
+    {"acId":"AC-F010-001","scenario":"tests/e2e/dragonsteel.mjs"},
+    {"acId":"AC-F009-002","scenario":"tests/e2e/dragon-forge.mjs"}
   ]
 }

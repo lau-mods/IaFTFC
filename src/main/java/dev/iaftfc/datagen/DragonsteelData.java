@@ -56,6 +56,7 @@ public final class DragonsteelData implements DataProvider {
         JsonArray pickaxeBlocks = new JsonArray();
         JsonArray platedBlocks = new JsonArray();
         JsonArray molten = new JsonArray();
+        JsonArray meleeWeapons = new JsonArray();
         for (String metal : Dragonsteel.METALS) {
             String fluid = "iaftfc:metal/" + metal;
             String ingot = item("ingot", metal);
@@ -65,6 +66,8 @@ public final class DragonsteelData implements DataProvider {
             pickaxeBlocks.add(item("block", metal));
             platedBlocks.add(item("block", metal));
             molten.add(fluid);
+            meleeWeapons.add("iceandfire:" + metal + "_sword");
+            meleeWeapons.add("iceandfire:" + metal + "_axe");
             for (String part : new String[] {"ingot", "double_ingot", "sheet", "double_sheet", "rod"}) {
                 String tag = switch (part) {
                     case "ingot" -> "ingots";
@@ -96,7 +99,7 @@ public final class DragonsteelData implements DataProvider {
                 ingredient.addProperty("item", item(part, metal));
                 heat.add("ingredient", ingredient);
                 write(cache, writes, "data/iaftfc/tfc/item_heat/" + metal + "/" + part + ".json", heat);
-                heating(cache, writes, metal, part, amount);
+                heating(cache, writes, metal, part, item(part, metal), amount);
                 JsonObject model = new JsonObject();
                 model.addProperty("parent", "item/generated");
                 JsonObject textures = new JsonObject();
@@ -107,8 +110,7 @@ public final class DragonsteelData implements DataProvider {
             }
             for (String part : new String[] {"block", "anvil"}) {
                 String lootPath = "data/tfc/loot_table/blocks/metal/" + part + "/red_steel.json";
-                Path lootSource = ModList.get().getModFileById("tfc").getFile().findResource(lootPath);
-                JsonObject loot = JsonParser.parseString(Files.readString(lootSource, StandardCharsets.UTF_8)
+                JsonObject loot = JsonParser.parseString(readMod("tfc", lootPath).toString()
                     .replace("tfc:metal/", "iaftfc:metal/").replace("red_steel", metal)).getAsJsonObject();
                 write(cache, writes, "data/iaftfc/loot_table/blocks/metal/" + part + "/" + metal + ".json", loot);
                 JsonObject heat = new JsonObject();
@@ -119,7 +121,7 @@ public final class DragonsteelData implements DataProvider {
                 ingredient.addProperty("item", item(part, metal));
                 heat.add("ingredient", ingredient);
                 write(cache, writes, "data/iaftfc/tfc/item_heat/" + metal + "/" + part + ".json", heat);
-                heating(cache, writes, metal, part, amount(part));
+                heating(cache, writes, metal, part, item(part, metal), amount(part));
             }
             JsonObject blockModel = new JsonObject();
             blockModel.addProperty("parent", "block/cube_all");
@@ -200,6 +202,31 @@ public final class DragonsteelData implements DataProvider {
                 heat.add("ingredient", ingredient);
                 write(cache, writes, "data/iaftfc/tfc/item_heat/" + metal + "/" + part + ".json", heat);
             }
+            for (String part : new String[] {"sword", "pickaxe", "axe", "shovel", "hoe"}) {
+                String head = part.equals("sword") ? "sword_blade" : part + "_head";
+                JsonObject assembly = readMod("tfc", "data/tfc/recipe/crafting/metal/" + part + "/red_steel.json");
+                assembly.getAsJsonObject("key").getAsJsonObject("X")
+                    .addProperty("item", item(head, metal));
+                assembly.getAsJsonObject("result").getAsJsonObject("stack")
+                    .addProperty("id", "iceandfire:" + metal + "_" + part);
+                write(cache, writes, "data/iaftfc/recipe/crafting/metal/" + part + "/" + metal + ".json", assembly);
+                heating(cache, writes, metal, part, "iceandfire:" + metal + "_" + part, part.equals("sword") ? 200 : 100);
+                JsonObject heat = new JsonObject();
+                heat.addProperty("forging_temperature", 1200);
+                heat.addProperty("welding_temperature", 1600);
+                heat.addProperty("heat_capacity", 2.857143 * (part.equals("sword") ? 2 : 1));
+                JsonObject ingredient = new JsonObject();
+                ingredient.addProperty("item", "iceandfire:" + metal + "_" + part);
+                heat.add("ingredient", ingredient);
+                write(cache, writes, "data/iaftfc/tfc/item_heat/" + metal + "/" + part + ".json", heat);
+            }
+            for (String part : new String[] {"helmet", "chestplate", "leggings", "boots"}) {
+                heating(cache, writes, metal, part, "iceandfire:" + metal + "_" + part, switch (part) {
+                    case "chestplate" -> 800;
+                    case "boots" -> 400;
+                    default -> 600;
+                });
+            }
             copyTfcRecipe(cache, writes, metal, "crafting", "anvil");
             copyTfcRecipe(cache, writes, metal, "crafting", "block");
             JsonObject casting = new JsonObject();
@@ -219,6 +246,37 @@ public final class DragonsteelData implements DataProvider {
             fireCasting.getAsJsonObject("mold").addProperty("item", "tfc:ceramic/fire_ingot_mold");
             write(cache, writes, "data/iaftfc/recipe/casting/" + metal + "_fire_ingot.json", fireCasting);
         }
+        for (int index = 0; index < Dragonsteel.METALS.length; index++) {
+            String element = new String[] {"fire", "ice", "lightning"}[index];
+            String steel = new String[] {"red_steel", "blue_steel", "black_steel"}[index];
+            String forgePath = "data/iceandfire/recipe/dragonforge/dragonsteel_" + element + "_ingot.json";
+            JsonObject forge = readMod("iceandfire", forgePath);
+            forge.getAsJsonObject("input").addProperty("item", "tfc:metal/ingot/" + steel);
+            forge.getAsJsonObject("result").addProperty("id", item("ingot", Dragonsteel.METALS[index]));
+            write(cache, writes, forgePath, forge);
+            for (String part : new String[] {"brick", "input"}) {
+                String path = "data/iceandfire/recipe/dragonforge_" + element + "_" + part + ".json";
+                JsonObject recipe = readMod("iceandfire", path);
+                JsonObject key = recipe.getAsJsonObject("key").getAsJsonObject(part.equals("brick") ? "B" : "I");
+                key.remove("item");
+                key.remove("tag");
+                key.addProperty("tag", part.equals("brick") ? "minecraft:stone_bricks" : "c:ingots/wrought_iron");
+                write(cache, writes, path, recipe);
+            }
+            for (String suffix : new String[] {"sword", "pickaxe", "axe", "shovel", "hoe",
+                "helmet", "chestplate", "leggings", "boots", "block_to_dragonsteel_" + element + "_ingot",
+                "ingot_to_dragonsteel_" + element + "_block"}) {
+                String path = "data/iceandfire/recipe/dragonsteel_" + element + "_" + suffix + ".json";
+                readMod("iceandfire", path);
+                JsonObject disabled = new JsonObject();
+                JsonArray conditions = new JsonArray();
+                JsonObject condition = new JsonObject();
+                condition.addProperty("type", "neoforge:false");
+                conditions.add(condition);
+                disabled.add("neoforge:conditions", conditions);
+                write(cache, writes, path, disabled);
+            }
+        }
         for (String tag : new String[] {"ingots", "double_ingots", "sheets", "double_sheets", "rods"}) {
             JsonArray values = new JsonArray();
             for (String metal : Dragonsteel.METALS) {
@@ -234,28 +292,35 @@ public final class DragonsteelData implements DataProvider {
         write(cache, writes, "data/minecraft/tags/block/mineable/pickaxe.json", tag(pickaxeBlocks));
         write(cache, writes, "data/tfc/tags/item/metal_plated_blocks.json", tag(platedBlocks));
         write(cache, writes, "data/tfc/tags/fluid/molten_metals.json", tag(molten));
+        write(cache, writes, "data/c/tags/item/tools/melee_weapon.json", tag(meleeWeapons));
     }
 
     private void heating(CachedOutput cache, List<CompletableFuture<?>> writes,
-        String metal, String part, int amount) {
+        String metal, String part, String itemId, int amount) {
         JsonObject recipe = new JsonObject();
         recipe.addProperty("type", "tfc:heating");
         JsonObject ingredient = new JsonObject();
-        ingredient.addProperty("item", item(part, metal));
+        ingredient.addProperty("item", itemId);
         recipe.add("ingredient", ingredient);
         JsonObject fluid = new JsonObject();
         fluid.addProperty("amount", amount);
         fluid.addProperty("id", "iaftfc:metal/" + metal);
         recipe.add("result_fluid", fluid);
         recipe.addProperty("temperature", 2000);
-        write(cache, writes, "data/iaftfc/recipe/heating/metal/" + part + "/" + metal + ".json", recipe);
+        String path = itemId.startsWith("iceandfire:") ? "equipment/" + metal + "/" + part
+            : "metal/" + part + "/" + metal;
+        write(cache, writes, "data/iaftfc/recipe/heating/" + path + ".json", recipe);
+    }
+
+    private static JsonObject readMod(String mod, String path) throws IOException {
+        Path source = ModList.get().getModFileById(mod).getFile().findResource(path);
+        return JsonParser.parseString(Files.readString(source, StandardCharsets.UTF_8)).getAsJsonObject();
     }
 
     private void copyTfcRecipe(CachedOutput cache, List<CompletableFuture<?>> writes,
         String metal, String type, String part) throws IOException {
         String path = "data/tfc/recipe/" + type + "/metal/" + part + "/red_steel.json";
-        Path source = ModList.get().getModFileById("tfc").getFile().findResource(path);
-        JsonObject recipe = JsonParser.parseString(Files.readString(source, StandardCharsets.UTF_8)
+        JsonObject recipe = JsonParser.parseString(readMod("tfc", path).toString()
             .replace("tfc:metal/", "iaftfc:metal/")
             .replace("red_steel", metal)).getAsJsonObject();
         if (recipe.has("tier")) {

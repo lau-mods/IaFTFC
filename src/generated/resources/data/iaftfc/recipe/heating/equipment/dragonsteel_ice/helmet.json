@@ -1,0 +1,11 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "item": "iceandfire:dragonsteel_ice_helmet"
+  },
+  "result_fluid": {
+    "amount": 600,
+    "id": "iaftfc:metal/dragonsteel_ice"
+  },
+  "temperature": 2000
+}

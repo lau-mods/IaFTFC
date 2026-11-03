@@ -1,6 +1,11 @@
 package dev.iaftfc.gametest;
 
 import dev.iaftfc.metal.Dragonsteel;
+import com.iafenvoy.iceandfire.item.tool.ActivePostHitSwordItem;
+import com.iafenvoy.iceandfire.item.armor.DragonSteelArmorItem;
+import com.iafenvoy.iceandfire.registry.IafTiers;
+import com.iafenvoy.iceandfire.config.IafCommonConfig;
+import com.iafenvoy.iceandfire.entity.DragonBaseEntity;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,12 +30,19 @@ import net.dries007.tfc.util.data.FluidHeat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.gametest.framework.GameTest;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.TieredItem;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.Recipe;
@@ -626,6 +638,190 @@ public final class DragonsteelGameTests {
                     "Armor welding did not preserve the warmer input temperature");
             }
         }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void assembleDragonsteelTools(GameTestHelper helper) {
+        for (String metal : Dragonsteel.METALS) {
+            for (String part : List.of("sword", "pickaxe", "axe", "shovel", "hoe")) {
+                String headPart = part.equals("sword") ? "sword_blade" : part + "_head";
+                @SuppressWarnings("unchecked")
+                Recipe<CraftingInput> recipe = (Recipe<CraftingInput>) helper.getLevel().getServer().getRecipeManager()
+                    .byKey(ResourceLocation.parse("iaftfc:crafting/metal/" + part + "/" + metal)).orElseThrow().value();
+                ItemStack head = stack(headPart, metal);
+                ForgingBonusComponent.set(head, ForgingBonus.EXPERT);
+                ItemStack woodenRod = new ItemStack(Items.STICK);
+                CraftingInput input = CraftingInput.of(1, 2, List.of(head, woodenRod));
+                helper.assertTrue(recipe.matches(input, helper.getLevel()), "Wooden rod did not assemble " + part);
+                ItemStack output = recipe.assemble(input, helper.getLevel().registryAccess());
+                helper.assertTrue(output.is(BuiltInRegistries.ITEM.get(ResourceLocation.parse("iceandfire:" + metal + "_" + part)))
+                    && output.getCount() == 1 && ForgingBonusComponent.get(output) == ForgingBonus.EXPERT,
+                    "Tool assembly lost its IaF item or forging bonus");
+                helper.assertTrue(!recipe.matches(CraftingInput.of(1, 2, List.of(head,
+                    stack("rod", metal))), helper.getLevel()), "Metal rod assembled the tool");
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void finishedEquipmentMelts(GameTestHelper helper) {
+        String[] parts = {"sword", "pickaxe", "axe", "shovel", "hoe", "helmet", "chestplate", "leggings", "boots"};
+        int[] amounts = {200, 100, 100, 100, 100, 600, 800, 600, 400};
+        for (String metal : Dragonsteel.METALS) {
+            for (int index = 0; index < parts.length; index++) {
+                String part = parts[index];
+                ItemStack equipment = new ItemStack(BuiltInRegistries.ITEM.get(
+                    ResourceLocation.parse("iceandfire:" + metal + "_" + part)));
+                HeatingRecipe heating = HeatingRecipe.getRecipe(equipment);
+                var heat = HeatCapability.getDefinition(equipment);
+                helper.assertTrue(heat != null && Math.abs(heat.heatCapacity()
+                    - 2.857143f * amounts[index] / 100) < 0.0001,
+                    "Completed equipment has no matching heat definition");
+                helper.assertTrue(heating != null && heating.getTemperature() == 2000
+                    && heating.assembleFluid(equipment).getAmount() == amounts[index]
+                    && heating.assembleFluid(equipment).getFluid() == Dragonsteel.METAL_PARTS.get(metal).fluid().getSource(),
+                    "Completed equipment has wrong metal amount or melting point");
+                ItemStack worn = equipment.copy();
+                if (worn.isDamageableItem()) {
+                    worn.setDamageValue(worn.getMaxDamage() - 1);
+                }
+                ForgingBonusComponent.set(worn, ForgingBonus.EXPERT);
+                worn.enchant(helper.getLevel().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
+                    .getOrThrow(Enchantments.UNBREAKING), 1);
+                helper.assertTrue(heating.assembleFluid(worn).getAmount() == amounts[index],
+                    "Equipment wear changed recovered metal");
+                ItemStack red = new ItemStack(BuiltInRegistries.ITEM.get(
+                    ResourceLocation.parse("tfc:metal/" + (part.equals("leggings") ? "greaves" : part) + "/red_steel")));
+                helper.assertTrue(HeatingRecipe.getRecipe(red).assembleFluid(red).getAmount() == amounts[index],
+                    "Red Steel reference amount differs for " + part);
+                helper.assertTrue(ItemSizeManager.get(equipment).getSize(equipment) == ItemSizeManager.get(red).getSize(red)
+                    && ItemSizeManager.get(equipment).getWeight(equipment) == ItemSizeManager.get(red).getWeight(red),
+                    "Completed equipment size differs from Red Steel " + part);
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void dragonsteelCombatAndMining(GameTestHelper helper) {
+        var target = helper.spawn(EntityType.PIG, new BlockPos(2, 2, 2));
+        for (int index = 0; index < Dragonsteel.METALS.length; index++) {
+            String metal = Dragonsteel.METALS[index];
+            IafTiers tier = switch (index) {
+                case 0 -> IafTiers.DRAGONSTEEL_FIRE;
+                case 1 -> IafTiers.DRAGONSTEEL_ICE;
+                default -> IafTiers.DRAGONSTEEL_LIGHTNING;
+            };
+            for (String part : List.of("sword", "pickaxe", "axe", "shovel", "hoe")) {
+                ItemStack tool = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(
+                    "iceandfire:" + metal + "_" + part)));
+                helper.assertTrue(tool.getItem() instanceof TieredItem tiered && tiered.getTier() == tier
+                    && tool.getMaxDamage() == tier.getUses(), "IaF Dragonsteel tool stats or tier changed");
+                double baseDamage = switch (part) {
+                    case "sword" -> 3;
+                    case "axe" -> 5;
+                    case "shovel" -> 1.5;
+                    case "hoe" -> -4;
+                    default -> 1;
+                };
+                double attack = tool.get(DataComponents.ATTRIBUTE_MODIFIERS).modifiers().stream()
+                    .filter(entry -> entry.attribute().equals(Attributes.ATTACK_DAMAGE))
+                    .mapToDouble(entry -> entry.modifier().amount()).sum();
+                helper.assertTrue(Math.abs(attack - tier.getAttackDamageBonus() - baseDamage) < 0.001,
+                    "IaF Dragonsteel attack damage changed for " + part);
+            }
+            for (String part : List.of("pickaxe", "axe", "shovel")) {
+                ItemStack tool = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(
+                    "iceandfire:" + metal + "_" + part)));
+                for (String blockId : switch (part) {
+                    case "pickaxe" -> List.of("tfc:rock/raw/basalt", "tfc:rock/raw/granite",
+                        "tfc:ore/normal_native_copper/basalt", "minecraft:obsidian");
+                    case "axe" -> List.of("tfc:wood/log/oak", "tfc:wood/planks/oak");
+                    default -> List.of("tfc:soil/dirt/loam", "tfc:soil/gravel/basalt");
+                }) {
+                    var state = BuiltInRegistries.BLOCK.get(ResourceLocation.parse(blockId)).defaultBlockState();
+                    for (String steel : List.of("red_steel", "blue_steel")) {
+                        ItemStack reference = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(
+                            "tfc:metal/" + part + "/" + steel)));
+                        helper.assertTrue(!reference.isCorrectToolForDrops(state) || tool.isCorrectToolForDrops(state),
+                            "Dragonsteel " + part + " cannot harvest " + blockId + " at " + steel + " tier");
+                    }
+                }
+            }
+            for (String part : List.of("helmet", "chestplate", "leggings", "boots")) {
+                ItemStack armor = new ItemStack(BuiltInRegistries.ITEM.get(ResourceLocation.parse(
+                    "iceandfire:" + metal + "_" + part)));
+                helper.assertTrue(armor.getItem() instanceof DragonSteelArmorItem,
+                    "Original IaF armor class was replaced");
+                DragonSteelArmorItem original = (DragonSteelArmorItem) armor.getItem();
+                int defense = switch (part) {
+                    case "helmet" -> IafCommonConfig.INSTANCE.armors.dragonsteelHelmetArmor.getValue();
+                    case "chestplate" -> IafCommonConfig.INSTANCE.armors.dragonsteelChestplateArmor.getValue();
+                    case "leggings" -> IafCommonConfig.INSTANCE.armors.dragonsteelLeggingsArmor.getValue();
+                    default -> IafCommonConfig.INSTANCE.armors.dragonsteelBootsArmor.getValue();
+                };
+                int durability = switch (part) {
+                    case "helmet" -> IafCommonConfig.INSTANCE.armors.dragonsteelHelmetDurability.getValue();
+                    case "chestplate" -> IafCommonConfig.INSTANCE.armors.dragonsteelChestplateDurability.getValue();
+                    case "leggings" -> IafCommonConfig.INSTANCE.armors.dragonsteelLeggingsDurability.getValue();
+                    default -> IafCommonConfig.INSTANCE.armors.dragonsteelBootsDurability.getValue();
+                };
+                helper.assertTrue(original.getDefense() == defense && armor.getMaxDamage() == durability
+                    && original.getEnchantmentValue() == IafCommonConfig.INSTANCE.armors.dragonsteelArmorEnchantability.getValue(),
+                    "IaF Dragonsteel armor defense, durability or enchantability changed");
+            }
+        }
+        ItemStack sword = new ItemStack(BuiltInRegistries.ITEM.get(
+            ResourceLocation.parse("iceandfire:dragonsteel_fire_sword")));
+        helper.assertTrue(sword.getItem() instanceof ActivePostHitSwordItem,
+            "Original fire ability class was replaced");
+        sword.hurtEnemy(target, FakePlayerFactory.getMinecraft(helper.getLevel()));
+        helper.assertTrue(target.isOnFire(), "Fire Dragonsteel sword lost its on-hit ability");
+        for (var entry : BuiltInRegistries.ITEM.entrySet()) {
+            if (entry.getKey().location().getNamespace().equals("iaftfc")) {
+                helper.assertTrue(!(entry.getValue() instanceof TieredItem),
+                    "IaFTFC registered an extra finished tool: " + entry.getKey().location());
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void dragonsteelElementalCombat(GameTestHelper helper) {
+        var attacker = FakePlayerFactory.getMinecraft(helper.getLevel());
+        var frozenTarget = helper.spawn(EntityType.PIG, new BlockPos(2, 2, 2));
+        ItemStack iceSword = new ItemStack(BuiltInRegistries.ITEM.get(
+            ResourceLocation.parse("iceandfire:dragonsteel_ice_sword")));
+        iceSword.hurtEnemy(frozenTarget, attacker);
+        helper.assertTrue(frozenTarget.hasEffect(MobEffects.MOVEMENT_SLOWDOWN),
+            "Ice Dragonsteel sword lost its freezing ability");
+
+        var lightningTarget = helper.spawn(EntityType.PIG, new BlockPos(4, 2, 2));
+        var chainedTarget = helper.spawn(EntityType.PIG, new BlockPos(5, 2, 2));
+        BlockPos attackerPos = helper.absolutePos(new BlockPos(4, 2, 1));
+        attacker.setPos(attackerPos.getX() + 0.5, attackerPos.getY(), attackerPos.getZ() + 0.5);
+        float chainedHealth = chainedTarget.getHealth();
+        ItemStack lightningSword = new ItemStack(BuiltInRegistries.ITEM.get(
+            ResourceLocation.parse("iceandfire:dragonsteel_lightning_sword")));
+        lightningSword.hurtEnemy(lightningTarget, attacker);
+        helper.assertTrue(chainedTarget.getHealth() < chainedHealth,
+            "Lightning Dragonsteel sword lost its nearby target ability");
+
+        DragonBaseEntity dragon = (DragonBaseEntity) BuiltInRegistries.ENTITY_TYPE.get(
+            ResourceLocation.parse("iceandfire:ice_dragon")).create(helper.getLevel());
+        dragon.setAgeInDays(30);
+        BlockPos pos = helper.absolutePos(new BlockPos(8, 2, 2));
+        dragon.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+        helper.getLevel().addFreshEntity(dragon);
+        float health = dragon.getHealth();
+        attacker.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(BuiltInRegistries.ITEM.get(
+            ResourceLocation.parse("iceandfire:dragonsteel_fire_sword"))));
+        attacker.attack(dragon);
+        helper.assertTrue(dragon.getHealth() < health,
+            "Existing Dragonsteel sword cannot damage an IaF dragon");
+        dragon.discard();
         helper.succeed();
     }
 

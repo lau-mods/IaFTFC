@@ -97,7 +97,11 @@ public final class FoundationGameTests {
                 assertIafResource(helper, iafPack, "loot_table/entities/dragon/" + element + "_dragon_" + variant + ".json");
             }
             assertIafResource(helper, iafPack, "neoforge/biome_modifier/spawn_dragon_skeleton_" + element + ".json");
-            assertIafResource(helper, iafPack, "recipe/dragonforge_" + element + "_brick.json");
+            for (String part : List.of("brick", "input")) {
+                String path = "recipe/dragonforge_" + element + "_" + part + ".json";
+                var source = resources.getResource(ResourceLocation.fromNamespaceAndPath("iceandfire", path)).orElseThrow();
+                helper.assertTrue(source.sourcePackId().equals("mod/iaftfc"), "Forge material recipe was not overridden: " + path);
+            }
         }
         helper.succeed();
     }
@@ -117,6 +121,11 @@ public final class FoundationGameTests {
                 "Legacy ID changed: " + original.getString("id"));
             helper.assertTrue(loaded.getCount() == original.getInt("count"), "Legacy count changed: " + original.getString("id"));
             CompoundTag saved = (CompoundTag) loaded.save(helper.getLevel().registryAccess());
+            CompoundTag components = saved.getCompound("components");
+            components.remove("tfc:heat");
+            if (components.isEmpty()) {
+                saved.remove("components");
+            }
             helper.assertTrue(saved.equals(original), "Legacy item data changed: " + original.getString("id") + " saved=" + saved);
         }
         try (var reader = new InputStreamReader(FoundationGameTests.class.getClassLoader()
