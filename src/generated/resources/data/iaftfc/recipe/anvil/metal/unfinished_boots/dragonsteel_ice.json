@@ -1,0 +1,17 @@
+{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "c:sheets/dragonsteel_ice"
+  },
+  "result": {
+    "count": 1,
+    "id": "iaftfc:metal/unfinished_boots/dragonsteel_ice"
+  },
+  "rules": [
+    "bend_last",
+    "bend_second_last",
+    "shrink_third_last"
+  ],
+  "tier": 7
+}

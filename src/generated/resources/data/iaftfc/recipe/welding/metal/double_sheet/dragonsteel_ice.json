@@ -1,0 +1,14 @@
+{
+  "type": "tfc:welding",
+  "first_input": {
+    "tag": "c:sheets/dragonsteel_ice"
+  },
+  "result": {
+    "count": 1,
+    "id": "iaftfc:metal/double_sheet/dragonsteel_ice"
+  },
+  "second_input": {
+    "tag": "c:sheets/dragonsteel_ice"
+  },
+  "tier": 6
+}

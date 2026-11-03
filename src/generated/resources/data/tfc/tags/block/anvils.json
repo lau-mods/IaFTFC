@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "iaftfc:metal/anvil/dragonsteel_fire",
+    "iaftfc:metal/anvil/dragonsteel_ice",
+    "iaftfc:metal/anvil/dragonsteel_lightning"
+  ]
+}

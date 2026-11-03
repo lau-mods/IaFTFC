@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200,
+  "heat_capacity": 5.714286,
+  "ingredient": {
+    "item": "iaftfc:metal/sword_blade/dragonsteel_fire"
+  },
+  "welding_temperature": 1600
+}

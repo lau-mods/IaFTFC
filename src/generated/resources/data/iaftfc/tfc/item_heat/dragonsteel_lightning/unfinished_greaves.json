@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200,
+  "heat_capacity": 11.428572,
+  "ingredient": {
+    "item": "iaftfc:metal/unfinished_greaves/dragonsteel_lightning"
+  },
+  "welding_temperature": 1600
+}

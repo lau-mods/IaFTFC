@@ -1,0 +1,11 @@
+{
+  "type": "tfc:heating",
+  "ingredient": {
+    "item": "iaftfc:metal/rod/dragonsteel_ice"
+  },
+  "result_fluid": {
+    "amount": 50,
+    "id": "iaftfc:metal/dragonsteel_ice"
+  },
+  "temperature": 2000
+}

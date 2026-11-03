@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "iaftfc:item/metal/double_ingot/dragonsteel_lightning"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:double_ingots/dragonsteel_fire",
+    "#c:double_ingots/dragonsteel_ice",
+    "#c:double_ingots/dragonsteel_lightning"
+  ]
+}

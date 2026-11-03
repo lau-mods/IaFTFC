@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200,
+  "heat_capacity": 22.857144,
+  "ingredient": {
+    "item": "iceandfire:dragonsteel_fire_chestplate"
+  },
+  "welding_temperature": 1600
+}

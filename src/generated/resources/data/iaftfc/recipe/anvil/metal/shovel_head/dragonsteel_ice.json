@@ -1,0 +1,16 @@
+{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "c:ingots/dragonsteel_ice"
+  },
+  "result": {
+    "count": 1,
+    "id": "iaftfc:metal/shovel_head/dragonsteel_ice"
+  },
+  "rules": [
+    "punch_last",
+    "hit_not_last"
+  ],
+  "tier": 7
+}

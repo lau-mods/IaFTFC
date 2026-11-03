@@ -16,6 +16,8 @@ import com.mojang.logging.LogUtils;
 import dev.iaftfc.worldgen.DragonBiomeTags;
 import dev.iaftfc.datagen.DragonLoot;
 import dev.iaftfc.loot.EnchantEquipment;
+import dev.iaftfc.metal.Dragonsteel;
+import dev.iaftfc.datagen.DragonsteelData;
 
 @Mod(IaFTFC.MOD_ID)
 public final class IaFTFC {
@@ -25,6 +27,11 @@ public final class IaFTFC {
         LogUtils.getLogger().info("IaFTFC loaded on {}", FMLEnvironment.dist);
         modBus.addListener(this::gatherData);
         EnchantEquipment.FUNCTIONS.register(modBus);
+        Dragonsteel.ITEMS.register(modBus);
+        Dragonsteel.BLOCKS.register(modBus);
+        Dragonsteel.FLUIDS.register(modBus);
+        Dragonsteel.FLUID_TYPES.register(modBus);
+        modBus.addListener(Dragonsteel::addAnvilBlocks);
         modBus.addListener(this::registerGameTests);
     }
 
@@ -47,18 +54,56 @@ public final class IaFTFC {
 
     private void gatherData(GatherDataEvent event) {
         event.getGenerator().addProvider(event.includeServer(), new DragonLoot(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(event.includeServer(), new DragonsteelData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonBiomeTags(event.getGenerator().getPackOutput(),
             event.getLookupProvider(), event.getExistingFileHelper()));
         event.getGenerator().addProvider(event.includeClient(), new LanguageProvider(event.getGenerator().getPackOutput(), MOD_ID, "en_us") {
             @Override
             protected void addTranslations() {
                 add("fml.menu.mods.info.description.iaftfc", "Connects Ice and Fire dragons with TerraFirmaCraft.");
+                for (String metal : Dragonsteel.METALS) {
+                    String name = switch (metal) {
+                        case "dragonsteel_fire" -> "Fire Dragonsteel";
+                        case "dragonsteel_ice" -> "Ice Dragonsteel";
+                        default -> "Lightning Dragonsteel";
+                    };
+                    for (String part : Dragonsteel.PARTS) {
+                        add("item.iaftfc.metal." + part + "." + metal,
+                            name + " " + java.util.Arrays.stream(part.split("_"))
+                                .map(word -> Character.toUpperCase(word.charAt(0)) + word.substring(1))
+                                .collect(java.util.stream.Collectors.joining(" ")));
+                    }
+                    add("block.iaftfc.metal.block." + metal, name + " Block");
+                    add("block.iaftfc.metal.anvil." + metal, name + " Anvil");
+                    add("block.iaftfc.fluid.metal." + metal, "Molten " + name);
+                    add("fluid.iaftfc." + metal, "Molten " + name);
+                    add("item.iaftfc.bucket.metal." + metal, "Bucket of Molten " + name);
+                }
             }
         });
         event.getGenerator().addProvider(event.includeClient(), new LanguageProvider(event.getGenerator().getPackOutput(), MOD_ID, "ja_jp") {
             @Override
             protected void addTranslations() {
                 add("fml.menu.mods.info.description.iaftfc", "Ice and Fire のドラゴンを TerraFirmaCraft に接続します。");
+                for (String metal : Dragonsteel.METALS) {
+                    String name = switch (metal) {
+                        case "dragonsteel_fire" -> "炎のドラゴンスチール";
+                        case "dragonsteel_ice" -> "氷のドラゴンスチール";
+                        default -> "雷のドラゴンスチール";
+                    };
+                    String[] names = {"インゴット", "ダブルインゴット", "板", "ダブル板", "棒", "剣刃",
+                        "ツルハシ頭部", "斧頭", "シャベル頭部", "クワ頭部", "未完成ヘルメット",
+                        "未完成チェストプレート", "未完成レギンス", "未完成ブーツ"};
+                    for (int index = 0; index < Dragonsteel.PARTS.length; index++) {
+                        add("item.iaftfc.metal." + Dragonsteel.PARTS[index] + "." + metal,
+                            name + names[index]);
+                    }
+                    add("block.iaftfc.metal.block." + metal, name + "ブロック");
+                    add("block.iaftfc.metal.anvil." + metal, name + "の金床");
+                    add("block.iaftfc.fluid.metal." + metal, "溶融" + name);
+                    add("fluid.iaftfc." + metal, "溶融" + name);
+                    add("item.iaftfc.bucket.metal." + metal, "溶融" + name + "のバケツ");
+                }
             }
         });
     }

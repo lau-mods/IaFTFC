@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200,
+  "heat_capacity": 1.4285715,
+  "ingredient": {
+    "item": "iaftfc:metal/rod/dragonsteel_lightning"
+  },
+  "welding_temperature": 1600
+}

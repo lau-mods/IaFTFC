@@ -1,0 +1,17 @@
+{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "c:double_ingots/dragonsteel_ice"
+  },
+  "result": {
+    "count": 1,
+    "id": "iaftfc:metal/sword_blade/dragonsteel_ice"
+  },
+  "rules": [
+    "hit_last",
+    "bend_second_last",
+    "bend_third_last"
+  ],
+  "tier": 7
+}

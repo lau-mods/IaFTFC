@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "iaftfc:item/metal/unfinished_boots/dragonsteel_fire"
+  }
+}

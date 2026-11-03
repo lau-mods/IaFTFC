@@ -1,0 +1,5 @@
+{
+  "parent": "neoforge:item/bucket",
+  "fluid": "iaftfc:metal/dragonsteel_fire",
+  "loader": "neoforge:fluid_container"
+}

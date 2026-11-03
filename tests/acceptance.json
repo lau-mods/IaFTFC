@@ -20,13 +20,30 @@
     {"acId":"AC-F006-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"attributedrops"},
     {"acId":"AC-F006-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"equipmentenchant"},
     {"acId":"AC-F006-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"enchantreference"},
-    {"acId":"AC-F007-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"piledrops"}
+    {"acId":"AC-F007-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"piledrops"},
+    {"acId":"AC-F008-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"metalregistryandheat"},
+    {"acId":"AC-F008-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"metalblocksdropwithpickaxe"},
+    {"acId":"AC-F008-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"meltingandamounts"},
+    {"acId":"AC-F008-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"charcoalforgemelting"},
+    {"acId":"AC-F008-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"ingotmoldrecasting"},
+    {"acId":"AC-F008-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"anvilandblockcrafting"},
+    {"acId":"AC-F008-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"itemheatpersistence"},
+    {"acId":"AC-F010-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"tiersixtoseven"},
+    {"acId":"AC-F010-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"weldseveningots"},
+    {"acId":"AC-F010-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"anvilandblockcrafting"},
+    {"acId":"AC-F010-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"toolheadrules"},
+    {"acId":"AC-F010-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeheadsattierseven"},
+    {"acId":"AC-F010-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"armorwelding"},
+    {"acId":"AC-F010-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"forgeandweldarmor"}
   ],
   "e2e": [
     {"acId":"AC-F001-001","scenario":"tests/e2e/load.mjs"},
     {"acId":"AC-F002-003","scenario":"tests/e2e/dragon-structures.mjs"},
     {"acId":"AC-F003-001","scenario":"tests/e2e/dragon-structures.mjs"},
     {"acId":"AC-F003-002","scenario":"tests/e2e/dragon-structures.mjs"},
-    {"acId":"AC-F004-003","scenario":"tests/e2e/dragon-structures.mjs"}
+    {"acId":"AC-F004-003","scenario":"tests/e2e/dragon-structures.mjs"},
+    {"acId":"AC-F008-001","scenario":"tests/e2e/dragonsteel.mjs"},
+    {"acId":"AC-F008-003","scenario":"tests/e2e/dragonsteel.mjs"},
+    {"acId":"AC-F010-001","scenario":"tests/e2e/dragonsteel.mjs"}
   ]
 }
