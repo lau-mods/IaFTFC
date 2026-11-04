@@ -89,6 +89,22 @@ neoForge {
             systemProperty 'iaftfc.gametest.report', file('build/test-results/gametest/TEST-iaftfc.xml').getAbsolutePath()
         }
 
+        gameTestFixture {
+            type = "gameTestServer"
+            gameDirectory = project.file('run/gametest-persistence')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'iaftfc_fixture'
+            systemProperty 'iaftfc.gametest.report', file('build/test-results/gametest/TEST-iaftfc-fixture.xml').getAbsolutePath()
+            systemProperty 'iaftfc.gametest.fixture', file('run/gametest-persistence/fixture-pos.txt').getAbsolutePath()
+        }
+
+        gameTestVerify {
+            type = "gameTestServer"
+            gameDirectory = project.file('run/gametest-persistence')
+            systemProperty 'neoforge.enabledGameTestNamespaces', 'iaftfc_verify'
+            systemProperty 'iaftfc.gametest.report', file('build/test-results/gametest/TEST-iaftfc-persistence.xml').getAbsolutePath()
+            systemProperty 'iaftfc.gametest.fixture', file('run/gametest-persistence/fixture-pos.txt').getAbsolutePath()
+        }
+
         data {
             data()
             // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
@@ -96,6 +112,16 @@ neoForge {
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        dataFirst {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('build/datagen-repro/first').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+        }
+
+        dataSecond {
+            data()
+            programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('build/datagen-repro/second').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
         }
 
         // applies to all the run configs above
@@ -122,6 +148,159 @@ neoForge {
             sourceSet(sourceSets.main)
             sourceSet(sourceSets.test)
         }
+    }
+}
+
+tasks.register('cleanGameTestPersistence', Delete) {
+    delete layout.projectDirectory.dir('run/gametest-persistence')
+}
+tasks.named('runGameTestFixture').configure {
+    dependsOn 'cleanGameTestPersistence'
+}
+tasks.named('runGameTestVerify').configure {
+    dependsOn 'runGameTestFixture'
+}
+tasks.named('runGameTestServer').configure {
+    dependsOn 'verifyDeterministicOutputs', 'verifyDataReproducibility'
+}
+
+tasks.register('verifyDeterministicOutputs') {
+    group = 'verification'
+    dependsOn 'runGameTestVerify'
+    def root = project.projectDir
+    doLast {
+        def directory = new File(root, 'run/gametest-persistence')
+        def first = new File(directory, 'draws-fixture.txt')
+        def second = new File(directory, 'draws-verify.txt')
+        def report = new File(root, 'build/test-results/gametest/TEST-iaftfc-draws.xml')
+        def success = first.isFile() && second.isFile() && java.util.Arrays.equals(first.bytes, second.bytes)
+        report.parentFile.mkdirs()
+        report.setText('<testsuite tests="1" failures="' + (success ? '0' : '1')
+            + '"><testcase classname="iaftfc:draws" name="reproducible">'
+            + (success ? '' : '<failure message="Loot or worldgen selection differed after restart"/>')
+            + '</testcase></testsuite>\n', 'UTF-8')
+        if (!success) throw new GradleException('Loot or worldgen selection differed after restart')
+    }
+}
+
+tasks.register('verifyDataReproducibility') {
+    group = 'verification'
+    dependsOn 'runDataFirst', 'runDataSecond'
+    def root = project.projectDir
+    doLast {
+        def first = new File(root, 'build/datagen-repro/first')
+        def second = new File(root, 'build/datagen-repro/second')
+        def generated = new File(root, 'src/generated/resources')
+        def report = new File(root, 'build/test-results/gametest/TEST-iaftfc-datagen.xml')
+        def failure = null
+        try {
+            def paths = { directory ->
+                def files = java.nio.file.Files.walk(directory.toPath())
+                try {
+                    files.filter { java.nio.file.Files.isRegularFile(it) && it.toString().endsWith('.json') }
+                        .map { directory.toPath().relativize(it).toString().replace('\\', '/') }
+                        .collect(java.util.stream.Collectors.toSet())
+                } finally {
+                    files.close()
+                }
+            }
+            def expected = paths(generated)
+            if (expected.isEmpty() || paths(first) != expected || paths(second) != expected) {
+                throw new GradleException('Generated JSON paths differ between both runs and src/generated/resources')
+            }
+            expected.each { path ->
+                def bytes = new File(first, path).bytes
+                if (!java.util.Arrays.equals(bytes, new File(second, path).bytes)
+                    || !java.util.Arrays.equals(bytes, new File(generated, path).bytes)) {
+                    throw new GradleException("Generated JSON differs: ${path}")
+                }
+            }
+        } catch (Exception exception) {
+            failure = exception.message
+        }
+        report.parentFile.mkdirs()
+        def result = failure == null ? '' : '<failure message="' + failure.replace('&', '&amp;').replace('"', '&quot;').replace('<', '&lt;') + '"/>'
+        report.setText('<testsuite tests="1" failures="' + (failure == null ? '0' : '1')
+            + '"><testcase classname="iaftfc:datagen" name="reproducible">' + result
+            + '</testcase></testsuite>\n', 'UTF-8')
+        if (failure != null) throw new GradleException(failure)
+    }
+}
+
+tasks.named('runGameTestServer').configure {
+    finalizedBy 'verifyAcceptanceCoverage'
+}
+
+tasks.register('verifyAcceptanceCoverage') {
+    group = 'verification'
+    def root = project.projectDir
+    doLast {
+        def report = new File(root, 'build/test-results/gametest/TEST-iaftfc-acceptance.xml')
+        def failure = null
+        try {
+            def map = new groovy.json.JsonSlurper().parse(new File(root, 'tests/acceptance.json'))
+            def spec = new File(root, 'PROJECT.md').text
+            def ids = (spec =~ /##### (AC-F\d{3}-\d{3})/).collect { it[1] }.toSet()
+            def mapped = (map.gameTests.collect { it.acId } + map.e2e.collect { it.acId }).toSet()
+            if (ids != mapped) throw new GradleException("Acceptance IDs differ: missing=${ids - mapped}, unknown=${mapped - ids}")
+            map.e2e.each { entry ->
+                def scenario = new File(root, entry.scenario)
+                if (!scenario.isFile() || !scenario.text.contains("screenshot(client, '${entry.acId}'")) {
+                    throw new GradleException("Missing screenshot for ${entry.acId}: ${entry.scenario}")
+                }
+            }
+            def parsed = [:]
+            map.gameTests.each { entry ->
+                if (!parsed.containsKey(entry.report)) {
+                    def xml = new File(root, entry.report)
+                    if (!xml.isFile()) throw new GradleException("Missing GameTest report: ${entry.report}")
+                    parsed[entry.report] = new groovy.xml.XmlSlurper().parse(xml)
+                }
+                def cases = parsed[entry.report].depthFirst().findAll {
+                    it.name() == 'testcase' && it.@classname.text() == entry.classname && it.@name.text() == entry.name
+                }
+                if (cases.size() != 1 || cases[0].failure.size() || cases[0].error.size() || cases[0].skipped.size()) {
+                    throw new GradleException("GameTest missing or unsuccessful: ${entry.acId} ${entry.name}")
+                }
+            }
+            parsed.values().each { xml ->
+                if (xml.depthFirst().any { it.name() == 'skipped' }) {
+                    throw new GradleException('A GameTest was skipped')
+                }
+            }
+            def resources = new File(root, 'src/generated/resources/assets/iaftfc')
+            new File(root, 'src/generated/resources').eachFileRecurse { resource ->
+                if (resource.isFile() && resource.name.endsWith('.json')) {
+                    new groovy.json.JsonSlurper().parse(resource)
+                }
+            }
+            def english = new groovy.json.JsonSlurper().parse(new File(resources, 'lang/en_us.json'))
+            def japanese = new groovy.json.JsonSlurper().parse(new File(resources, 'lang/ja_jp.json'))
+            if (english.keySet() != japanese.keySet()) throw new GradleException('English and Japanese translation keys differ')
+            def models = new File(resources, 'models')
+            models.eachFileRecurse { model ->
+                if (model.isFile() && model.name.endsWith('.json')) {
+                    def data = new groovy.json.JsonSlurper().parse(model)
+                    data.textures?.values()?.each { texture ->
+                        if (texture instanceof String && texture.startsWith('iaftfc:')) {
+                            def png = new File(resources, 'textures/' + texture.substring(7) + '.png')
+                            def mainPng = new File(root, 'src/main/resources/assets/iaftfc/textures/' + texture.substring(7) + '.png')
+                            if (!png.isFile() && !mainPng.isFile()) {
+                                throw new GradleException("Missing texture: ${texture}")
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            failure = exception.message
+        }
+        report.parentFile.mkdirs()
+        def result = failure == null ? '' : '<failure message="' + failure.replace('&', '&amp;').replace('"', '&quot;').replace('<', '&lt;') + '"/>'
+        report.setText('<testsuite tests="1" failures="' + (failure == null ? '0' : '1')
+            + '"><testcase classname="iaftfc:acceptance" name="allcriteria">' + result
+            + '</testcase></testsuite>\n', 'UTF-8')
+        if (failure != null) throw new GradleException(failure)
     }
 }
 

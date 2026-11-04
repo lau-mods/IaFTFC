@@ -26,6 +26,79 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class FoundationGameTests {
     @GameTest(template = "empty")
+    public static void registeredTranslations(GameTestHelper helper) throws Exception {
+        JsonObject english;
+        JsonObject japanese;
+        try (var reader = new InputStreamReader(FoundationGameTests.class.getClassLoader()
+            .getResourceAsStream("assets/iaftfc/lang/en_us.json"), StandardCharsets.UTF_8)) {
+            english = JsonParser.parseReader(reader).getAsJsonObject();
+        }
+        try (var reader = new InputStreamReader(FoundationGameTests.class.getClassLoader()
+            .getResourceAsStream("assets/iaftfc/lang/ja_jp.json"), StandardCharsets.UTF_8)) {
+            japanese = JsonParser.parseReader(reader).getAsJsonObject();
+        }
+        for (var item : BuiltInRegistries.ITEM) {
+            if (BuiltInRegistries.ITEM.getKey(item).getNamespace().equals("iaftfc")) {
+                String key = item.getDescriptionId();
+                helper.assertTrue(english.has(key) && japanese.has(key), "Missing item translation: " + key);
+            }
+        }
+        for (var block : BuiltInRegistries.BLOCK) {
+            if (BuiltInRegistries.BLOCK.getKey(block).getNamespace().equals("iaftfc")) {
+                String key = block.getDescriptionId();
+                helper.assertTrue(english.has(key) && japanese.has(key), "Missing block translation: " + key);
+            }
+        }
+        for (var fluid : BuiltInRegistries.FLUID) {
+            if (BuiltInRegistries.FLUID.getKey(fluid).getNamespace().equals("iaftfc")) {
+                String key = fluid.getFluidType().getDescriptionId();
+                helper.assertTrue(english.has(key) && japanese.has(key), "Missing fluid translation: " + key);
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
+    public static void shippedModelTextures(GameTestHelper helper) throws Exception {
+        var mod = ModList.get().getModFileById("iaftfc").getFile();
+        for (String metal : List.of("steel", "black_steel", "red_steel", "blue_steel")) {
+            for (String part : List.of("head", "neck", "body", "tail")) {
+                String suffix = "dragonarmor_" + metal + "_" + part + ".png";
+                helper.assertTrue(Files.isRegularFile(mod.findResource("assets/iaftfc/textures/item/" + suffix)),
+                    "Missing Dragon Armor item sprite: " + suffix);
+                helper.assertTrue(Files.isRegularFile(mod.findResource(
+                    "assets/iceandfire/textures/entity/dragon_armor/armor_" + part + "_" + metal + ".png")),
+                    "Missing Dragon Armor overlay: " + metal + " " + part);
+            }
+        }
+        var assets = mod.findResource("assets");
+        try (var paths = Files.walk(assets)) {
+            for (var model : paths.filter(path -> Files.isRegularFile(path)
+                && path.toString().endsWith(".json") && path.toString().contains("/models/")).toList()) {
+                JsonObject json;
+                try (var reader = Files.newBufferedReader(model, StandardCharsets.UTF_8)) {
+                    json = JsonParser.parseReader(reader).getAsJsonObject();
+                }
+                if (!json.has("textures")) continue;
+                String modelNamespace = assets.relativize(model).getName(0).toString();
+                for (var texture : json.getAsJsonObject("textures").entrySet()) {
+                    String value = texture.getValue().getAsString();
+                    if (value.startsWith("#")) continue;
+                    ResourceLocation id = value.contains(":") ? ResourceLocation.parse(value)
+                        : ResourceLocation.fromNamespaceAndPath(modelNamespace, value);
+                    String path = "assets/" + id.getNamespace() + "/textures/" + id.getPath() + ".png";
+                    boolean supplied = Files.isRegularFile(mod.findResource(path));
+                    var dependency = ModList.get().getModFileById(id.getNamespace());
+                    supplied |= dependency != null && Files.isRegularFile(dependency.getFile().findResource(path));
+                    helper.assertTrue(supplied || id.getNamespace().equals("minecraft"),
+                        "Missing model texture: " + value + " in " + model);
+                }
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void requiredMods(GameTestHelper helper) {
         checkVersion(helper, "neoforge", "21.1.248");
         checkVersion(helper, "tfc", "4.2.12");
@@ -53,7 +126,8 @@ public final class FoundationGameTests {
                     var relative = data.relativize(path);
                     String namespace = relative.getName(0).toString();
                     String name = relative.subpath(1, relative.getNameCount()).toString().replace('\\', '/');
-                    if (!namespace.equals("iaftfc") || name.startsWith("neoforge/biome_modifier/")
+                    if ((!namespace.equals("iaftfc") && !namespace.equals("iaftfc_fixture")
+                        && !namespace.equals("iaftfc_verify")) || name.startsWith("neoforge/biome_modifier/")
                         || name.startsWith("neoforge/loot_modifier/")
                         || name.startsWith("neoforge/loot_modifiers/")) {
                         actual.add(ResourceLocation.fromNamespaceAndPath(namespace, name));

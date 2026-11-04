@@ -40,6 +40,30 @@ import net.neoforged.neoforge.common.util.FakePlayerFactory;
 @PrefixGameTestTemplate(false)
 public final class LootGameTests {
     @GameTest(template = "empty")
+    public static void repeatableChestDraws(GameTestHelper helper) {
+        var params = new LootParams.Builder(helper.getLevel())
+            .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(new BlockPos(0, 1, 0))))
+            .create(LootContextParamSets.CHEST);
+        for (String element : List.of("fire", "ice", "lightning")) {
+            for (String place : List.of("roost", "female_cave", "male_cave")) {
+                var id = ResourceLocation.parse("iceandfire:chest/" + element + "_dragon_" + place);
+                var table = helper.getLevel().getServer().reloadableRegistries().getLootTable(
+                    ResourceKey.create(Registries.LOOT_TABLE, id));
+                for (long seed = 1; seed <= 64; seed++) {
+                    var first = table.getRandomItems(params, seed);
+                    var second = table.getRandomItems(params, seed);
+                    helper.assertTrue(first.size() == second.size(), "Loot count changed with the same seed: " + id);
+                    for (int index = 0; index < first.size(); index++) {
+                        helper.assertTrue(ItemStack.matches(first.get(index), second.get(index)),
+                            "Loot item changed with the same seed: " + id + " seed=" + seed);
+                    }
+                }
+            }
+        }
+        helper.succeed();
+    }
+
+    @GameTest(template = "empty")
     public static void chestAst(GameTestHelper helper) throws Exception {
         for (String element : List.of("fire", "ice", "lightning")) {
             for (String place : List.of("roost", "female_cave", "male_cave")) {

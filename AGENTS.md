@@ -63,3 +63,4 @@
 - 卵のTFC条件は `mixin/DragonEggConditionsMixin`、DragonのCalendar成長・NBT・Horn解放時の基準点更新は `dragon/CalendarDragonGrowth` と `mixin/DragonCalendar*Mixin` と `mixin/DragonHornCalendarMixin` を入口とする。`gametest/DragonEggCalendarGameTests` と `tests/e2e/dragon-egg-hatch.mjs` で検証する。
 - Dragon Mealの生肉タグ・腐敗条件、Dragon Flesh/StewのFoodDataとサイズ、Seekerの材料置換は `datagen/DragonFoodAndSeekerData` から生成する。Stewを食べた際のボウル返却は `mixin/DragonStewBowlMixin`、検証は `gametest/DragonFoodAndSeekerGameTests` と `tests/e2e/dragon-food-seeker.mjs` を入口とする。
 - Bestiaryの新製法ページは `src/main/resources/assets/iceandfire/lang/bestiary/<locale>_0/` で上書きし、`gametest/BestiaryGameTests` と `tests/e2e/bestiary.mjs` で検証する。
+- M13の進行連結は `gametest/ProgressionGameTests`、完全停止を挟む保存検証は `PersistenceFixtureGameTests` と `PersistenceVerifyGameTests` を入口とする。`runGameTestServer` は2段階の保存検証、独立2出力のdata比較、AC対応検査を実行し、結果を `build/test-results/gametest/` に記録する。再接続表示は `tests/e2e/integration-reconnect.mjs` で確認する。
