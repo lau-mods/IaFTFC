@@ -213,7 +213,7 @@ public final class DragonsteelGameTests {
         helper.succeed();
     }
 
-    @GameTest(template = "empty", timeoutTicks = 4700)
+    @GameTest(template = "empty", batch = "forge_melting", timeoutTicks = 4700)
     public static void charcoalForgeMelting(GameTestHelper helper) {
         int[] positions = {2, 5, 8, 11, 14};
         int forgeY = 250;
@@ -231,6 +231,7 @@ public final class DragonsteelGameTests {
             }
             helper.setBlock(forgePos, BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:charcoal_forge")));
             helper.setBlock(forgePos.above(), BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:crucible")));
+            helper.setBlock(forgePos.above(3), BuiltInRegistries.BLOCK.get(ResourceLocation.parse("tfc:fire_bricks")));
             CharcoalForgeBlockEntity forge = (CharcoalForgeBlockEntity) helper.getBlockEntity(forgePos);
             CrucibleBlockEntity crucible = (CrucibleBlockEntity) helper.getBlockEntity(forgePos.above());
             helper.assertTrue(CharcoalForgeBlock.isValid(helper.getLevel(), helper.absolutePos(forgePos)),

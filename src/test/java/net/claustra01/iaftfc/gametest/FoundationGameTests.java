@@ -77,7 +77,7 @@ public final class FoundationGameTests {
             "neoforge/biome_modifier/hippogryphs.json", "neoforge/biome_modifier/cockatrice.json",
             "worldgen/structure/cyclops_cave.json", "worldgen/structure/gorgon_temple.json",
             "worldgen/structure_set/cyclops_cave.json", "worldgen/structure_set/gorgon_temple.json",
-            "recipe/dragon_horn.json", "recipe/dragon_meal.json",
+            "recipe/dragon_horn.json",
             "worldgen/structure_set/dragon_cave.json", "worldgen/structure_set/dragon_roost.json")) {
             assertIafResource(helper, iafPack, path);
         }

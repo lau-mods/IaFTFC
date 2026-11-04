@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "c:bones"
+    },
+    "M": {
+      "type": "tfc:and",
+      "children": [
+        {
+          "tag": "iaftfc:dragon_food_meat"
+        },
+        {
+          "type": "tfc:not_rotten"
+        }
+      ]
+    }
+  },
+  "pattern": [
+    "BMB",
+    "MBM",
+    "BMB"
+  ],
+  "result": {
+    "id": "iceandfire:dragon_meal"
+  },
+  "show_notification": true
+}

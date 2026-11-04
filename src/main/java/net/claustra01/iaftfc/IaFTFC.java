@@ -22,6 +22,7 @@ import net.claustra01.iaftfc.metal.Dragonsteel;
 import net.claustra01.iaftfc.datagen.DragonsteelData;
 import net.claustra01.iaftfc.datagen.KnappingData;
 import net.claustra01.iaftfc.datagen.DragonArmorData;
+import net.claustra01.iaftfc.datagen.DragonFoodAndSeekerData;
 import net.claustra01.iaftfc.dragonarmor.DragonArmor;
 import net.claustra01.iaftfc.knapping.DragonboneParts;
 
@@ -66,6 +67,7 @@ public final class IaFTFC {
         event.getGenerator().addProvider(event.includeServer(), new DragonLoot(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new DragonsteelData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new KnappingData(event.getGenerator().getPackOutput()));
+        event.getGenerator().addProvider(event.includeServer(), new DragonFoodAndSeekerData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer(), new ElementalWorldgenData(event.getGenerator().getPackOutput()));
         event.getGenerator().addProvider(event.includeServer() || event.includeClient(),
             new DragonArmorData(event.getGenerator().getPackOutput()));

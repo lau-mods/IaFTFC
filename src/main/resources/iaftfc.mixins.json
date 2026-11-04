@@ -16,6 +16,7 @@
     "DragonCalendarGrowthMixin",
     "DragonCalendarLogicMixin",
     "DragonHornCalendarMixin",
+    "DragonStewBowlMixin",
     "ElementalFlowerSoilMixin",
     "GameTestWorldPresetMixin"
   ],

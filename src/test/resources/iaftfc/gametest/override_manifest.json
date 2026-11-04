@@ -1,5 +1,9 @@
 {
   "allowed_overrides": [
+    "iceandfire:recipe/dragon_meal.json",
+    "iceandfire:recipe/dragonseeker.json",
+    "iceandfire:recipe/epic_dragon_seeker.json",
+    "iceandfire:recipe/legendary_dragon_seeker.json",
     "iceandfire:neoforge/biome_modifier/silver_ore.json",
     "iceandfire:neoforge/biome_modifier/sapphire_ore.json",
     "iceandfire:worldgen/placed_feature/fire_lily.json",

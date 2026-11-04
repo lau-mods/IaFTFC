@@ -70,7 +70,16 @@
     {"acId":"AC-F015-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"iceeggfreshwater"},
     {"acId":"AC-F015-003","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"lightningeggrainandsky"},
     {"acId":"AC-F015-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"eggticksandcalendargrowth"},
-    {"acId":"AC-F015-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"hornstorageskipscalendar"}
+    {"acId":"AC-F015-004","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"hornstorageskipscalendar"},
+    {"acId":"AC-F016-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"freshmeatdragonmeal"},
+    {"acId":"AC-F016-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"eggticksandcalendargrowth"},
+    {"acId":"AC-F016-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonfooddataanddecay"},
+    {"acId":"AC-F016-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonflesheffectsandstewrecipes"},
+    {"acId":"AC-F018-001","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"seekersmithingandcrafting"},
+    {"acId":"AC-F018-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"seekerrangesandcontrols"},
+    {"acId":"AC-F018-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"seekerfindsdragonateachrange"},
+    {"acId":"AC-F018-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"dragonfluteandcrystal"},
+    {"acId":"AC-F018-002","report":"build/test-results/gametest/TEST-iaftfc.xml","classname":"iaftfc:empty","name":"hornstorageskipscalendar"}
   ],
   "e2e": [
     {"acId":"AC-F014-001","scenario":"tests/e2e/dragon-armor.mjs"},
@@ -89,6 +98,8 @@
     {"acId":"AC-F013-002","scenario":"tests/e2e/scale-armor.mjs"},
     {"acId":"AC-F017-001","scenario":"tests/e2e/elemental-worldgen.mjs"},
     {"acId":"AC-F021-001","scenario":"tests/e2e/elemental-worldgen.mjs"},
-    {"acId":"AC-F015-004","scenario":"tests/e2e/dragon-egg-hatch.mjs"}
+    {"acId":"AC-F015-004","scenario":"tests/e2e/dragon-egg-hatch.mjs"},
+    {"acId":"AC-F016-002","scenario":"tests/e2e/dragon-food-seeker.mjs"},
+    {"acId":"AC-F018-002","scenario":"tests/e2e/dragon-food-seeker.mjs"}
   ]
 }

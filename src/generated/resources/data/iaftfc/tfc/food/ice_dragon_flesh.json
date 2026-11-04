@@ -1,0 +1,11 @@
+{
+  "decay_modifier": 2.0,
+  "hunger": 4,
+  "ingredient": {
+    "item": "iceandfire:ice_dragon_flesh"
+  },
+  "protein": 2.0,
+  "saturation": 0.0,
+  "vegetables": 0.0,
+  "water": 0.0
+}

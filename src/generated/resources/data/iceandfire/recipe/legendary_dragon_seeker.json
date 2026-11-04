@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "a": {
+      "tag": "iceandfire:dragon_skulls"
+    },
+    "x": {
+      "tag": "iaftfc:dragonsteel_ingots"
+    }
+  },
+  "pattern": [
+    "a",
+    "x",
+    "x"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:legendary_dragon_seeker"
+  }
+}
