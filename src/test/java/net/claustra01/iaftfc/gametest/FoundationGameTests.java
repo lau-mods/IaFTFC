@@ -225,7 +225,7 @@ public final class FoundationGameTests {
 
     private static void checkVersion(GameTestHelper helper, String modId, String version) {
         var mod = ModList.get().getModContainerById(modId);
-        helper.assertTrue(mod.isPresent() && mod.get().getModInfo().getVersion().toString().equals(version),
-            modId + " must be " + version);
+        helper.assertTrue(mod.isPresent() && mod.get().getModInfo().getVersion().compareTo(new org.apache.maven.artifact.versioning.DefaultArtifactVersion(version)) >= 0,
+            modId + " must be at least " + version);
     }
 }

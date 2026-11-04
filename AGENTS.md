@@ -47,7 +47,7 @@
 
 - 製品仕様の正本は `PROJECT.md`。この文書は共通開発規約と実装入口だけを示し、製品仕様を重複して定義しない。
 - 固定版は Minecraft 1.21.1、NeoForge 21.1.248、TFC 4.2.12、IaF CE 2.1.4。版の変更は `PROJECT.md` に基づく検証を伴う。
-- `./gradlew runData` をレシピ、Lootを含む生成物の唯一の正式 generator とし、出力を `src/generated/resources` に置く。補助的な `tools/` と `scripts/` は作らない。
+- レシピ、Loot、model等の正式generatorは `./gradlew runData` とし、出力を `src/generated/resources` に置く。DragonsteelのPNGだけは正式generator `tools/generate_assets.py`（Python 3 + Pillow）で生成し、`src/main/resources/assets/iaftfc/textures/` に保存する。その他の補助scriptは `.tmp/` に置く。
 - 元 Mod のデータを上書きする場合、`src/test/resources/iaftfc/gametest/override_manifest.json` の許可リストへ対象 ID を追加し、GameTestで実際の上書きと照合する。
 - Dragon構造物の気候選択とCave鉱石選択は `src/main/java/dev/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/dev/iaftfc/mixin/`、検証入口は `src/test/java/dev/iaftfc/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
 - Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。
@@ -64,3 +64,16 @@
 - Dragon Mealの生肉タグ・腐敗条件、Dragon Flesh/StewのFoodDataとサイズ、Seekerの材料置換は `datagen/DragonFoodAndSeekerData` から生成する。Stewを食べた際のボウル返却は `mixin/DragonStewBowlMixin`、検証は `gametest/DragonFoodAndSeekerGameTests` と `tests/e2e/dragon-food-seeker.mjs` を入口とする。
 - Bestiaryの新製法ページは `src/main/resources/assets/iceandfire/lang/bestiary/<locale>_0/` で上書きし、`gametest/BestiaryGameTests` と `tests/e2e/bestiary.mjs` で検証する。
 - M13の進行連結は `gametest/ProgressionGameTests`、完全停止を挟む保存検証は `PersistenceFixtureGameTests` と `PersistenceVerifyGameTests` を入口とする。`runGameTestServer` は2段階の保存検証、独立2出力のdata比較、AC対応検査を実行し、結果を `build/test-results/gametest/` に記録する。再接続表示は `tests/e2e/integration-reconnect.mjs` で確認する。
+
+## Dragonsteel texture generator
+
+- 再生成入口は `python3 tools/generate_assets.py`。既存iaftfcの形状、Ice and FireのIngot配色、TFC Wrought Ironの同形状のL範囲を参照する。変換方式と対象形状は同scriptに定義する。
+- 対象はFire・Ice・Lightningの素材・工具頭・Block・Smooth各12形状、計36画像。未完成防具12画像は生成対象に含めない。
+- 原画像は `tools/texture_sources/` に無加工で保持する。入力の出典と権利表示は `LICENCE` に集約する。ハッシュ対応表や比較画像は追加しない。
+- 画像の参照先は既存 `DragonsteelData` のmodelと同じ。金属itemへの乗算着色はなく、`DragonsteelClient` は溶融流体とBucketの描画を担当する。
+- 再生成のバイト一致、原形状のalpha一致、未完成防具が不変であること、modelの画像参照を検証し、`./gradlew build` で同梱を確認する。
+
+## 依存バージョンの許容範囲
+
+- NeoForge と依存 Mod の実行時制約は最低対応版以上の `[最低版,)` とする。完全一致指定や上限によって更新版の起動を拒否しない。
+- Gradle・Harness・製品仕様に記載した固定版はビルドと再現試験の基準版。実行時の許容範囲とは分けて扱い、依存バージョンのテストも最低版以上で判定する。

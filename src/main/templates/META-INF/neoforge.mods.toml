@@ -89,14 +89,14 @@ config="${mod_id}.mixins.json"
 [[dependencies.${mod_id}]]
     modId="tfc"
     type="required"
-    versionRange="[${tfc_version}]"
+    versionRange="[${tfc_version},)"
     ordering="AFTER"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
     modId="iceandfire"
     type="required"
-    versionRange="[${iceandfire_version}]"
+    versionRange="[${iceandfire_version},)"
     ordering="AFTER"
     side="BOTH"
 
