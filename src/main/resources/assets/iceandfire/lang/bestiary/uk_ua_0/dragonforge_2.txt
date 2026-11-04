@@ -1,0 +1,45 @@
+<recipe><iceandfire:chain 0 minecraft:air 0 minecraft:chain 0 minecraft:chain 0 minecraft:air 0 minecraft:chain 0 minecraft:air 0 minecraft:chain 0 minecraft:chain 0 minecraft:air 0 4 10 1>
+
+
+
+
+
+
+
+
+Ланцюги потрібні, для того, щоб
+схопити диких драконів та інших
+монстрів. Їх можна прив'язати до
+стін. Дракони знищать більшість
+стін, наприклад, з кругляка. Тому
+для активації кузні Вам
+згодитися стіна з кістки дракону.
+<recipe><iceandfire:dragon_bone_wall 0 minecraft:air 0 minecraft:air 0 minecraft:air 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 25 145 0.75>
+
+
+
+
+
+Щоб належним чином живити кузню,
+потрібно розмістити прикутого або
+приборканого дракона прямо перед 
+отвором кузні. Після цього дракон
+почне дихати полумям або кригою,
+поки в кузні будуть предмети.
+
+Більшість речей у кузні стане
+попелом або драконячим льодом.
+Для драконесталі потрібні червона,
+синя або чорна сталь TFC та кров
+відповідного дракона. Через 1000
+тіків вийде один злиток.
+
+<item><tfc:metal/ingot/red_steel 0 110 64 1>
+<item><iceandfire:fire_dragon_blood 0 130 64 1>
+<item><iaftfc:metal/ingot/dragonsteel_fire 0 170 64 1>
+<item><tfc:metal/ingot/blue_steel 0 110 78 1>
+<item><iceandfire:ice_dragon_blood 0 130 78 1>
+<item><iaftfc:metal/ingot/dragonsteel_ice 0 170 78 1>
+<item><tfc:metal/ingot/black_steel 0 110 92 1>
+<item><iceandfire:lightning_dragon_blood 0 130 92 1>
+<item><iaftfc:metal/ingot/dragonsteel_lightning 0 170 92 1>

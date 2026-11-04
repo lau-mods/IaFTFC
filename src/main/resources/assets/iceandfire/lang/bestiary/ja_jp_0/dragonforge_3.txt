@@ -1,0 +1,48 @@
+龍鋼は強力な金属。
+Tier 6金床でインゴットを溶接、
+Tier 7金床で刃と防具を鍛造。
+刃には木の棒を付ける。
+未完成防具は溶接する。
+龍用防具にはダブル板を使う。
+<item><iceandfire:dragonsteel_fire_sword 0 10 40 1>
+<item><iceandfire:dragonsteel_fire_pickaxe 0 26 40 1>
+<item><iceandfire:dragonsteel_fire_axe 0 42 40 1>
+<item><iceandfire:dragonsteel_fire_shovel 0 58 40 1>
+<item><iceandfire:dragonsteel_fire_hoe 0 74 40 1>
+<item><iceandfire:dragonsteel_fire_helmet 0 20 60 1>
+<item><iceandfire:dragonsteel_fire_chestplate 0 35 60 1>
+<item><iceandfire:dragonsteel_fire_leggings 0 50 60 1>
+<item><iceandfire:dragonsteel_fire_boots 0 65 60 1>
+
+
+
+
+
+
+
+
+氷の龍炉は氷の龍の
+冷たいブレスを受け、
+氷の龍鋼を作る。
+
+
+<item><iceandfire:dragonforge_ice_brick 0 70 4 1.5>
+<item><iceandfire:dragonforge_ice_input 0 90 4 1.5>
+<item><iceandfire:dragonforge_ice_core 0 110 4 1.5>
+
+
+
+
+
+
+火の龍鋼は敵を燃やし、
+強く吹き飛ばす。
+氷の龍鋼は敵を凍らせる。
+どちらも高い威力を持ち、
+龍との戦いに役立つ。
+龍鋼の防具は龍のブレスへの
+耐性も高める。
+
+
+
+

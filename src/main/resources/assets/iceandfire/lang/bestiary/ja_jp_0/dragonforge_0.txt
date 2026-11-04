@@ -1,0 +1,43 @@
+龍の骨と鱗には強力な
+魔力が宿る。石と合わせた
+龍炉レンガは、龍の炎や
+冷気にも壊されない。
+
+<recipe><iceandfire:dragonforge_fire_brick 0 iceandfire:dragonscale_red 0 tfc:rock/bricks/granite 0 iceandfire:dragonscale_red 0 tfc:rock/bricks/granite 0 iceandfire:dragonscale_red 0 tfc:rock/bricks/granite 0 iceandfire:dragonscale_red 0 tfc:rock/bricks/granite 0 iceandfire:dragonscale_red 0 5 76 1>
+
+
+
+
+
+
+
+
+
+龍炉レンガから炉心と
+入力口を作る。氷と雷にも
+それぞれの炉がある。
+
+
+<recipe><iceandfire:dragonforge_fire_core 0 iceandfire:dragonforge_fire_brick 0 iceandfire:dragonforge_fire_brick 0 iceandfire:dragonforge_fire_brick 0 iceandfire:dragonforge_fire_brick 0 iceandfire:fire_dragon_heart 0 iceandfire:dragonforge_fire_brick 0 iceandfire:dragonforge_fire_brick 0 iceandfire:dragonforge_fire_brick 0 iceandfire:dragonforge_fire_brick 0 190 3 1>
+<recipe><iceandfire:dragonforge_fire_input 0 iceandfire:dragonforge_fire_brick 0 tfc:metal/ingot/wrought_iron 0 iceandfire:dragonforge_fire_brick 0 tfc:metal/ingot/wrought_iron 0 minecraft:air 0 tfc:metal/ingot/wrought_iron 0 iceandfire:dragonforge_fire_brick 0 tfc:metal/ingot/wrought_iron 0 iceandfire:dragonforge_fire_brick 0 190 90 1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+炉心、入力口、龍骨
+ブロック8個とレンガ17個で
+龍炉を組み立てる。

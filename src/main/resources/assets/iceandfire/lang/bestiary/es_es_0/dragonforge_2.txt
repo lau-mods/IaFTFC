@@ -1,0 +1,45 @@
+<recipe><iceandfire:chain 0 minecraft:air 0 minecraft:chain 0 minecraft:air 0 minecraft:air 0 minecraft:chain 0 minecraft:air 0 minecraft:air 0 minecraft:chain 0 minecraft:air 0 4 10 1>
+
+
+
+
+
+
+
+
+Las cadenas permiten capturar
+dragones salvajes y más monstruos
+y atarlos a las paredes. Los
+dragones destruirán la mayoría de
+paredes, como las de roca, por lo
+que quien desee usar un dragón
+salvaje necesitará muros de hueso.
+<recipe><iceandfire:dragon_bone_wall 0 minecraft:air 0 minecraft:air 0 minecraft:air 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 iceandfire:dragonbone 0 25 145 0.75>
+
+
+
+
+
+
+Para energizar adecuadamente una
+forja, se debe colocar al dragón
+directamente frente a la apertura.
+Entonces el dragón empezará a
+lanzar su aliento, siempre que
+haya objetos válidos en la forja.
+La mayoría de objetos en la forja
+se vuelve cenizas o hielo de dragón.
+Para crear acero dracónico, usa
+acero rojo, azul o negro de TFC
+con sangre del dragón correspondiente.
+Tras 1000 ticks obtienes un lingote.
+
+<item><tfc:metal/ingot/red_steel 0 110 64 1>
+<item><iceandfire:fire_dragon_blood 0 130 64 1>
+<item><iaftfc:metal/ingot/dragonsteel_fire 0 170 64 1>
+<item><tfc:metal/ingot/blue_steel 0 110 78 1>
+<item><iceandfire:ice_dragon_blood 0 130 78 1>
+<item><iaftfc:metal/ingot/dragonsteel_ice 0 170 78 1>
+<item><tfc:metal/ingot/black_steel 0 110 92 1>
+<item><iceandfire:lightning_dragon_blood 0 130 92 1>
+<item><iaftfc:metal/ingot/dragonsteel_lightning 0 170 92 1>

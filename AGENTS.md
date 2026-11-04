@@ -62,3 +62,4 @@
 - 生きたDragonのブレスによるTFC地形変換は `mixin/DragonBreathTerrainMixin`、Forge・Entity Damage・griefing境界の検証は `gametest/DragonBreathGameTests` を入口とする。TFCの既存カテゴリタグを参照し、IaFのWorldEventと破壊判定は維持する。
 - 卵のTFC条件は `mixin/DragonEggConditionsMixin`、DragonのCalendar成長・NBT・Horn解放時の基準点更新は `dragon/CalendarDragonGrowth` と `mixin/DragonCalendar*Mixin` と `mixin/DragonHornCalendarMixin` を入口とする。`gametest/DragonEggCalendarGameTests` と `tests/e2e/dragon-egg-hatch.mjs` で検証する。
 - Dragon Mealの生肉タグ・腐敗条件、Dragon Flesh/StewのFoodDataとサイズ、Seekerの材料置換は `datagen/DragonFoodAndSeekerData` から生成する。Stewを食べた際のボウル返却は `mixin/DragonStewBowlMixin`、検証は `gametest/DragonFoodAndSeekerGameTests` と `tests/e2e/dragon-food-seeker.mjs` を入口とする。
+- Bestiaryの新製法ページは `src/main/resources/assets/iceandfire/lang/bestiary/<locale>_0/` で上書きし、`gametest/BestiaryGameTests` と `tests/e2e/bestiary.mjs` で検証する。
