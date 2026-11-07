@@ -50,6 +50,7 @@
 - レシピ、Loot、model等の正式generatorは `./gradlew runData` とし、出力を `src/generated/resources` に置く。DragonsteelのPNGだけは正式generator `tools/generate_assets.py`（Python 3 + Pillow）で生成し、`src/main/resources/assets/iaftfc/textures/` に保存する。その他の補助scriptは `.tmp/` に置く。
 - 元 Mod のデータを上書きする場合、`src/test/resources/iaftfc/gametest/override_manifest.json` の許可リストへ対象 ID を追加し、GameTestで実際の上書きと照合する。
 - Dragon構造物の気候選択とCave鉱石選択は `src/main/java/net/claustra01/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/net/claustra01/iaftfc/mixin/`、検証入口は `src/test/java/net/claustra01/iaftfc_test/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
+- Dragon構造物の属性別TFCチェストと岩石適合鉱石は `worldgen/DragonChests` と `worldgen/DragonCaveOres`、9種のチェストLoot・装備profileの共有Loot・3種のPile Lootは `datagen/DragonLootData`、検証入口は `gametest/DragonStructureLootGameTests` とする。
 - Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。
 - Lily・SkeletonのTFC気候配置は `worldgen/ElementalPlacement`、元IaFのBiomeタグ追加・Lily地面タグ・元Configured/Placed Featureの限定上書きは `datagen/ElementalWorldgenData` から `runData` で生成する。LilyのTFC土壌での生存判定は `mixin/ElementalFlowerSoilMixin`、鉱脈Biome Modifierの無効化は `ElementalWorldgenData` を入口とする。
 - GameTestは固定シード0のTFC Overworldで実行し、`src/test/java/net/claustra01/iaftfc_test/mixin/GameTestWorldPresetMixin.java` をテスト用ワールド生成の入口とする。

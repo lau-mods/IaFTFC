@@ -85,7 +85,7 @@ public final class WorldgenGameTests {
             }
         }
         Set<String> actual = new HashSet<>();
-        for (String prefix : List.of("tags/worldgen/biome", "worldgen/structure_set")) {
+        for (String prefix : List.of("tags/worldgen/biome", "worldgen/structure_set", "loot_table")) {
             helper.getLevel().getServer().getResourceManager()
                 .listResourceStacks(prefix, id -> id.getNamespace().equals("iceandfire"))
                 .forEach((id, resources) -> resources.forEach(resource -> {

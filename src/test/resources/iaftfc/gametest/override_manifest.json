@@ -4,6 +4,18 @@
     "iceandfire:tags/worldgen/biome/structure_gen/ice.json",
     "iceandfire:tags/worldgen/biome/structure_gen/lightning.json",
     "iceandfire:worldgen/structure_set/dragon_roost.json",
-    "iceandfire:worldgen/structure_set/dragon_cave.json"
+    "iceandfire:worldgen/structure_set/dragon_cave.json",
+    "iceandfire:loot_table/chest/fire_dragon_roost.json",
+    "iceandfire:loot_table/chest/fire_dragon_female_cave.json",
+    "iceandfire:loot_table/chest/fire_dragon_male_cave.json",
+    "iceandfire:loot_table/chest/ice_dragon_roost.json",
+    "iceandfire:loot_table/chest/ice_dragon_female_cave.json",
+    "iceandfire:loot_table/chest/ice_dragon_male_cave.json",
+    "iceandfire:loot_table/chest/lightning_dragon_roost.json",
+    "iceandfire:loot_table/chest/lightning_dragon_female_cave.json",
+    "iceandfire:loot_table/chest/lightning_dragon_male_cave.json",
+    "iceandfire:loot_table/blocks/gold_pile.json",
+    "iceandfire:loot_table/blocks/silver_pile.json",
+    "iceandfire:loot_table/blocks/copper_pile.json"
   ]
 }

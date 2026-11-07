@@ -116,11 +116,13 @@ neoForge {
 
         dataFirst {
             data()
+            gameDirectory = project.file('build/run-data-first')
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('build/datagen-repro/first').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing-mod', 'tfc'
         }
 
         dataSecond {
             data()
+            gameDirectory = project.file('build/run-data-second')
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('build/datagen-repro/second').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing-mod', 'tfc'
         }
 
