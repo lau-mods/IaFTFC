@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Generate 36 Dragonsteel sprites with the accepted L palette transfer.
+"""Generate Dragonsteel and Dragon Armor sprites with L palette transfer.
 
 Requires Python 3 and Pillow. Run: python3 tools/generate_assets.py
 Exact input PNGs are under tools/texture_sources. Existing iaftfc geometry
 is preserved, using the upstream Ice and Fire ingot palette fitted to the
-same form's TFC Wrought Iron OKLab lightness range. Unfinished armor is excluded.
+same form's TFC Wrought Iron OKLab lightness range. Dragon Armor uses its
+TFC metal's ingot palette fitted to that metal's sheet lightness range.
+Unfinished armor is excluded.
 """
 from pathlib import Path
 from PIL import Image
@@ -102,6 +104,25 @@ def load(path):
     return Image.open(path).convert('RGBA')
 
 
+def generate_dragon_armor():
+    count = 0
+    for metal in ('steel', 'black_steel', 'red_steel', 'blue_steel'):
+        original = load(SOURCES / f'tfc/item/metal/ingot/{metal}.png')
+        tone = load(SOURCES / f'tfc/item/metal/sheet/{metal}.png')
+        colors = normalize(palette(original), palette(tone))
+        for part in ('head', 'neck', 'body', 'tail'):
+            for namespace, relative in (
+                ('iaftfc', f'item/dragonarmor_{metal}_{part}.png'),
+                ('iceandfire', f'entity/dragon_armor/armor_{part}_{metal}.png'),
+            ):
+                shape = load(SOURCES / namespace / relative)
+                target = ROOT / 'src/main/resources/assets' / namespace / 'textures' / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                recolor(shape, colors).save(target)
+                count += 1
+    return count
+
+
 def main():
     count = 0
     for element in ('fire', 'ice', 'lightning'):
@@ -117,7 +138,8 @@ def main():
                 target.parent.mkdir(parents=True, exist_ok=True)
                 image.save(target)
                 count += 1
-    print(f'Generated {count} Dragonsteel textures; unfinished armor excluded.')
+    armor_count = generate_dragon_armor()
+    print(f'Generated {count} Dragonsteel and {armor_count} Dragon Armor textures; unfinished armor excluded.')
 
 
 if __name__ == '__main__':
