@@ -13,7 +13,7 @@ Java: 21
 
 ## Purpose
 
-`iaftfc` は、Ice and Fire: Community Edition 2.1.4 のドラゴン関連コンテンツを TerraFirmaCraft 4.2.12 の世界生成、鉱物、製錬、鍛造、食料、重量および暦へ接続する NeoForge アドオンである。既存の IaFTFC 実装・仕様・アセットは一切引き継がず、`iaftfc` という名称と Mod ID だけを使用する。必須のゲーム内依存関係は `tfc` および `iceandfire` とする。IaF CE がそれ自体の動作に必要とする Jupiter / Uranus 等は IaF CE の既存依存関係に従って配置し、本アドオン独自の前提 Mod にはしない。TFC Overdims、JEI、EMI、Jade 等への依存は設けない。
+`iaftfc` は、Ice and Fire: Community Edition 2.1.4 のドラゴン関連コンテンツを TerraFirmaCraft 4.2.12 の世界生成、鉱物、製錬、鍛造、食料、重量および暦へ接続する NeoForge アドオンである。必須のゲーム内依存関係は `tfc` および `iceandfire` とする。IaF CE がそれ自体の動作に必要とする Jupiter / Uranus 等は IaF CE の既存依存関係に従って配置し、本アドオン独自の前提 Mod にはしない。TFC Overdims、JEI、EMI、Jade 等への依存は設けない。
 
 本書は実装の唯一の製品仕様である。**指示のないゲームデザイン上の変更を禁止する**。元 Mod の挙動を維持する箇所は、指定したリリースに含まれるクラス・データを規範とし、その仕組みに対する互換差分だけを実装する。実装言語、Mixin とイベントの選択などの内部構造は任意とするが、登録 ID、入力、出力、データ、確率、温度、進行段階、表示、セーブ結果および以下の AC は一致しなければならない。
 
@@ -29,7 +29,9 @@ TFC と IaF CE の両方が存在する Minecraft 1.21.1 環境でロードす�
 
 対応ワールドは TFC Climate が存在する Overworld とする。TFC 特有の世界生成・自然物変換は Overworld のみ行う。別ディメンションでドラゴンを使用した場合、元 IaF の戦闘・移動・保存・呼び戻しを妨げない。Overdims への必須依存、特別な Nether/End レシピ、代替資源生成は追加しない。
 
-別途明示する元 IaF のレシピ、銀・サファイア生成、無効化対象の装備ルート以外の IaF 内容を包括的に無効化しない。削除するのは**取得経路**であり、既存セーブ上の IaF アイテム ID 自体を消去・登録解除しない。
+別途明示する元 IaF のレシピ、銀・サファイア生成、無効化対象の装備ルート以外の IaF 内容を包括的に無効化しない。例外として、IaFの武器（非ドラゴン装備を含む）のうちVanilla/`c`道具タグ経由でTFCダメージ種別を持たないものには、F-020に定める`tfc:deals_*_damage`タグだけを追加する。
+
+本アドオンが登録するDragonsteel部品・Block・Anvil・Bucket、Dragonbone部品、Dragon Armorはすべて専用クリエイティブタブ `iaftfc:main`（表示名`IaFTFC`）に表示する。本書で無効化した元IaFアイテム（F-005のSilver/Sapphire系、F-014の無効Dragon Armor）はすべてのクリエイティブタブと検索タブから除外する。削除するのは**取得経路**であり、既存セーブ上の IaF アイテム ID 自体を消去・登録解除しない。
 
 #### Acceptance Criteria
 
@@ -80,7 +82,7 @@ Expected Result:
 4. 実生成候補の T/R/V で同じ score・softmax を計算し、**候補チャンクとStructure Setのsaltから確定する別個の64-bit SplitMix64乱数**の上位53bitを `[0,1)` の一様値へ変換する。累積確率 Fire→Ice→Lightning の順に1種を選ぶ。これにより属性の偏りが生じても、固定の入力に対する属性は再起動後も変化しない。
 5. 各属性専用の元 IaF `Structure` をそのまま生成する。元配置候補自体を増減させず、既存の年齢・性別・戦利品・地形操作を引き継ぐ。標本気候や候補周辺が通常生成可能なTFC Overworldでない場合は元IaFの配置処理を維持する。
 
-標本からの補正は**気候適性を維持しつつ3属性の期待出現率を等しくする**ためのものであり、地形の局所的な不均衡を理由として個々の属性を強制生成しない。測定上の許容範囲は、標本に基づく3属性の平均確率がそれぞれ `[0.32,0.35]` とする。実生成数の統計検査では500以上の生成成功例を対象に各属性比率 `[0.27,0.40]` を許容する。IaF元設定で自然生成が無効のときは無効のままとする。
+標本からの補正は**気候適性を維持しつつ3属性の期待出現率を等しくする**ためのものであり、地形の局所的な不均衡を理由として個々の属性を強制生成しない。測定上の許容範囲は、標本に基づく3属性の平均確率がそれぞれ `[0.32,0.35]` とする。実生成数の統計検査では100以上の生成成功例を対象に各属性比率 `[0.27,0.40]` を許容する。IaF元設定で自然生成が無効のときは無効のままとする。
 
 #### Acceptance Criteria
 
@@ -198,6 +200,8 @@ Expected Result:
 
 IaF CE の Silver Ore と Sapphire Ore の Overworld自然鉱脈を、`neoforge:biome_modifier` とfeature参照の削除・置換によって**新規生成しない**。IaFの銀・サファイア鉱石ブロック／アイテムはレジストリから除外しないが、アドオンの通常進行では使用しない。SilverはTFCのNative Silver、SapphireはTFCのGem/Oreを使用する。IaFの古いSilver Ingot、Nugget、Raw Silver、Sapphire Gemを材料にするドラゴン関連レシピはTFC側へ置換し、逆変換製法を残さない。
 
+IaFのSilver/Sapphire系アイテム `silver_ore`, `deepslate_silver_ore`, `raw_silver`, `raw_silver_block`, `silver_ingot`, `silver_nugget`, `silver_block`, `silver_{sword,pickaxe,axe,shovel,hoe}`, `armor_silver_metal_{helmet,chestplate,leggings,boots}`, `sapphire_ore`, `sapphire_gem`, `sapphire_block` は無効化する。これらを生成するIaFの元レシピ（精錬・溶鉱炉、Block/Nugget相互変換、Silver道具・防具）と、Silver Nuggetを材料とする`iceandfire:silver_pile`レシピを`neoforge:false`で無効化し、クリエイティブ表示から除外する。登録IDは維持する。Dragon Scale・Dragon Armorの色名としてのSilver/Sapphireは対象外とする。
+
 #### Acceptance Criteria
 
 ##### AC-F005-001: 鉱脈と素材の単一化
@@ -277,7 +281,7 @@ Head/UnfinishedにEnchantが付かず、完成装備には元設定が適用さ�
 
 #### Description
 
-IaFの`gold_pile`、`silver_pile`、`copper_pile`を引き続きRoostとCaveに生成する。各1 layerあたり、従来の金属Nugget 2個の代わりに対応するTFC Small Native Ore 2個をドロップする。対象は`gold→tfc:ore/small_native_gold`、`silver→tfc:ore/small_native_silver`、`copper→tfc:ore/small_native_copper`。layer 1～8と元の破壊・Silk Touchその他の状態を維持する。層数に応じて最大16個を返す。IaF Silver/Copper Nuggetからのインゴット変換をTFC資源生成に利用しない。
+IaFの`gold_pile`、`silver_pile`、`copper_pile`を引き続きRoostとCaveに生成する。従来の金属Nuggetの代わりに対応するTFC Small Native Oreを**端数切り上げで`layers/2`個**（layer 1～8で1,1,2,2,3,3,4,4個）ドロップする。対象は`gold→tfc:ore/small_native_gold`、`silver→tfc:ore/small_native_silver`、`copper→tfc:ore/small_native_copper`。layer 1～8の分岐条件と元の破壊・Silk Touchその他の状態を維持する。層数に応じて最大4個を返す。IaF Silver/Copper Nuggetからのインゴット変換をTFC資源生成に利用しない。
 
 #### Acceptance Criteria
 
@@ -290,7 +294,7 @@ Action:
 生存モードで破壊してドロップを数える。
 
 Expected Result:
-各Pileは対応するSmall Native Oreを`2*layers`個ドロップし、NuggetやIngotを直接出さない。layerごとの元仕様を維持する。
+各Pileは対応するSmall Native Oreを`ceil(layers/2)`個ドロップし、NuggetやIngotを直接出さない。layerごとの元仕様を維持する。
 
 ### F-008: Dragonsteel金属の新規実装
 
@@ -320,6 +324,8 @@ Dragonsteel Fire / Ice / Lightning はすべて`iaftfc`名前空間の**独立�
 TFC単位は**Ingot=100 mB**, Double Ingot=200 mB, Sheet=200 mB, Double Sheet=400 mB, Rod=50 mB、Metal Block=100 mB、Anvil=1400 mBとする。Source/Flowingのフルバケツ・Mold容量はTFCの既存金属Fluid実装と一致させる。溶融→鋳造→再溶融の物質保存を必須とする。金属再鋳造は既存TFC Ingot Moldを使用できるようにする。TFC標準のCoal燃料は最高1415℃、Bellowsの目標温度上昇は最大600℃で、雨天でなければCharcoal Forgeの到達目標は2015℃となる。従って、最高温度近傍でBellowsを継続操作することでTFC Charcoal Forge→上部Crucibleによる2000℃の再溶融を実現する。単独Charcoal Forge（Bellowsなし）やCharcoal燃料（1350+600=1950℃）からDragonsteelが溶融するルートは追加しない。温度の上限自体を変えたり、Dragon ForgeがTFC Crucibleに独自の無償熱を与える機能を追加したりしない。`tfc:item_heat`, `tfc:fluid_heat`など実際のデータ機構・タグに登録する。Item/Fluidの温度状態は再ログイン後も維持する。
 
 Metal BlockはTFC Red Steelと同型の装飾金属ブロックとし、`tfc:advanced_shaped_crafting`で`[" SH","SWS"," S "]`（`S=対応Dragonsteel Sheet`,`W=#minecraft:planks`,`H=#c:tools/hammer`）から**Metal Block8個**を得る。工具の損傷Remainder、`input_column=2`などはTFC Red Steel金属Blockに一致させる。Sheet4枚（計800mB）→Metal Block8個（計800mB）で物量保存する。Metal Block1個の溶融は100mB、Dragonsteel Anvil1個は1400mBへ戻る。Block↔Ingotの9個収納レシピは作らない。
+
+TFC Red Steelの同種部品が属するタグに合わせ、各金属を`c:ingots`, `c:double_ingots`, `c:sheets`, `c:double_sheets`, `c:rods`, `c:storage_blocks`（各`/<metal>`を含む）、`c:molten_<metal>`と`c:molten_metal`（Source/Flowing）、`minecraft:replaceable`（Fluid Block）、`minecraft:slabs`/`stairs`、`minecraft:mineable/pickaxe`、`tfc:anvils`, `tfc:minecart_holdable`, `tfc:metal_plated_blocks`, `tfc:molten_metals`へ登録する。IaFの最終Dragonsteel道具は`tfc:tools/<metal>`（5種）、Sword/Axeを`c:tools/melee_weapon`、Pickaxeを`c:tools/mining_tool`へ追加する。
 
 追加しないもの：IaFに存在しないPropick、Saw、Hammer、Scythe、Knife、Javelin、Mace、Chisel、Shield、Tuyere、Lamp、Bars、Chain、Trapdoor等のDragonsteel専用品。TFC式金属加工に必要な上表の部品と設備だけを追加する。上述の対象外型を生成する包括的なRegistryMetal自動展開は禁止する。
 
@@ -513,27 +519,19 @@ IaF固有数値と属性Abilityが一致し、TFC金属Tierに整合する対象
 
 #### Description
 
-既存の `iceandfire:dragonbone` を独自Knapping材料として扱う。Knapping Typeは `iaftfc:dragonbone`、5×5グリッド、初期25セルすべて保持、押下したセルを除去し、TFC Rock Knappingと同じ操作・UI規則を採用する。1回のKnappingにつきDragonbone原料**1個**を消費し、部品1個を生成する。未消費・中断時の挙動はTFC Rock Knappingに準ずる。可能な道具はSword、Pickaxe、Axe、Shovel、Hoeの5種のみ。部品は `iaftfc:dragonbone/{sword_blade,pickaxe_head,axe_head,shovel_head,hoe_head}` とし、元IaF完成品へTFC標準の棒材1個で組み立てる。
+既存の `iceandfire:dragonbone` を独自Knapping材料として扱う。Knapping Typeは `iaftfc:dragonbone`、5×5グリッド、初期25セルすべて保持、押下したセルを除去し、TFC Rock Knappingと同じ操作・UI規則を採用する。Knappingの開始にはDragonbone**2個**を必要とし、1回のKnappingにつき**1個**を消費して部品1個を生成する（`input.count=2`、`amount_to_consume=1`、`consume_after_complete=false`）。未消費・中断時の挙動はTFC Rock Knappingに準ずる。可能な道具はSword、Pickaxe、Axe、Shovel、Hoeの5種のみ。部品は `iaftfc:dragonbone/{sword_blade,pickaxe_head,axe_head,shovel_head,hoe_head}` とし、元IaF完成品へTFC標準の棒材1個で組み立てる。
 
-5種類の**完成パターン**は以下のとおりである。`#`は残すセル、空白は除去するセル。短い行は右側の空白で5文字まで埋め、5行未満は下側を空白で埋める。Axe、Hoe、ShovelはTFC Rock Knappingの同名原型を採用する。TFCに石のPickaxeとSwordがないため、この2種だけTFC陶器のPickaxe Head Mold、Sword Blade Moldの形状をKnapping操作の完成形として用いる。これによって「Rock Knappingと同型」を5種について一意に定める。
+5種類の**完成パターン**は過去版iaftfcのKnapping recipeを採用し、次の厳密な行列とする（`#`は残すセル、空白は除去するセル）。
 
 ```text
-AXE                     PICKAXE                 SHOVEL
- #                      #####                   ###
-####                     #   #                   ###
-#####                     ###                    ###
-####                     #####                   ###
- #                                              #
-
-HOE                     SWORD
-#####                     ###
-   ##                      ##
-                            #
-                            #
-                          ####
+SWORD:   ["##   ","###  "," ### ","  ## ","    #"]
+PICKAXE: ["     "," ### ","#   #","     ","     "]
+AXE:     [" #   ","#### ","#####","#### "," #   "]
+SHOVEL:  [" ### "," ### "," ### "," ### ","  #  "]
+HOE:     ["     ","#####","   ##","     ","     "]
 ```
 
-上記のSWORDは次の厳密な行列を採用する：`["  ###","   ##","#   #","##  #","#### "]`。PICKAXEは `["#####","#   #"," ### ","#####","     "]`。AXEは `[" #   ","#### ","#####","#### "," #   "]`。SHOVELは `["###  ","###  ","###  ","###  "," #   "]`。HOEは `["#####","   ##","     ","     ","     "]`。**このJSON風の行列を図示の余白より優先する。**パターンの鏡映・回転はTFCの該当Knapping recipeが許す場合に限り許可し、新しい簡単な代替パターンは追加しない。
+recipeには`mirror`・`rotate`・`default_on`を指定せずTFCの既定値に従い、新しい簡単な代替パターンは追加しない。
 
 完成品はIaF既存の `iceandfire:dragonbone_{sword,pickaxe,axe,shovel,hoe}`。元のDragonbone直接Craftingは無効化する。属性付きDragonbone Swordは従来どおり**完成Sword 1個 + 対応Dragon Blood 1個 → `iceandfire:dragonbone_sword_{fire|ice|lightning}` 1個**のShapelessとし、Sword BladeやKnapping画面にはBloodを使用しない。IaFの属性武器性能と効果は維持する。Dragonbone BowとArrow、他のドラゴン依存アイテムは元IaFの仕様を維持し、無指定のTFC式Knappingを追加しない。
 
@@ -542,13 +540,13 @@ HOE                     SWORD
 ##### AC-F012-001: 5種類のKnapping
 
 Preconditions:
-Dragonbone1個と対応5×5パターンを用意する。
+Dragonbone2個と対応5×5パターンを用意する。
 
 Action:
 各パターンでセルを除去して完成させる。
 
 Expected Result:
-対応する部品が各1個生成され、Dragonbone1個が消費される。不一致形状、未設定の道具種別、別素材では生成しない。
+対応する部品が各1個生成され、Dragonbone1個が消費される。Dragonbone1個だけではKnappingを開始できない。不一致形状、未設定の道具種別、別素材では生成しない。
 
 ##### AC-F012-002: 組み立てと属性化
 
@@ -565,7 +563,7 @@ Expected Result:
 
 #### Description
 
-既存Dragon Scaleの12色（Fire: Red/Green/Bronze/Gray、Ice: Blue/White/Sapphire/Silver、Lightning: Electric/Amethyst/Copper/Black）から、既存IaFの同色プレイヤー防具4部位を直接Knappingする。Knapping Type `iaftfc:dragonscale` はTFC Leather Knappingと同じ5×5のUI・セル削除を使用する。Scale Plateのような中間アイテムを追加しない。1回のKnapping入力は**同色Dragon Scales 1個**、結果は対応完成防具1個とし、通常Craftingの元レシピを無効化する。元IaF防具の性能、属性耐性、Set効果、名前、Texture、IDを維持する。
+既存Dragon Scaleの12色（Fire: Red/Green/Bronze/Gray、Ice: Blue/White/Sapphire/Silver、Lightning: Electric/Amethyst/Copper/Black）から、既存IaFの同色プレイヤー防具4部位を直接Knappingする。Knapping Type `iaftfc:dragonscale` はTFC Leather Knappingと同じ5×5のUI・セル削除を使用する。Scale Plateのような中間アイテムを追加しない。1回のKnapping入力は**同色Dragon Scales 5個**（完成時に5個を消費、`consume_after_complete=true`）、結果は対応完成防具1個とし、通常Craftingの元レシピを無効化する。元IaF防具の性能、属性耐性、Set効果、名前、Texture、IDを維持する。
 
 各部位の正確な完成パターン（`#`は残存セル）は次のとおり。TFC Leather Knapping 1.21.1 のレシピをそのまま使用する。
 
@@ -589,7 +587,7 @@ Action:
 各色・各部位でKnappingを行う。
 
 Expected Result:
-同色の既存IaF防具48種をすべて生成でき、Scaleが各1個消費される。中間Scale Plateは存在せず、Leatherや別色Scalesは該当色の入力にならない。
+同色の既存IaF防具48種をすべて生成でき、完成時にScaleが5個消費される。4個以下ではKnappingを開始できない。中間Scale Plateは存在せず、Leatherや別色Scalesは該当色の入力にならない。
 
 ##### AC-F013-002: 元性能と経路の封鎖
 
@@ -634,7 +632,7 @@ tail: ["   ","  #","## "]
 
 新規DragonArmorMaterialは`name={steel,black_steel,red_steel,blue_steel}`、`fireProof=false`、`dragonSteel=false`とし、Protectionのみ表の値とする。既存3属性Dragonsteelは元IaFの`dragonSteel=true`を維持する。IaFの`DragonArmorFeatureRenderer.getArmorTexture`はnamespaceを`iceandfire`へ固定するので、新規4素材の本体表示用Overlayは**`assets/iceandfire/textures/entity/dragon_armor/armor_<part>_<metal>.png`** に追加する。既存同名ファイルは上書きしない。新規ItemのModelは**`assets/iaftfc/items/dragonarmor_<metal>_<part>.json`**および`assets/iaftfc/models/item/dragonarmor_<metal>_<part>.json`に、画像は`assets/iaftfc/textures/item/dragonarmor_<metal>_<part>.png`に置く。IaF標準`DragonArmorItem.getDescriptionId()`が`iceandfire`名前空間へ固定されているため、新規16Itemは説明キーを`item.iaftfc.dragonarmor_<metal>_<part>`に上書きし、部位名と各素材名を含むローカライズを登録する。
 
-新規4素材のDragonArmorItemはIaF既存のDragon Armorスロット、Synced Data、Rendererに完全互換とする。新規4素材×4部位のItem spriteとドラゴン本体表示overlayを用意する。素材ごとの色はSteel=`#A7ADB6`、Black Steel=`#3B414B`、Red Steel=`#B13A46`、Blue Steel=`#397DAE`とする。**Assetの生成方法**は、IaFの同部位Iron Dragon Armor item spriteおよびentity overlayを色変換する方式に固定する。原画像の各画素alphaは保持し、RGBは `gray=(77R+150G+29B+128)>>8`、`factor=(115+140*gray/255)/255` とし、各出力channelを `round(baseChannel*factor)` にして0～255へclampする。完全透明画素はRGBAすべて0。ソース画像の解像度・UV・透明領域・部位別shapeは変更しない。生成物は静的PNGとしてリポジトリへ含め、実行時の動的生成にしない。
+新規4素材のDragonArmorItemはIaF既存のDragon Armorスロット、Synced Data、Rendererに完全互換とする。新規4素材×4部位のItem spriteとドラゴン本体表示overlayを用意する。
 
 #### Acceptance Criteria
 
@@ -680,7 +678,7 @@ Action:
 4素材×4部位のItem sprite・Dragon overlayをスクリーンショットで検査する。
 
 Expected Result:
-定義したRGBA変換の画像が正しく描画され、missing texture、UVずれ、部位不一致がない。
+missing texture、UVずれ、部位不一致がない。
 
 ### F-015: Egg孵化とDragon成長
 
@@ -746,7 +744,7 @@ Eggはどちらの暦設定でも元IaF指定tickに従い、Dragon成長だけ�
 
 IaFのDragon Meal、Sickly/Creative Dragon Meal、Fire/Frost/Lightning Stewの効果とドラゴンに対する作用はそのまま維持する。Dragon Mealの既存Shaped `BMB/MBM/BMB`（`B=bone`,`M=meat`）を保持し、`B`を`#c:bones`に、`M`を本アドオンが定義する`iaftfc:dragon_food_meat`タグへ変更する。このタグはTFC 4.2.12の**生の陸上動物肉**（Beef、Pork、Mutton、Chicken、Venison、Rabbit、Horse Meat、Bear、Bison、Turkey、Duck、Quail、Grouse、Pheasant、Goat/Chevon、Camelidae等の存在ID）だけを含み、調理肉・腐敗肉・魚介・IaFドラゴン肉・食事完成品を含めない。実際のTFC登録一覧に存在しない識別子は出力しない。レシピは入力ごとに肉4個、Bone5個でDragon Meal1個を返す（パターン中の`B`5個、`M`4個）。Vanilla肉だけを必要とする経路は置換する。
 
-元IaFの3属性Dragon FleshはそれぞれTFC FoodDataに登録し、食べることで発生するIaF本来の状態効果を変更しない。3属性ともFoodData値は正確に `hunger=4, saturation=0, protein=2.0, water=0, decay_modifier=2.0`、その他栄養0とする。属性Stew3種は `hunger=4, saturation=2.0, protein=2.5, water=5.0, vegetables=1.0, grain=0, fruit=0, dairy=0, decay_modifier=1.5` とする。これはTFCの生肉／調理肉の栄養と腐敗率に準じる確定値である。FoodDataが付いたことによって元IaF特殊効果や既存レシピを失わせない。
+元IaFの3属性Dragon FleshはそれぞれTFC FoodDataに登録し、食べることで発生するIaF本来の状態効果を変更しない。3属性ともFoodData値は正確に `hunger=4, saturation=0, protein=2.0, water=0, decay_modifier=2.0`、その他栄養0とする。属性Stew3種は `hunger=4, saturation=2.0, protein=2.5, water=5.0, vegetables=1.0, grain=0, fruit=0, dairy=0, decay_modifier=1.5` とする。これはTFCの生肉／調理肉の栄養と腐敗率に準じる確定値である。FoodDataが付いたことによって元IaF特殊効果や既存レシピを失わせない。IaFの`iceandfire:cooked_rice_with_{fire|ice|lightning}_dragon_meat`3種も過去版iaftfcと同じFoodData `hunger=4, saturation=1.5, water=20.0, grain=1.7, vegetables=2.0, protein=3.0, decay_modifier=3.5`、その他栄養0で登録する。
 
 属性Stewの製法は元IaFの各レシピ・ボウル・属性Lily・固有素材をそのまま使用し、TFCに未導入のNether/End素材について代替手段を作らない。TFC Overdimsの有無は判定しない。Dragon Meatの食料としての腐敗はTFC FoodCapabilityの元標準挙動に従い、永久保存・腐敗無効を設定しない。
 
@@ -797,26 +795,26 @@ Expected Result:
 
 #### Description
 
-IaFのDragon Horn、Dragon Flute、Dragon Staff、属性Summoning Crystal、Dragon Seeker各段階、騎乗・飛行・召喚・収納・Owner管理・Config制限は元IaFの実装を維持する。SeekerのうちNormalとEpicだけ材料を置換する。
+IaFのDragon Horn、Dragon Flute、Dragon Staff、属性Summoning Crystal、Dragon Seeker各段階、騎乗・飛行・召喚・収納・Owner管理・Config制限は元IaFの実装を維持する。SeekerのうちNormalとLegendaryだけ材料を置換する。
 
 - `iceandfire:dragon_seeker`：元Shapedの`a/x/x`を維持し、`a=#iceandfire:dragon_skulls`、`x=tfc:metal/ingot/steel`×2、結果1個。元Netherite Ingot経路を無効化する。
-- `iceandfire:epic_dragon_seeker`：Shapelessではなく**別のSmithing Transformレシピ2本**で、Base=`iceandfire:dragon_seeker`、TemplateとAdditionはIaF元Recipeに定義されたNether Starなどの構成を維持せず、`Template`をTFC `tfc:metal/ingot/red_steel` とするRed版、および `tfc:metal/ingot/blue_steel` とするBlue版とし、Additionはそれぞれ**同じ色のIngot**とする。すなわちRed版は`base Normal Seeker + red_steel ×2`、Blue版は`base Normal Seeker + blue_steel ×2`で、Resultは同じEpic Seeker1個。1 recipeでRed/Blueの共通Ingredientを使わず、異色混合は不成立。元IaFのNetherite Smithing TemplateとNether Star経路を無効化する。
+- `iceandfire:epic_dragon_seeker`：元IaFのSmithing Transform（Netherite Upgrade Template + Normal Seeker + Nether Star）を変更・無効化せず、代替レシピを追加しない。
 - Legendary Seekerは元IaFのドラゴン頭骨＋Dragonsteel素材という要求を維持し、`#iceandfire:dragon_steels`を`#iaftfc:dragonsteel_ingots`へ置換して本アドオン3金属を認める。最上位Godlyは元IaFの入手条件を変更しない。
 
 Seekerの元性能はNormal追跡範囲150、Epic200、Legendary300、Godly500であり、追跡可能な死亡/飼い慣らし状態、出力表示、Admin能力は元IaFを維持する。Seekerの表示や使用によって未生成チャンクを強制生成する追加機能を作らない。
 
 #### Acceptance Criteria
 
-##### AC-F018-001: NormalとEpicの製作
+##### AC-F018-001: Normal・Epic・Legendaryの製作
 
 Preconditions:
-Dragon Skull、Steel Ingot、Red/Blue Steel Ingot、元IaFの旧Netherite素材を用意する。
+Dragon Skull、Steel Ingot、元IaFのNetherite素材とNether Star、IaFTFC Dragonsteel Ingotを用意する。
 
 Action:
-NormalレシピとEpic2本を試す。
+Normal、Epic、Legendaryの各レシピを試す。
 
 Expected Result:
-Skull1+Steel2でNormal1個、Normal1+Red Steel2またはBlue Steel2でEpic1個を作る。色違い混合、旧Netheriteレシピでは作れない。
+Skull1+Steel2でNormal1個を作り、旧Netherite IngotではNormalを作れない。Epicは元IaFのSmithingだけで作れ、本アドオン独自のEpicレシピは存在しない。LegendaryはIaFTFC Dragonsteel Ingotで作れる。
 
 ##### AC-F018-002: 探索範囲とドラゴン制御
 
@@ -867,7 +865,9 @@ Fire/Ice/Lightningのブレス・飛翔攻撃・地形破壊による属性石�
 
 生きているドラゴンはTFC岩石・鉱石・設備・金床・Crucible・Bloomery等を原則破壊し得る。無条件のTFC全設備保護タグを作らない。`mobGriefing`、IaFの`dragonGriefing`等の設定、DragonBlockBreakBlacklist（元IaFタグ）の判定を元どおり維持する。元IaFがBlock Entity保護する場面はそのまま保護する。`DragonFireDamageWorldEvent`全体をCancelしてはいけない。CancelするとEntity DamageやDragon Forgeへのブレス供給も抑止するため、TFC地形変換に必要な狭い箇所だけを修正する。
 
-TFCの `can_collapse` など落盤に関するTagを恣意的に追加して属性石をTFC生岩と同等に落盤させることはしない。属性石の落盤は元IaFブロック性質のままにする。Cave・Roost生成時の属性化と、生きたDragonのブレス変換を区別する。
+IaFの属性ブロック（`iceandfire:{chared|frozen|crackled}_*`）はTFCの落盤・地滑りに参加させる。`*_stone`は`tfc:can_collapse`, `tfc:can_start_collapse`, `tfc:can_trigger_collapse`に追加し、`iaftfc:collapse/<element>_stone`で同属性の`*_cobblestone`へ崩落する。`*_cobblestone`と`*_gravel`は`tfc:can_landslide`に追加し、そのまま地滑りする。`*_dirt`, `*_grass`, `*_dirt_path`は`iaftfc:landslide/<element>_dirt`で同属性の`*_dirt`として地滑りし、`*_dirt_path`は`tfc:supports_landslide`に追加する。`<element>`は`chared`, `frozen`, `crackled`。
+
+Fire/Ice/Lightning Dragonは`iaftfc:dragons` Entityタグにまとめ、`tfc:deals_slashing_damage`へ追加し、`iaftfc:dragons`の`tfc:entity_damage_resistance`をpiercing/slashing/crushingそれぞれ30とする。Vanilla/`c`道具タグ経由でTFCダメージ種別を持たないIaF武器は次のとおり登録する。crushing：`deathworm_gauntlet_{red,white,yellow}`, `hippocampus_slapper`, `troll_weapon_{column,column_forest,column_frost,hammer,trunk,trunk_frost}`。piercing：`dragonbone_bow`, `fishing_spear`, `tide_trident`, `tide_trident_inventory`。slashing：`amphithere_macuahuitl`, `troll_weapon_axe`。既存タグで種別を持つ武器は重複登録しない。Cave・Roost生成時の属性化と、生きたDragonのブレス変換を区別する。
 
 #### Acceptance Criteria
 
@@ -965,7 +965,7 @@ Action:
 Recipe Manager、JEI等に依存しない実クラフト、Dragon Forge、Anvil、Welding、Mold、Lootを検証する。
 
 Expected Result:
-許可した新経路だけが成立し、元IaFの無効な金属ブロック逆変換、Netherite Dragon Armor、Diamond Dragon Armor、旧Iron直接Dragonsteel、Knapping迂回、属性混合Epic Seekerの取得経路が存在しない。元IaFの無効化対象以外のドラゴン専用レシピは存続する。
+許可した新経路だけが成立し、元IaFの無効な金属ブロック逆変換、Netherite Dragon Armor、Diamond Dragon Armor、旧Iron直接Dragonsteel、Knapping迂回の取得経路が存在しない。元IaFの無効化対象以外のドラゴン専用レシピは存続する。
 
 ##### AC-F022-004: データ生成の再現性とテスト対応
 
@@ -973,10 +973,10 @@ Preconditions:
 同一TFC/IaF/NeoForgeバージョン、同一SourceおよびWorld Seedの2つの独立Workspaceを用意する。
 
 Action:
-Data Generationを各々実行し、生成されたレシピ、タグ、Loot、モデルJSON、テクスチャ、自然生成選択を比較する。またすべてのACのGameTest/E2E対応を検査する。
+Data Generationを各々実行し、生成されたレシピ、タグ、Loot、モデルJSON、自然生成選択を比較する。またすべてのACのGameTest/E2E対応を検査する。
 
 Expected Result:
-生成物はバイト列またはPNGピクセル単位で一致し、抽選出力は同座標・同シードで一致する。全ACが `tests/acceptance.json` に存在し、検証不能のAC、単なるskip、意図しないmissing textureを残さない。
+生成物はバイト列単位で一致し、抽選出力は同座標・同シードで一致する。全ACが `tests/acceptance.json` に存在し、検証不能のAC、単なるskip、意図しないmissing textureを残さない。
 
 ## Global Requirements
 
@@ -1019,14 +1019,14 @@ TFCのItem Size/Weightを、次の同用途TFCカテゴリと同じ仕様で付�
 - 主要登録IDは各Feature表に従う。データパスはNeoForge 1.21.1に従い`data/iaftfc/recipe/`、`data/iaftfc/tfc/`、`data/iaftfc/tags/`、`assets/iaftfc/`、元IaF上書きは`data/iceandfire/recipe/`、`data/iceandfire/loot_table/`などの正規パスを使用する。内部Java package名は`iaftfc`を含む固有のものとし、元IaFTFCのコードを転用しない。
 - 金属タグは少なくとも `c:ingots/<metal>`、`c:double_ingots/<metal>`、`c:sheets/<metal>`、`c:double_sheets/<metal>`、`c:rods/<metal>` と各共通上位タグ、TFCの必要な金属/加熱タグへ追加する。3金属をまとめるタグ `iaftfc:dragonsteel_ingots` は新規正規Ingot3種**だけ**を含め、IaF旧Ingotを含めない。既存のTFC Red/Blue/Black Steelタグや別Modの同名アイテムは再定義しない。
 - GemはTFC Gem 9種類のItem IDを参照する。Rockは`basalt,quartzite,diorite`だけをCave用に指定する。動的なRock判定を経由して他のRockIDのGem鉱石を生成しない。
-- Resource Packは元IaFやTFCの既存Assetを壊さない。新規装備PNGはF-014のピクセル演算で固定生成し、生成Scriptと生成済み画像を同梱する。Texture Atlas、モデル、表示用言語ファイルは`ja_jp`、`en_us`の双方を用意し、Missing Translationが残らないようにする。IaFのライセンスと再配布条件を遵守し、参照元をリポジトリの著作権表示に記載する。
+- Resource Packは元IaFやTFCの既存Assetを壊さない。Texture Atlas、モデル、表示用言語ファイルは`ja_jp`、`en_us`の双方を用意し、Missing Translationが残らないようにする。IaFのライセンスと再配布条件を遵守し、参照元をリポジトリの著作権表示に記載する。
 
 ### GR-005: Lootとデータ生成
 
 - Loot変換の正本はF-006と本GR-005である。変換元の正本はIaF CE 2.1.4のJARに格納された9Chest JSONであり、生成スクリプトは当該固定入力から生成する。旧IaFTFCの仕様書や外部Markdownを必要としない。別Mod向けルールは本アドオンに実装しない。
 - データ生成時に元IaF JARから9Chestの元JSONを取り出して読込み、対象のentryだけをカテゴリ単位に翻訳する。元pool構造、rolls、bonus_rolls、weight、conditions、count provider、元IaF固有アイテムを保存する。元JSONが固定版から異なる場合は失敗として停止し、何も黙って補間しない。
 - 必須の機械的バリデーション：9テーブルの存在、元と同一pool数、同一rolls/bonus_rolls、親entry数・weight、count provider、条件、NuggetのSmall Ore化、IngotのIngot化、属性Gem/金属だけの固定変換、非属性Gemの共通表、装備部位維持、Tool Family内重み等価、2:1割合、Player装備のTier上限、Red/Blue Steel Lootなし、Black Steel完成装備なし、Graphite Powderなし、Bow/Crossbow分離、Enchant未完成品不可、1entryで二重set_countなし、IaF固有Loot保存。
-- データ生成とPNG色変換は決定論的であること。生成される識別子・確率・配列順序は安定させ、Git差分に乱数、ファイル時刻、実行環境依存値を含めない。
+- データ生成は決定論的であること。生成される識別子・確率・配列順序は安定させ、Git差分に乱数、ファイル時刻、実行環境依存値を含めない。
 
 ### GR-006: ワールド生成と他Modへの影響
 
@@ -1070,19 +1070,18 @@ TFCのItem Size/Weightを、次の同用途TFCカテゴリと同じ仕様で付�
 ### GR-008: クライアント、セーブ、後方互換
 
 - Modはサーバー側判定を正本とする。温度、Recipe、Dragon Age、卵年齢、DragonのOwner、Dragon Armor装着・Protection、Structure配置、Loot抽選はサーバーで確定し、clientへ必要な状態だけ同期する。描画専用クラスをDedicated Serverへロードしない。
-- 旧IaFの持ち物/ドラゴン/卵/Bestiary/Forge設備を含むセーブをクラッシュさせずロードする。IaF旧IDを欠番にしない。無効化したItemのセーブ保持は許すが、新規取得ルート・能力は本書どおりに制限する。IaFTFC過去版のセーブ・独自データの移行は実装せず、過去の実装アセットを流用しない。
+- 旧IaFの持ち物/ドラゴン/卵/Bestiary/Forge設備を含むセーブをクラッシュさせずロードする。IaF旧IDを欠番にしない。無効化したItemのセーブ保持は許すが、新規取得ルート・能力は本書どおりに制限する。
 - IaFのDragonsteel Toolの耐久・特殊能力やプレイヤー防具の属性耐性は元実装を参照する。新しいDragonsteel TFC金属、Weapon/Armorの製作経路を作るだけで、元クラスを二重登録しない。
 - ローカライズの英語・日本語、Model/Texture、Loot、Recipe、GameTest、E2Eの各仕様を同時に完成させる。未実装ACを省略する、Testを常時skipする、テストの成功条件を成果に合わせて緩める、GameTest/E2Eの結果を偽造することは禁止する。
 
 ## Constraints
 
 - **対象機能**：IaF CEのFire/Ice/Lightning Dragon、その卵、自然死骸、Roost/Cave、Dragon Forge、Dragonsteel、Dragonbone/Dragonscale、防具、Manuscript/Bestiary、Dragon Meal/Flesh/Stew、属性Lily、ドラゴン用ユーティリティ、およびそれらの最低限の基盤のみ。その他のIaF Mob・構造物・装備などには手を加えない。
-- **名前**：以前のIaFTFCから引き継ぐのは `iaftfc` の名前・Mod IDのみであり、既存のソースコード、仕様、アセット、生成成果物を流用しない。
 - **バージョン**：上記固定版を正本とし、将来のIaF/TFCの変更は本書に基づき互換性を再検証してから採用する。必要依存以外のModのサポートを暗黙に要求しない。
 - **追加コンテンツ**：Dragonsteelは3属性の金属加工、Forge、TFC用金属フォームおよびIaF既存の5Tool/4PlayerArmorに限定する。未存在のTFC専用Tool、未指定の魔法設備、新鉱石種、新ドラゴン種、独自ゲームプレイ機能を追加しない。
 - **進行**：Tier 7加工・元素別Dragon Forgeの要件を緩和しない。異属性混合や旧Vanilla生産経路を復活させない。Lootの変換で高Tier装備を直接報酬に追加しない。
 - **ワールド**：TFC世界生成と元IaF世界生成を尊重し、標準のDragon構造物頻度・数・素材ドロップ量を変更しない。TFCの他環境を無条件にドラゴン生成可能としない。
-- **表示**：既存IaFのアニメーションや3D形状、TFC GUI操作感を保持し、新規アセットは本文の変換手順だけを使用する。解像度変更による品質差を発生させない。
+- **表示**：解像度変更による品質差を発生させない。
 - **実装手段**：上流API/タグ/データパックによる解決を優先する。Mixinが必要な場合は対象メソッドの特定の呼び出しを狭く変更し、関連しない元IaF/TFC処理に副作用を与えない。
 - **ライセンス**：IaF CEとTFCそれぞれのライセンスを順守し、リリースのAssetsや参考ソースを使用する場合は許諾条件に従う。
 
