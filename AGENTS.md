@@ -46,13 +46,13 @@
 ## iaftfc 固有規約
 
 - 製品仕様の正本は `PROJECT.md`。この文書は共通開発規約と実装入口だけを示し、製品仕様を重複して定義しない。
-- 固定版は Minecraft 1.21.1、NeoForge 21.1.248、TFC 4.2.12、IaF CE 2.1.4。版の変更は `PROJECT.md` に基づく検証を伴う。
+- 固定版は Minecraft 1.21.1、NeoForge 21.1.248、TFC 4.2.14、IaF CE 2.2。版の変更は `PROJECT.md` に基づく検証を伴う。
 - レシピ、Loot、model等の正式generatorは `./gradlew runData` とし、出力を `src/generated/resources` に置く。DragonsteelのPNGだけは正式generator `tools/generate_assets.py`（Python 3 + Pillow）で生成し、`src/main/resources/assets/iaftfc/textures/` に保存する。その他の補助scriptは `.tmp/` に置く。
 - 元 Mod のデータを上書きする場合、`src/test/resources/iaftfc/gametest/override_manifest.json` の許可リストへ対象 ID を追加し、GameTestで実際の上書きと照合する。
-- Dragon構造物の気候選択とCave鉱石選択は `src/main/java/dev/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/dev/iaftfc/mixin/`、検証入口は `src/test/java/dev/iaftfc/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
+- Dragon構造物の気候選択とCave鉱石選択は `src/main/java/net/claustra01/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/net/claustra01/iaftfc/mixin/`、検証入口は `src/test/java/net/claustra01/iaftfc_test/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
 - Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。
 - Lily・SkeletonのTFC気候配置は `worldgen/ElementalPlacement`、元IaFのBiomeタグ追加・Lily地面タグ・元Configured/Placed Featureの限定上書きは `datagen/ElementalWorldgenData` から `runData` で生成する。LilyのTFC土壌での生存判定は `mixin/ElementalFlowerSoilMixin`、鉱脈Biome Modifierの無効化は `ElementalWorldgenData` を入口とする。
-- GameTestは固定シード0のTFC Overworldで実行し、`mixin/GameTestWorldPresetMixin` をテスト用ワールド生成の入口とする。
+- GameTestは固定シード0のTFC Overworldで実行し、`src/test/java/net/claustra01/iaftfc_test/mixin/GameTestWorldPresetMixin.java` をテスト用ワールド生成の入口とする。
 - Dragonsteelの指定部品・Fluid・金床登録は `metal/Dragonsteel`、金属加工データと表示素材の生成は `datagen/DragonsteelData`、GameTest入口は `gametest/DragonsteelGameTests` とする。生成と検証には `./gradlew runData`、`./gradlew runGameTestServer` を使う。
 - DragonsteelのBlock Loot、採掘・金床タグ、2種のIngot Mold鋳造レシピは `DragonsteelData` から生成し、描画は `tests/e2e/dragonsteel.mjs` で確認する。
 - Dragon Forgeの既存レシピ上書き、旧Dragonsteel製法の無効化、完成装備の組み立て・加熱データは `DragonsteelData` から生成する。Forge本体は `gametest/DragonForgeGameTests`、完成装備は `gametest/DragonsteelGameTests`、Forge表示は `tests/e2e/dragon-forge.mjs` で検証する。

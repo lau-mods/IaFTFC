@@ -1,0 +1,17 @@
+{
+  "gameTests": [
+    {
+      "acId": "AC-F001-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "climatecandidatesareexclusiveanddeterministic"
+    },
+    {
+      "acId": "AC-F001-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "probabilityandspacingsettingsreachgeneration"
+    }
+  ],
+  "e2e": []
+}

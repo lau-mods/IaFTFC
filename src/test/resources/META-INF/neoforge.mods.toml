@@ -1,0 +1,11 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="All rights reserved"
+
+[[mods]]
+modId="iaftfc_test"
+version="1"
+displayName="IaFTFC GameTests"
+
+[[mixins]]
+config="iaftfc.test.mixins.json"

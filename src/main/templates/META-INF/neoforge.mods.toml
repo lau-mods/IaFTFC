@@ -49,7 +49,8 @@ description='''
 Connects Ice and Fire dragons to TerraFirmaCraft.
 '''
 
-# Add a [[mixins]] entry when its configuration and implementation exist.
+[[mixins]]
+config="iaftfc.mixins.json"
 
 # The [[accessTransformers]] block allows you to declare where your AT file is.
 # If this block is omitted, a fallback attempt will be made to load an AT from META-INF/accesstransformer.cfg
@@ -71,7 +72,7 @@ Connects Ice and Fire dragons to TerraFirmaCraft.
     # An ordering relationship for the dependency.
     # BEFORE - This mod is loaded BEFORE the dependency
     # AFTER - This mod is loaded AFTER the dependency
-    ordering="NONE"
+    ordering="AFTER"
     # Side this dependency is applied on - BOTH, CLIENT, or SERVER
     side="BOTH"
 
@@ -81,7 +82,7 @@ Connects Ice and Fire dragons to TerraFirmaCraft.
     type="required"
     # This version range declares a minimum of the current minecraft version up to but not including the next major version
     versionRange="${minecraft_version_range}"
-    ordering="NONE"
+    ordering="AFTER"
     side="BOTH"
 
 [[dependencies.${mod_id}]]
