@@ -61,7 +61,7 @@
 - DragonboneとDragonscaleのメニュー処理、組み立て、旧レシピの検証入口は `gametest/KnappingGameTests`、描画確認は `tests/e2e/knapping.mjs` と `tests/e2e/scale-armor.mjs` とする。
 - Dragon Armorの登録は `dragonarmor/DragonArmor`、レシピ・レシピ無効化・TFC item_size・モデルとitems JSONの生成は `datagen/DragonArmorData` とする。PNGは `src/main/resources/assets/iaftfc/textures/item/` と `src/main/resources/assets/iceandfire/textures/entity/dragon_armor/` に置く。装着と防御制限は専用Mixin、検証入口は `gametest/DragonArmorGameTests` と `tests/e2e/dragon-armor.mjs` とする。
 - Dragonのブレス・チャージによるTFC地形変換は `mixin/DragonBreathTerrainMixin` と `dragon/BreathTerrainConversion`、変換後のTFC物理タグは `datagen/TfcCompatData`、変換・griefing・崩落・地滑りの検証は `gametest/DragonBreathGameTests` を入口とする。TFCの既存カテゴリタグを参照し、CEのWorldEventと破壊判定は維持する。
-- 卵のTFC条件は `mixin/DragonEggConditionsMixin`、DragonのCalendar成長・NBT・Horn解放時の基準点更新は `dragon/CalendarDragonGrowth` と `mixin/DragonCalendar*Mixin` と `mixin/DragonHornCalendarMixin` を入口とする。`gametest/DragonEggCalendarGameTests` と `tests/e2e/dragon-egg-hatch.mjs` で検証する。
+- 卵のTFC熱源・淡水条件は `mixin/DragonEggConditionsMixin` と `dragon/EggHeatSources`、検証入口は `gametest/DragonEggGameTests` とする。
 - Dragon Mealの生肉タグ・腐敗条件、Dragon Flesh/StewのFoodDataとサイズ、Seekerの材料置換は `datagen/DragonFoodAndSeekerData` から生成する。Stewを食べた際のボウル返却は `mixin/DragonStewBowlMixin`、検証は `gametest/DragonFoodAndSeekerGameTests` と `tests/e2e/dragon-food-seeker.mjs` を入口とする。
 - iaftfc専用クリエイティブタブと無効化アイテムの表示除外は `IaFTFCCreativeTab` を入口とする。
 - IaF属性ブロックのTFC落盤・地滑り、IaF武器・DragonのTFCダメージ種別と耐性、IaF Silver/Sapphire系レシピの無効化は `datagen/TfcCompatData` から `runData` で生成し、`gametest/TfcCompatGameTests` で検証する。

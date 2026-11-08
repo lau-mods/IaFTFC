@@ -8,6 +8,7 @@
     "DragonCaveChestMixin",
     "DragonCaveOresMixin",
     "DragonClimateStructureMixin",
+    "DragonEggConditionsMixin",
     "DragonRoostChestMixin",
     "DragonStructureSpacingAccessor",
     "StructurePlacementAccessor"
