@@ -7,7 +7,9 @@ import net.claustra01.iaftfc.datagen.DragonLootData;
 import net.claustra01.iaftfc.datagen.DragonStructureSets;
 import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
+import net.claustra01.iaftfc.datagen.KnappingData;
 import net.claustra01.iaftfc.datagen.TfcCompatData;
+import net.claustra01.iaftfc.knapping.DragonboneParts;
 import net.claustra01.iaftfc.plant.IaFTFCPlants;
 import net.claustra01.iaftfc.worldgen.StructureSpacingResolver;
 import net.neoforged.bus.api.IEventBus;
@@ -24,6 +26,7 @@ public final class IaFTFC {
     public static final String MOD_ID = "iaftfc";
 
     public IaFTFC(IEventBus modBus, ModContainer container) {
+        DragonboneParts.register(modBus);
         IaFTFCPlants.register(modBus);
         container.registerConfig(ModConfig.Type.COMMON, IaFTFCConfig.SPEC);
         modBus.addListener(IaFTFC::gatherData);
@@ -38,6 +41,7 @@ public final class IaFTFC {
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
             event.createProvider(ElementalWorldgenData::new);
+            event.createProvider(KnappingData::new);
             event.createProvider(TfcCompatData::new);
         }
         if (event.includeClient()) {
@@ -50,6 +54,11 @@ public final class IaFTFC {
                     add("block.iaftfc.plant.fire_lily", "Fire Lily");
                     add("block.iaftfc.plant.frost_lily", "Frost Lily");
                     add("block.iaftfc.plant.lightning_lily", "Lightning Lily");
+                    add("item.iaftfc.dragonbone.axe_head", "Dragon Bone Axe Head");
+                    add("item.iaftfc.dragonbone.hoe_head", "Dragon Bone Hoe Head");
+                    add("item.iaftfc.dragonbone.pickaxe_head", "Dragon Bone Pickaxe Head");
+                    add("item.iaftfc.dragonbone.shovel_head", "Dragon Bone Shovel Head");
+                    add("item.iaftfc.dragonbone.sword_blade", "Dragon Bone Sword Blade");
                 }
             });
         }

@@ -1,0 +1,14 @@
+{
+  "type": "tfc:knapping",
+  "default_on": false,
+  "knapping_type": "iaftfc:dragonscales_black",
+  "pattern": [
+    "#####",
+    "#   #",
+    "#   #"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:armor_black_helmet"
+  }
+}

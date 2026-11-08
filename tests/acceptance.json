@@ -95,6 +95,24 @@
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
       "name": "tfcfreshwaterfreezesiceeggs"
+    },
+    {
+      "acId": "AC-F008-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonscalecolorsconsumefiveandreplacecrafting"
+    },
+    {
+      "acId": "AC-F009-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonbonefirstclickmakespartsandtools"
+    },
+    {
+      "acId": "AC-F009-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonflutecomesdirectlyfromknapping"
     }
   ],
   "e2e": [

@@ -112,33 +112,39 @@ public final class DragonFeedingGameTests {
         helper.assertTrue(!goal.accepts(rotten), "Rotten TFC meat must be excluded during target selection");
         helper.assertTrue(goal.accepts(fresh), "Fresh TFC meat must be eligible during target selection");
 
-        int delay = Math.floorMod((int) -level.getGameTime(), 4);
-        helper.runAfterDelay(delay, () -> {
-            helper.assertTrue(goal.canUse(), "The CE ground-food goal must find fresh TFC meat");
-            helper.assertTrue(goal.target() == fresh, "The ground-food goal must skip nearer rotten meat");
+        checkGroundFoodOnScanTick(helper, goal, dragon, fresh);
+    }
 
-            goal.select(fresh);
-            goal.start();
-            helper.assertTrue(goal.canContinueToUse(),
-                "The dragon must be tracking fresh meat before it rots");
-            fresh.setItem(FoodCapability.setRotten(fresh.getItem()));
-            helper.assertTrue(!goal.canContinueToUse(),
-                "A dragon must stop tracking meat that rots after targeting");
-            int trackedCount = fresh.getItem().getCount();
-            goal.tick();
-            helper.assertValueEqual(fresh.getItem().getCount(), trackedCount,
-                "Meat that rots before contact must not be consumed");
-            helper.assertValueEqual(dragon.getHunger(), 0,
-                "Meat that rots before consumption must not restore hunger");
+    private static void checkGroundFoodOnScanTick(GameTestHelper helper, TestTargetItemsGoal goal,
+        FireDragonEntity dragon, ItemEntity fresh) {
+        if (helper.getLevel().getGameTime() % 4 != 0) {
+            helper.runAfterDelay(1, () -> checkGroundFoodOnScanTick(helper, goal, dragon, fresh));
+            return;
+        }
+        helper.assertTrue(goal.canUse(), "The CE ground-food goal must find fresh TFC meat");
+        helper.assertTrue(goal.target() == fresh, "The ground-food goal must skip nearer rotten meat");
 
-            ItemEntity consumable = itemEntity(helper, 3.5, fresh("tfc:food/cooked_beef"));
-            goal.select(consumable);
-            goal.tick();
-            helper.assertTrue(consumable.getItem().isEmpty(), "Fresh ground meat must be consumed on contact");
-            helper.assertTrue(dragon.getHunger() > 0,
-                "Fresh ground meat must restore hunger through CE's consumption path");
-            helper.succeed();
-        });
+        goal.select(fresh);
+        goal.start();
+        helper.assertTrue(goal.canContinueToUse(),
+            "The dragon must be tracking fresh meat before it rots");
+        fresh.setItem(FoodCapability.setRotten(fresh.getItem()));
+        helper.assertTrue(!goal.canContinueToUse(),
+            "A dragon must stop tracking meat that rots after targeting");
+        int trackedCount = fresh.getItem().getCount();
+        goal.tick();
+        helper.assertValueEqual(fresh.getItem().getCount(), trackedCount,
+            "Meat that rots before contact must not be consumed");
+        helper.assertValueEqual(dragon.getHunger(), 0,
+            "Meat that rots before consumption must not restore hunger");
+
+        ItemEntity consumable = itemEntity(helper, 3.5, fresh("tfc:food/cooked_beef"));
+        goal.select(consumable);
+        goal.tick();
+        helper.assertTrue(consumable.getItem().isEmpty(), "Fresh ground meat must be consumed on contact");
+        helper.assertTrue(dragon.getHunger() > 0,
+            "Fresh ground meat must restore hunger through CE's consumption path");
+        helper.succeed();
     }
 
     private static void verifyHandFeeding(GameTestHelper helper, FakePlayer player, DragonBaseEntity dragon,

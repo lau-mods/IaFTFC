@@ -1,0 +1,15 @@
+{
+  "type": "tfc:knapping",
+  "knapping_type": "iaftfc:dragonscales_electric",
+  "pattern": [
+    "#####",
+    "#####",
+    "## ##",
+    "## ##",
+    "## ##"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:armor_electric_leggings"
+  }
+}

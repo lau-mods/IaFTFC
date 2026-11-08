@@ -3,5 +3,10 @@
   "block.iaftfc.plant.frost_lily": "Frost Lily",
   "block.iaftfc.plant.lightning_lily": "Lightning Lily",
   "iaftfc.configuration.dragonCaveSpacing": "Dragon cave spacing",
-  "iaftfc.configuration.dragonRoostSpacing": "Dragon roost spacing"
+  "iaftfc.configuration.dragonRoostSpacing": "Dragon roost spacing",
+  "item.iaftfc.dragonbone.axe_head": "Dragon Bone Axe Head",
+  "item.iaftfc.dragonbone.hoe_head": "Dragon Bone Hoe Head",
+  "item.iaftfc.dragonbone.pickaxe_head": "Dragon Bone Pickaxe Head",
+  "item.iaftfc.dragonbone.shovel_head": "Dragon Bone Shovel Head",
+  "item.iaftfc.dragonbone.sword_blade": "Dragon Bone Sword Blade"
 }
