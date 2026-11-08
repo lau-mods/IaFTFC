@@ -6,7 +6,9 @@ import net.claustra01.iaftfc.datagen.DragonBiomeTags;
 import net.claustra01.iaftfc.datagen.DragonFoodData;
 import net.claustra01.iaftfc.datagen.DragonLootData;
 import net.claustra01.iaftfc.datagen.DragonStructureSets;
+import net.claustra01.iaftfc.datagen.DragonToolRecipeData;
 import net.claustra01.iaftfc.datagen.DragonsteelData;
+import net.claustra01.iaftfc.datagen.DisabledContentData;
 import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
 import net.claustra01.iaftfc.datagen.KnappingData;
@@ -34,8 +36,10 @@ public final class IaFTFC {
         DragonboneParts.register(modBus);
         DragonArmor.register(modBus);
         IaFTFCPlants.register(modBus);
+        IaFTFCCreativeTab.TABS.register(modBus);
         container.registerConfig(ModConfig.Type.COMMON, IaFTFCConfig.SPEC);
         modBus.addListener(IaFTFC::gatherData);
+        modBus.addListener(IaFTFCCreativeTab::removeDisabled);
         NeoForge.EVENT_BUS.addListener((ServerAboutToStartEvent event) ->
             StructureSpacingResolver.apply(event.getServer()));
     }
@@ -44,9 +48,11 @@ public final class IaFTFC {
         if (event.includeServer()) {
             event.createProvider((output, lookup) -> new DragonBiomeTags(output, lookup, event.getExistingFileHelper()));
             event.createProvider(DragonArmorData::new);
+            event.createProvider(DisabledContentData::new);
             event.createProvider(DragonFoodData::new);
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
+            event.createProvider(DragonToolRecipeData::new);
             event.createProvider(DragonsteelData::new);
             event.createProvider(ElementalWorldgenData::new);
             event.createProvider(KnappingData::new);
@@ -59,6 +65,8 @@ public final class IaFTFC {
                 protected void addTranslations() {
                     add("iaftfc.configuration.dragonRoostSpacing", "Dragon roost spacing");
                     add("iaftfc.configuration.dragonCaveSpacing", "Dragon cave spacing");
+                    add("itemGroup.iaftfc.main", "Ice and Fire for TFC");
+                    add("tooltip.iaftfc.disabled", "[DISABLED]");
                     add("block.iaftfc.plant.fire_lily", "Fire Lily");
                     add("block.iaftfc.plant.frost_lily", "Frost Lily");
                     add("block.iaftfc.plant.lightning_lily", "Lightning Lily");

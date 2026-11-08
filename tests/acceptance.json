@@ -161,6 +161,18 @@
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
       "name": "dragonitemsfollowtfccarrylimits"
+    },
+    {
+      "acId": "AC-F014-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "duplicatesurvivalsourcesarestopped"
+    },
+    {
+      "acId": "AC-F015-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragontoolsusetfccraftingpaths"
     }
   ],
   "e2e": [
@@ -175,6 +187,10 @@
     {
       "acId": "AC-F012-002",
       "scenario": "tests/e2e/dragon-armor.mjs"
+    },
+    {
+      "acId": "AC-F014-002",
+      "scenario": "tests/e2e/disabled-tooltip.mjs"
     }
   ]
 }

@@ -84,5 +84,7 @@
   "item.iaftfc.metal.unfinished_greaves.dragonsteel_lightning": "Lightning Dragonsteel Unfinished Leggings",
   "item.iaftfc.metal.unfinished_helmet.dragonsteel_fire": "Fire Dragonsteel Unfinished Helmet",
   "item.iaftfc.metal.unfinished_helmet.dragonsteel_ice": "Ice Dragonsteel Unfinished Helmet",
-  "item.iaftfc.metal.unfinished_helmet.dragonsteel_lightning": "Lightning Dragonsteel Unfinished Helmet"
+  "item.iaftfc.metal.unfinished_helmet.dragonsteel_lightning": "Lightning Dragonsteel Unfinished Helmet",
+  "itemGroup.iaftfc.main": "Ice and Fire for TFC",
+  "tooltip.iaftfc.disabled": "[DISABLED]"
 }

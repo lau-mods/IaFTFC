@@ -64,6 +64,7 @@
 - 卵のTFC熱源・淡水条件は `mixin/DragonEggConditionsMixin` と `dragon/EggHeatSources`、検証入口は `gametest/DragonEggGameTests` とする。
 - Dragon Mealの非腐敗肉入力とDragon Flesh・ドラゴン肉炒飯のFoodDataは `datagen/DragonFoodData` から生成する。TFC肉の給餌処理は `dragon/TfcDragonFood` と専用Mixin、検証入口は `gametest/DragonFeedingGameTests` と `gametest/DragonFoodGameTests` とする。
 - iaftfc専用クリエイティブタブと無効化アイテムの表示除外は `IaFTFCCreativeTab` を入口とする。
+- CE重複資源の無効化Tag・レシピ・Loot・Worldgenは `datagen/DisabledContentData`、client Tooltipは `client/DisabledTooltipHandler`、ドラゴン補助道具のTFC材料レシピは `datagen/DragonToolRecipeData`、検証入口は `gametest/DisabledItemsGameTests`、`gametest/DragonToolRecipeGameTests`、`tests/e2e/disabled-tooltip.mjs` とする。
 - IaF属性ブロックのTFC落盤・地滑り、Dragonと関連装備の物理耐性、Dragonbone Bowの攻撃属性、既存分類と異なるDragon関連品のitem_sizeは `datagen/TfcCompatData` から `runData` で生成する。その他のDragonbone・Dragonsteel武器とアイテムサイズはTFCの既存タグ・標準分類に従う。CE専用Dragon Armorスロットの耐性参照は `mixin/DragonPhysicalResistanceMixin`、検証入口は `gametest/TfcCompatGameTests` とする。対象は列挙したDragon関連IDに限定し、非Dragon品へ一括適用しない。
 - Bestiaryの新製法ページは `src/main/resources/assets/iceandfire/lang/bestiary/<locale>_0/` で上書きし、`gametest/BestiaryGameTests` と `tests/e2e/bestiary.mjs` で検証する。
 - M13の進行連結は `gametest/ProgressionGameTests`、完全停止を挟む保存検証は `PersistenceFixtureGameTests` と `PersistenceVerifyGameTests` を入口とする。`runGameTestServer` は2段階の保存検証、独立2出力のdata比較、AC対応検査を実行し、結果を `build/test-results/gametest/` に記録する。再接続表示は `tests/e2e/integration-reconnect.mjs` で確認する。

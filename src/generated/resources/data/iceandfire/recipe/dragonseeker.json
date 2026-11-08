@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "tag": "iceandfire:dragon_skulls"
+    },
+    "x": {
+      "item": "tfc:metal/ingot/steel"
+    }
+  },
+  "pattern": [
+    "a",
+    "x",
+    "x"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:dragon_seeker"
+  },
+  "show_notification": true
+}

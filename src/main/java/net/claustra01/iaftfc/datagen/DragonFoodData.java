@@ -1,7 +1,7 @@
 package net.claustra01.iaftfc.datagen;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +27,15 @@ public final class DragonFoodData implements DataProvider {
             addFlesh(writes, output, element);
             addFriedRice(writes, output, element);
         }
-        addDragonMealRecipe(writes, output);
+        JsonObject meal = JsonParser.parseString("""
+            {"type":"minecraft:crafting_shaped","category":"misc",
+             "pattern":["BMB","MBM","BMB"],
+             "key":{"B":{"item":"minecraft:bone"},"M":{"type":"tfc:and","children":[
+               {"type":"neoforge:difference","base":{"tag":"c:foods/meat"},
+                "subtracted":{"tag":"c:foods/fish"}},{"type":"tfc:not_rotten"}]}},
+             "result":{"id":"iceandfire:dragon_meal","count":1},"show_notification":true}
+            """).getAsJsonObject();
+        save(writes, output, recipes, "iceandfire", "dragon_meal", meal);
         return CompletableFuture.allOf(writes.toArray(CompletableFuture[]::new));
     }
 
@@ -44,41 +52,6 @@ public final class DragonFoodData implements DataProvider {
         value.addProperty("vegetables", 2);
         value.addProperty("protein", 3);
         save(writes, output, food, "iaftfc", id, value);
-    }
-
-    private void addDragonMealRecipe(List<CompletableFuture<?>> writes, CachedOutput output) {
-        JsonObject recipe = new JsonObject();
-        recipe.addProperty("type", "minecraft:crafting_shaped");
-        recipe.addProperty("category", "misc");
-        JsonArray pattern = new JsonArray();
-        pattern.add("BMB");
-        pattern.add("MBM");
-        pattern.add("BMB");
-        recipe.add("pattern", pattern);
-
-        JsonObject key = new JsonObject();
-        key.add("B", ingredient("item", "minecraft:bone"));
-        JsonObject meat = new JsonObject();
-        meat.addProperty("type", "tfc:and");
-        JsonArray children = new JsonArray();
-        JsonObject tfcMeat = new JsonObject();
-        tfcMeat.addProperty("type", "neoforge:difference");
-        tfcMeat.add("base", ingredient("tag", "c:foods/meat"));
-        tfcMeat.add("subtracted", ingredient("tag", "c:foods/fish"));
-        children.add(tfcMeat);
-        JsonObject notRotten = new JsonObject();
-        notRotten.addProperty("type", "tfc:not_rotten");
-        children.add(notRotten);
-        meat.add("children", children);
-        key.add("M", meat);
-        recipe.add("key", key);
-
-        JsonObject result = new JsonObject();
-        result.addProperty("id", "iceandfire:dragon_meal");
-        result.addProperty("count", 1);
-        recipe.add("result", result);
-        recipe.addProperty("show_notification", true);
-        save(writes, output, recipes, "iceandfire", "dragon_meal", recipe);
     }
 
     private static JsonObject food(String item, int hunger, double water, double saturation, double decay) {
