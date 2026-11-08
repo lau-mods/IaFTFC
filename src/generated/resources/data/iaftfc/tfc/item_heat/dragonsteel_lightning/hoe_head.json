@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200.0,
+  "heat_capacity": 2.857143,
+  "ingredient": {
+    "item": "iaftfc:metal/hoe_head/dragonsteel_lightning"
+  },
+  "welding_temperature": 1600.0
+}

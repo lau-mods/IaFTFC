@@ -38,6 +38,6 @@ run/
 **/src/generated/**/.cache/
 repo/
 !**/src/**/repo/
-
-# Local analysis and generation helpers
+.harness-state/runs/
+.harness-state/runtime/
 .tmp/

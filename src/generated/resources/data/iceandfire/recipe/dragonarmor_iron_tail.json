@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "tfc:metal/double_sheet/wrought_iron"
+    }
+  },
+  "pattern": [
+    "   ",
+    "  #",
+    "## "
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:dragonarmor_iron_tail"
+  },
+  "show_notification": true
+}

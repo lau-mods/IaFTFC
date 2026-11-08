@@ -1,8 +1,0 @@
-{
-  "ingredient": {
-    "item": "iaftfc:metal/anvil/dragonsteel_ice"
-  },
-  "heat_capacity": 40.000002,
-  "forging_temperature": 1200,
-  "welding_temperature": 1600
-}

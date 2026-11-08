@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "a": {
+      "tag": "iceandfire:dragon_skulls"
+    },
+    "x": [
+      {
+        "item": "iaftfc:metal/ingot/dragonsteel_fire"
+      },
+      {
+        "item": "iaftfc:metal/ingot/dragonsteel_ice"
+      },
+      {
+        "item": "iaftfc:metal/ingot/dragonsteel_lightning"
+      }
+    ]
+  },
+  "pattern": [
+    "a",
+    "x",
+    "x"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:legendary_dragon_seeker"
+  },
+  "show_notification": true
+}

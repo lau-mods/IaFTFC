@@ -1,0 +1,15 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragon_horn"
+    },
+    {
+      "item": "iceandfire:dragon_stick"
+    },
+    {
+      "item": "iceandfire:dragonbone_arrow"
+    }
+  ],
+  "size": "normal",
+  "weight": "light"
+}

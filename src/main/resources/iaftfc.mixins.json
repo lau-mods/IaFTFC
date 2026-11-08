@@ -4,17 +4,21 @@
   "package": "net.claustra01.iaftfc.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DragonBreathTerrainMixin",
     "DragonAITargetItemsGoalFoodMixin",
-    "DragonCavePieceMixin",
-    "DragonArmorItemMixin",
-    "DragonBaseEntityFoodMixin",
-    "DragonEggEntityMixin",
-    "DragonForgeBlockEntityMixin",
-    "DragonForgeRecipeMixin",
-    "DragonForgeRecipeSerializerMixin",
-    "DragonRoostPieceMixin",
-    "IafDragonDestructionManagerMixin"
+    "DragonCaveChestMixin",
+    "DragonCaveOresMixin",
+    "DragonClimateStructureMixin",
+    "DragonEggConditionsMixin",
+    "DragonForgeRecipeHeatMixin",
+    "DragonPhysicalResistanceMixin",
+    "DragonRoostChestMixin",
+    "DragonStructureSpacingAccessor",
+    "GhostDeathSpawnMixin",
+    "StructurePlacementAccessor",
+    "UranusFoodUtilsMixin"
   ],
-  "client": [],
-  "server": []
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

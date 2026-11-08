@@ -1,0 +1,60 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragon_meal"
+    },
+    {
+      "item": "iceandfire:sickly_dragon_meal"
+    },
+    {
+      "item": "iceandfire:creative_dragon_meal"
+    },
+    {
+      "item": "iceandfire:fire_stew"
+    },
+    {
+      "item": "iceandfire:frost_stew"
+    },
+    {
+      "item": "iceandfire:lightning_stew"
+    },
+    {
+      "item": "iceandfire:fire_dragon_flesh"
+    },
+    {
+      "item": "iceandfire:cooked_rice_with_fire_dragon_meat"
+    },
+    {
+      "item": "iceandfire:fire_dragon_heart"
+    },
+    {
+      "item": "iceandfire:spawn_egg_fire_dragon"
+    },
+    {
+      "item": "iceandfire:ice_dragon_flesh"
+    },
+    {
+      "item": "iceandfire:cooked_rice_with_ice_dragon_meat"
+    },
+    {
+      "item": "iceandfire:ice_dragon_heart"
+    },
+    {
+      "item": "iceandfire:spawn_egg_ice_dragon"
+    },
+    {
+      "item": "iceandfire:lightning_dragon_flesh"
+    },
+    {
+      "item": "iceandfire:cooked_rice_with_lightning_dragon_meat"
+    },
+    {
+      "item": "iceandfire:lightning_dragon_heart"
+    },
+    {
+      "item": "iceandfire:spawn_egg_lightning_dragon"
+    }
+  ],
+  "size": "small",
+  "weight": "light"
+}

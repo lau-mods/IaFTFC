@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "iceandfire:fire_dragon",
+    "iceandfire:ice_dragon",
+    "iceandfire:lightning_dragon"
+  ]
+}

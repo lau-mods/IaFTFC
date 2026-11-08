@@ -1,0 +1,208 @@
+{
+  "gameTests": [
+    {
+      "acId": "AC-F001-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "climatecandidatesareexclusiveanddeterministic"
+    },
+    {
+      "acId": "AC-F001-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "probabilityandspacingsettingsreachgeneration"
+    },
+    {
+      "acId": "AC-F001-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "nondragonnaturalgenerationisdisabled"
+    },
+    {
+      "acId": "AC-F001-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "playerdeathsdonotcreateghosts"
+    },
+    {
+      "acId": "AC-F002-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonchestsandlootprofiles"
+    },
+    {
+      "acId": "AC-F002-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragoncaveoresmatchnearbyrock"
+    },
+    {
+      "acId": "AC-F002-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "pilelayersdropmatchingsmallore"
+    },
+    {
+      "acId": "AC-F003-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcterrainconvertsaftercegriefingchecks"
+    },
+    {
+      "acId": "AC-F003-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "convertedterrainusestfcphysics"
+    },
+    {
+      "acId": "AC-F004-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcnonrottenmeatfeedsdragons"
+    },
+    {
+      "acId": "AC-F004-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonmealusesfreshtfcmeat"
+    },
+    {
+      "acId": "AC-F004-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "groundmeatsearchrejectsrottenfood"
+    },
+    {
+      "acId": "AC-F005-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "elementalliliesreplaceceworldgen"
+    },
+    {
+      "acId": "AC-F005-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "elementalliliesfollowtfcflowerrules"
+    },
+    {
+      "acId": "AC-F005-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "elementalliliescraftcestews"
+    },
+    {
+      "acId": "AC-F006-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "sixdragonfoodsusetfcnutritionanddecay"
+    },
+    {
+      "acId": "AC-F007-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "activetfcheatsourceswarmfireeggs"
+    },
+    {
+      "acId": "AC-F007-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcfreshwaterfreezesiceeggs"
+    },
+    {
+      "acId": "AC-F008-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonscalecolorsconsumefiveandreplacecrafting"
+    },
+    {
+      "acId": "AC-F009-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonbonefirstclickmakespartsandtools"
+    },
+    {
+      "acId": "AC-F009-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonflutecomesdirectlyfromknapping"
+    },
+    {
+      "acId": "AC-F010-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonforgeoutputsstayhotthroughcodecandsync"
+    },
+    {
+      "acId": "AC-F010-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonsteelheatcastingandfluidreferences"
+    },
+    {
+      "acId": "AC-F011-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tiersixtotiersevenprogressioncannotbebypassed"
+    },
+    {
+      "acId": "AC-F011-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "forgedpartsassembleceequipmentwithbonus"
+    },
+    {
+      "acId": "AC-F012-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcdragonarmorusesceslotsandprotectiononce"
+    },
+    {
+      "acId": "AC-F012-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonarmorrecipesusetfcdoublesheets"
+    },
+    {
+      "acId": "AC-F013-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonphysicalresistanceusestfconce"
+    },
+    {
+      "acId": "AC-F013-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonitemsfollowtfccarrylimits"
+    },
+    {
+      "acId": "AC-F014-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "duplicatesurvivalsourcesarestopped"
+    },
+    {
+      "acId": "AC-F015-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragontoolsusetfccraftingpaths"
+    }
+  ],
+  "e2e": [
+    {
+      "acId": "AC-F005-004",
+      "scenario": "tests/e2e/lilies.mjs"
+    },
+    {
+      "acId": "AC-F010-003",
+      "scenario": "tests/e2e/dragonsteel.mjs"
+    },
+    {
+      "acId": "AC-F012-002",
+      "scenario": "tests/e2e/dragon-armor.mjs"
+    },
+    {
+      "acId": "AC-F014-002",
+      "scenario": "tests/e2e/disabled-tooltip.mjs"
+    }
+  ]
+}

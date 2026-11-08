@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200.0,
+  "heat_capacity": 2.142857,
+  "ingredient": {
+    "item": "iaftfc:metal/block/dragonsteel_lightning_stairs"
+  },
+  "welding_temperature": 1600.0
+}

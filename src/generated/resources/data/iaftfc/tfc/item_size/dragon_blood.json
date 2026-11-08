@@ -1,0 +1,15 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:fire_dragon_blood"
+    },
+    {
+      "item": "iceandfire:ice_dragon_blood"
+    },
+    {
+      "item": "iceandfire:lightning_dragon_blood"
+    }
+  ],
+  "size": "normal",
+  "weight": "medium"
+}

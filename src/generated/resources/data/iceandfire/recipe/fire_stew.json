@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:bowl"
+    },
+    {
+      "item": "minecraft:blaze_rod"
+    },
+    {
+      "item": "iaftfc:plant/fire_lily"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:fire_stew"
+  }
+}

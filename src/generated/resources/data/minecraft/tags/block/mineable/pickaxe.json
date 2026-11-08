@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "iaftfc:metal/block/dragonsteel_fire",
+    "iaftfc:metal/block/dragonsteel_fire_slab",
+    "iaftfc:metal/block/dragonsteel_fire_stairs",
+    "iaftfc:metal/anvil/dragonsteel_fire",
+    "iaftfc:metal/block/dragonsteel_ice",
+    "iaftfc:metal/block/dragonsteel_ice_slab",
+    "iaftfc:metal/block/dragonsteel_ice_stairs",
+    "iaftfc:metal/anvil/dragonsteel_ice",
+    "iaftfc:metal/block/dragonsteel_lightning",
+    "iaftfc:metal/block/dragonsteel_lightning_slab",
+    "iaftfc:metal/block/dragonsteel_lightning_stairs",
+    "iaftfc:metal/anvil/dragonsteel_lightning"
+  ]
+}

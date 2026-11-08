@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "iaftfc:block/plant/frost_lily/frost_lily_1"
+  }
+}

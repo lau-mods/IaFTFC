@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#iaftfc:dragon_land",
+  "features": [
+    "iaftfc:fire_lily_patch",
+    "iaftfc:frost_lily_patch",
+    "iaftfc:lightning_lily_patch"
+  ],
+  "step": "vegetal_decoration"
+}

@@ -1,0 +1,18 @@
+{
+  "type": "tfc:knapping",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_amethyst"
+  },
+  "knapping_type": "iaftfc:dragon_scale",
+  "pattern": [
+    "##   ",
+    "##   ",
+    "##   ",
+    "#### ",
+    "#####"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:armor_amethyst_boots"
+  }
+}

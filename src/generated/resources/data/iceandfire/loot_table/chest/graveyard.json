@@ -1,0 +1,436 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "item",
+          "functions": [
+            {
+              "function": "enchant_with_levels",
+              "levels": 15,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:diamond",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:emerald",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:iron_ingot",
+          "weight": 9
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:bone",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:chain",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "iceandfire:manuscript",
+          "weight": 30
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:gold_ingot",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 16
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:gold_nugget",
+          "weight": 14
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:skeleton_skull",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:cobweb",
+          "weight": 15
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:iron_helmet",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:iron_chestplate",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:iron_leggings",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:iron_boots",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "tfc:metal/sword/wrought_iron",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 20,
+              "treasure": true
+            }
+          ],
+          "name": "iceandfire:copper_sword",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:chainmail_helmet",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:chainmail_chestplate",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:chainmail_leggings",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            },
+            {
+              "function": "enchant_with_levels",
+              "levels": 10,
+              "treasure": true
+            }
+          ],
+          "name": "minecraft:chainmail_boots",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "iceandfire:graveyard_soil",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 3,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "iceandfire:ectoplasm",
+          "weight": 30
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "tfc:metal/ingot/silver",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:copper_ingot",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 8,
+                "min": 1
+              },
+              "function": "set_count"
+            }
+          ],
+          "name": "minecraft:rotten_flesh",
+          "weight": 20
+        }
+      ],
+      "name": "hydra_cave",
+      "rolls": {
+        "max": 15,
+        "min": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "pools": [
+    {
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tfc:gem/diamond",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 4,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tfc:gem/ruby",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 10
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tfc:metal/ingot/wrought_iron",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 10
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:bone",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 10
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 2,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tfc:metal/chain/wrought_iron",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "iceandfire:manuscript",
+          "weight": 20
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 10
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tfc:metal/ingot/gold",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 16
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "tfc:ore/small_native_gold",
+          "weight": 12
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:skeleton_skull",
+          "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:cobweb",
+          "weight": 15
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/sword",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/helmet",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/chestplate",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/greaves",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:loot_table",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:constant",
+                "value": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "value": "iaftfc:shared/equipment/dangerous/boots",
+          "weight": 5
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 6,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:obsidian",
+          "weight": 7
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "count": {
+                "type": "minecraft:uniform",
+                "max": 5,
+                "min": 1
+              },
+              "function": "minecraft:set_count"
+            }
+          ],
+          "name": "minecraft:experience_bottle",
+          "weight": 1
+        }
+      ],
+      "name": "fire_dragon_cave",
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 4,
+        "min": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "milestones": [
+    {
+      "id": "M01",
+      "features": [
+        "F-001"
+      ],
+      "dependsOn": [],
+      "approach": "【共通基盤】Java/Mixin/datagenは存在しないため、NeoForge MDK構成の上に基盤を作る。(1) gradle.propertiesのtfc_versionを4.2.14、Ice and Fire CEを2.2系のfile idへ更新し、CE 2.2が実際に使うUranus/Jupiterのfile idも合わせる。neo_versionは21.1.248を維持するが、PROJECT.mdのPlatform欄(21.1.264)とConstraints欄(21.1.248)の食い違いを確認し、依存JARが要求する最低版に応じて一方へ揃える。neoforge.mods.tomlの依存は[最低版,)とし、ordering AFTERにする。(2) mainクラスnet.claustra01.iaftfc.IaFTFC、ModConfigSpec(COMMON)、DataGenerator入口、mixins.json、en_us langを作る。(3) GameTest基盤として、固定シード0のTFC Overworldを使うGameTestWorldPresetMixin、build/test-results/gametest/へのXMLレポート出力、tests/acceptance.json(AC→GameTest/E2E対応表)、src/test/resources/iaftfc/gametest/override_manifest.jsonを用意する。build.gradleのverifyAcceptanceCoverageはja_jpを必須にしており、en_us単独の方針と矛盾するため修正する。AGENTS.mdのパッケージパス(dev.iaftfc→net.claustra01.iaftfc)と固定版を追従させる。(4) 依存の一次資料のGitコミットとJARのクラス・JSON調査結果を.tmp/に記録し、後続milestoneで再調査しない。【F-001】CE 2.2 JARの構造物・structure_set・structure_gen/fire|ice|lightningのタグを確認する。DragonBiomeTagsからTFC陸上バイオームを各タグへ追加として生成する(runData)。気候判定はworldgen/DragonClimateに集約し、tfc:climate(ChunkData/ClimateModel)の年平均気温と地下水量で属性を判定する。閾値はTFC 4.2.14の気候分布から、3属性の範囲が互いに重ならず空白地帯を許すよう再設計する。設計した値と根拠はPROJECT.mdへ確定値として記録する(旧値をそのまま固定しない)。CE構造物の生成地点判定へ狭いMixinを入れて不適格気候では候補を棄却し、振替・再抽選は行わない。spacingはStructureSpacingResolverに置く。CE側のspacing Configが存在すればそれを優先し、無ければiaftfc Config(dragonRoostSpacing=24/dragonCaveSpacing=30)を使う。これをサーバー起動時にRandomSpreadStructurePlacementへ反映する。反映時はseparation<spacingの下限、属性別salt、villagesからの10チャンクexclusion_zoneを維持し、CEのdangerousDistanceLimitと属性別生成確率Configは触らない。FireのCE構造物を二重に配置しないことを確認する。検証はWorldgenGameTestsで行い、気候別の候補判定、確率0と正値の比較、spacing変更による候補配置の変化、決定性を見る。",
+      "scope": [
+        "gradle.properties",
+        "build.gradle",
+        "src/main/templates/META-INF/neoforge.mods.toml",
+        "AGENTS.md",
+        "PROJECT.md",
+        "src/main/java/net/claustra01/iaftfc/IaFTFC.java",
+        "src/main/java/net/claustra01/iaftfc/config/",
+        "src/main/java/net/claustra01/iaftfc/worldgen/",
+        "src/main/java/net/claustra01/iaftfc/mixin/",
+        "src/main/java/net/claustra01/iaftfc/datagen/DragonBiomeTags.java",
+        "src/main/resources/iaftfc.mixins.json",
+        "src/generated/resources/data/iceandfire/tags/worldgen/biome/",
+        "src/test/java/net/claustra01/iaftfc/gametest/WorldgenGameTests.java",
+        "src/test/java/net/claustra01/iaftfc/mixin/GameTestWorldPresetMixin.java",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "tests/acceptance.json"
+      ]
+    },
+    {
+      "id": "M02",
+      "features": [
+        "F-002"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "CE 2.2の巣・雌洞窟・雄洞窟のstructure piece/processorを調べる。ドラゴン構造物piece内のチェスト設置だけを狭いMixinで置換し、Fire=tfc:wood/chest/chestnut、Ice=white_cedar、Lightning=blackwoodにする。LootTable IDは元CEのものを書き込む。洞窟の鉱石配置は同じpieceへのMixinからworldgen/DragonCaveOresに委ねる。DragonCaveOresは近傍のTFC岩石(raw rock)を探索し、TFCに実在する岩石×鉱石(graded oreはrich/normal/poor)と宝石ore(ruby/sapphire/topaz)のブロックだけを選ぶ。Common/Uncommon/Rareの候補はPROJECT.mdの指定どおりとし、該当する岩石が見つからない場合は鉱石を置かず、CE旧鉱石へは戻さない。9つのチェストLoot TableはCE 2.2の実データを元にdatagenで差分だけ書き換えて上書きする。巣はordinary、雌洞窟はdangerous、雄洞窟はlategameのprofileとし、加工途中品:完成品の重みを2:1、エンチャントは完成品だけに付ける。pool/roll/count/condition/CE固有報酬は維持する。Nuggetは対応するTFC Small Ore、Chainはtfc:metal/chain/wrought_ironへ置換し、属性資源はRuby/Gold、Sapphire/Silver、Topaz/Copperとする。Gold/Silver/Copper PileのBlock Lootは上書きし、layers 1〜8に応じてtfc:ore/small_native_gold|silver|copperを同数落とす(元Nuggetは落とさない)。上書きしたIDはすべてoverride_manifestへ登録する。検証はDragonStructureLootGameTestsで行い、チェスト種別とLoot ID、9テーブルの報酬定義と重み比、岩石別の鉱石整合、Pile layers=1/8のドロップを見る。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/worldgen/DragonCaveOres.java",
+        "src/main/java/net/claustra01/iaftfc/worldgen/DragonChests.java",
+        "src/main/java/net/claustra01/iaftfc/mixin/",
+        "src/main/java/net/claustra01/iaftfc/datagen/DragonLootData.java",
+        "src/generated/resources/data/iceandfire/loot_table/",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonStructureLootGameTests.java",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M03",
+      "features": [
+        "F-005"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "TFC 4.2.14のRegistryPlant/PlantBlockを使い、enum IaFTFCPlant(fire_lily、frost_lily、lightning_lily)としてiaftfc名前空間で登録する。季節ステージ、年齢、土壌条件、移動速度、花としての採取規則はTFC標準の花と同じ設定にする。BlockItem、blockstate、model、items JSONはdatagenで生成する。テクスチャは3属性を判別できるよう新規に制作し、TFCの花と同じ季節/stage表現に合わせる。Lily地面の判定はTFC土壌タグに従い、必要な場合だけElementalFlowerSoilMixinで補う。worldgenはElementalPlacementとElementalWorldgenDataから生成する。TFCの植物featureと気候placementを使い、M01のDragonClimateの属性別範囲に概ね一致させる。CE元LilyのBiome Modifierはneoforge:noneで、Configured/Placed Featureは限定上書きで停止する。CEのfire_stew、frost_stew、lightning_lily_mixtureの3レシピは新Plantを材料にするよう上書きし、CE元Lilyの他の入手経路も停止する。上書きIDはoverride_manifestへ登録する。検証はElementalGameTests(気候別生成、CE元Featureの不生成、TFC採取規則、RegistryPlant整合、Stew生成と属性維持)と、季節を切り替えて3植物を撮影するtests/e2e/lilies.mjs(AC-F005-004)で行う。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/plant/",
+        "src/main/java/net/claustra01/iaftfc/worldgen/ElementalPlacement.java",
+        "src/main/java/net/claustra01/iaftfc/datagen/ElementalWorldgenData.java",
+        "src/main/java/net/claustra01/iaftfc/mixin/ElementalFlowerSoilMixin.java",
+        "src/main/resources/assets/iaftfc/textures/block/plant/",
+        "src/generated/resources/data/iaftfc/worldgen/",
+        "src/generated/resources/data/iceandfire/neoforge/biome_modifier/",
+        "src/generated/resources/data/iceandfire/recipe/",
+        "src/generated/resources/assets/iaftfc/",
+        "src/test/java/net/claustra01/iaftfc/gametest/ElementalGameTests.java",
+        "tests/e2e/lilies.mjs",
+        "tests/acceptance.json",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M04",
+      "features": [
+        "F-003"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "CE 2.2のブレス/チャージによる属性変換処理(破壊許可判定の後に呼ばれる変換関数)をJARで特定し、mixin/DragonBreathTerrainMixinを狭く注入する。CEのgriefing、飼育個体設定、mobGriefing、DragonProof、破壊禁止タグの判定を通過した場合だけ、TFCの既存カテゴリタグで判定する。対応はGrass→grass、Dirt/Coarse/Rooted/Mud/Farmland→dirt、Grass Path→dirt_path、Raw/Hardened Rock→stone、Cobble/Mossy→cobblestone、Gravel→gravelとし、Fire=chared、Ice=frozen、Lightning=crackled系列のrevert=falseへ変換する。CEが既に処理するブロックは二重に変換しない。TfcCompatDataから、変換後StoneをTFC崩落系タグ、Cobblestone/GravelをTFC土砂移動系タグ、Dirt PathをTFC支持系タグへ追加するデータを生成する。タグ名はTFC 4.2.14の実データで確認し、GrassやDirtは崩落対象に入れない。検証はDragonBreathGameTestsで行い、3属性×6分類の変換とrevert=false、griefing無効時に変換しないこと、TFC崩落・土砂移動の発生を見る。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/mixin/DragonBreathTerrainMixin.java",
+        "src/main/java/net/claustra01/iaftfc/dragon/BreathTerrainConversion.java",
+        "src/main/java/net/claustra01/iaftfc/datagen/TfcCompatData.java",
+        "src/generated/resources/data/tfc/tags/block/",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonBreathGameTests.java",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M05",
+      "features": [
+        "F-007"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "CE 2.2の卵Entity/BlockのFire加温判定とIce水中判定をJARで特定し、mixin/DragonEggConditionsMixinでCE本来の条件にOR条件として追加する。Fireは直下が点火したTFC Firepit(LIT=true)か、稼働中のCharcoal Forge(HEAT>0)であれば有効、Iceは流体が#tfc:any_fresh_waterであれば有効とする。Lightningと、停止中の設備・Salt Waterは変更しない。検証はDragonEggGameTestsで行い、Lit/停止Firepit、稼働/停止Forge、CE元の火、Fresh/Salt Waterを比較する。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/mixin/DragonEggConditionsMixin.java",
+        "src/main/java/net/claustra01/iaftfc/dragon/EggHeatSources.java",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonEggGameTests.java",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M06",
+      "features": [
+        "F-004",
+        "F-006"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "どちらもTFC食品データ(FoodCapability/IFood)とドラゴン摂食の境界を扱うため、同じmilestoneにまとめる。F-004では、CE 2.2が実際に参照するUranus JARの食料ポイント計算メソッドを確認し、TFC食品(FoodCapabilityを持つItemStack)に限ってIFoodのhungerから食料ポイントへ換算するよう狭いMixin/ラッパーを入れる。換算係数はCEの給餌量の基準と比較して設計し、根拠をPROJECT.mdへ記録する(未決値を既定値で固定しない)。CE元の食品判定は維持する。腐敗(isRotten)の拒否は、手渡し、落下アイテムの標的選択、追跡中、接触直前、消費時の全段階に入れる。肉と魚はTFCのmeats/fishタグで区別し、Fire/Lightningは肉だけ、Iceは肉とCEの魚とする。捕食Entityは追加しない。Dragon Mealの肉入力はDragonFoodDataからTFCの非腐敗肉タグへ接続する。F-006では、Fire/Ice/Lightning Dragon FleshとCEのドラゴン肉炒飯3品へtfc/food JSONを生成する(肉: hunger8/protein3.0/sat2.0/decay2.0、炒飯: hunger4/water20/sat1.5/grain1.7/veg2.0/protein3.0/decay3.5)。対象IDはCE 2.2 JARで確定する。検証はDragonFeedingGameTests(手渡し、地面探索、途中で腐敗する肉、肉/魚の区別、Meal入力)とDragonFoodGameTests(6品の栄養と腐敗、非ドラゴン食品に変更がないこと)で行う。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/dragon/TfcDragonFood.java",
+        "src/main/java/net/claustra01/iaftfc/mixin/",
+        "src/main/java/net/claustra01/iaftfc/datagen/DragonFoodData.java",
+        "src/generated/resources/data/iaftfc/tfc/food/",
+        "src/generated/resources/data/iceandfire/tags/",
+        "src/generated/resources/data/iceandfire/recipe/",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonFeedingGameTests.java",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonFoodGameTests.java",
+        "PROJECT.md",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M07",
+      "features": [
+        "F-008",
+        "F-009"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "どちらもTFC Knapping Type・Knappingレシピ・CE作業台レシピの無効化という同じ仕組みを使うため、datagen/KnappingDataにまとめる。F-008では、Dragon Scale 12色ごとに入力の色・GUIテクスチャ(既存assets/tfc/textures/gui/knapping/dragonscales_*.png)を分けたKnapping Typeを作る。Leather相当でamount=5、完成時に消費する。JEIカテゴリは共通のDragon Scale Knappingとして扱う。48完成品はCE元IDへ出力し、CE作業台レシピは無効化で上書きする。F-009では、knapping/DragonbonePartsにaxe/hoe/pickaxe/shovel head、sword bladeを登録する(テクスチャは既存)。Dragon BoneのKnapping TypeはRock相当でamount=2とし、初回操作で1本消費する。5パーツとDragon Fluteのパターンを作り、工具は各パーツと#c:bones/witherの組立レシピでCE元IDの工具へ出力する。旧作業台レシピは無効化し、Arrow/Bow/属性剣など他の用途は変えない。上書きIDはoverride_manifestへ登録する。検証はKnappingGameTestsで行い、色の一致、5枚消費、別色で完成しないこと、骨の初回消費、パーツから工具の組立、Flute、旧レシピで迂回できないことを見る。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/knapping/DragonboneParts.java",
+        "src/main/java/net/claustra01/iaftfc/datagen/KnappingData.java",
+        "src/generated/resources/data/iaftfc/tfc/knapping_type/",
+        "src/generated/resources/data/iaftfc/recipe/",
+        "src/generated/resources/data/iceandfire/recipe/",
+        "src/generated/resources/assets/iaftfc/models/item/",
+        "src/test/java/net/claustra01/iaftfc/gametest/KnappingGameTests.java",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M08",
+      "features": [
+        "F-010",
+        "F-011"
+      ],
+      "dependsOn": [
+        "M01"
+      ],
+      "approach": "Dragonsteelの金属登録、Anvil Block、加工レシピは同じ実装を共有するため、metal/DragonsteelとDragonsteelDataにまとめる。F-010では、TFC 4.2.14のRegistryMetalを実装したenumで3属性を登録する。Ingot、Double Ingot、Sheet、Double Sheet、Rod、各Tool Head、Sword Blade、Unfinished Armor、Plated Block/Slab/Stairs、Anvilを登録し、Molten Fluidはtfc名前空間のDeferredRegisterでtfc:metal/dragonsteel_{fire,ice,lightning}とする。tfc/metal定義(溶融2000℃、鍛造1200℃、溶接1600℃)、item_heat、TFC・共通タグ、casting/heating/ingot mold鋳造レシピ、Block Loot、採掘タグ、model/blockstateを生成する。PNGは既存tools/generate_assets.pyの出力を使い、Anvil等に足りないものだけ追加する。Dragon Forgeは、既存CEレシピをRed/Blue/Black Steel+対応Dragon Bloodからiaftfc Ingotを出力する内容へ上書きする(cookTime=1000、属性判定は維持)。Recipe Codec、StreamCodec、実際の出力、表示用ItemStackで温度1750℃が一貫するよう、Forgeの出力生成箇所へMixinを入れる。Forge BrickレシピはTFC Fire Bricksへ置換する。クライアントのFluid/Bucket描画はDragonsteelClientに分離する。F-011では、Dragonsteel AnvilをTFCのAnvilBlock/AnvilBlockEntityとして実際に動作させる(BlockEntityTypeの有効ブロックへ追加、Tier 7)。初回Double Ingotのweldingだけtier 6とし、Sheet、Double Sheet、Rod、Head、Blade、Unfinished Armorはtier 7とする。HeadはIngot1個、BladeはDouble Ingot1個から作る。工具はTFCの鍛造ボーナスを引き継ぐ組立レシピでCE元IDのDragonsteel工具へ出力し、ArmorはUnfinished+Sheetのweldingで出力する。CE元Dragonsteel Ingotを要求する旧作業台レシピは無効化する。検証はDragonForgeGameTests(3属性の出力と温度、保存/読込/同期)、DragonsteelGameTests(溶融・鋳造・加熱の参照、Tier 6→7の進行、Tier 6で迂回できないこと、CE完成品と鍛造ボーナス)、tests/e2e/dragonsteel.mjs(AC-F010-003の建材と金床の表示)で行う。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/metal/",
+        "src/main/java/net/claustra01/iaftfc/client/DragonsteelClient.java",
+        "src/main/java/net/claustra01/iaftfc/mixin/",
+        "src/main/java/net/claustra01/iaftfc/datagen/DragonsteelData.java",
+        "src/main/resources/assets/iaftfc/textures/",
+        "tools/generate_assets.py",
+        "src/generated/resources/data/iaftfc/",
+        "src/generated/resources/data/tfc/",
+        "src/generated/resources/data/iceandfire/recipe/",
+        "src/generated/resources/assets/iaftfc/",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonForgeGameTests.java",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonsteelGameTests.java",
+        "tests/e2e/dragonsteel.mjs",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M09",
+      "features": [
+        "F-012"
+      ],
+      "dependsOn": [
+        "M08"
+      ],
+      "approach": "CE 2.2のDragon Armor Item/材料定義/装着スロット/防御計算/エンティティテクスチャの解決方法をJARで確認する。dragonarmor/DragonArmorでsteel、black_steel、red_steel、blue_steelの4系列×head/neck/body/tailの16品を、CEのDragon Armor Itemとして登録する。防御値はSteel=3.5、Black Steel=5.5、Red Steel=7.5、Blue Steel=7.5とする。CEが固定enum等で材料を限定している場合だけ、専用Mixinで新材料をCEの同じ装備・防御処理とテクスチャパス(既存のassets/iceandfire/textures/entity/dragon_armor/armor_<part>_<metal>.png)へ接続し、二重計算しない。datagen/DragonArmorDataからレシピ、TFC item_size、model、items JSONを生成する。レシピはTFC Double Sheetと金属素材を使い、CE元Dragonsteel Dragon ArmorはM08のiaftfc Dragonsteel Double Sheetから作る。Copper/Gold/Silver/Diamond/NetheriteのDragon Armorレシピは無効化する。検証はDragonArmorGameTests(装着スロット、防御値、強度順、重複なし)と、4系列とCE Dragonsteelを装着した姿を撮影するtests/e2e/dragon-armor.mjs(AC-F012-002)で行う。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/dragonarmor/DragonArmor.java",
+        "src/main/java/net/claustra01/iaftfc/mixin/",
+        "src/main/java/net/claustra01/iaftfc/datagen/DragonArmorData.java",
+        "src/main/resources/assets/iaftfc/textures/item/",
+        "src/main/resources/assets/iceandfire/textures/entity/dragon_armor/",
+        "src/generated/resources/data/iaftfc/recipe/",
+        "src/generated/resources/data/iceandfire/recipe/",
+        "src/generated/resources/assets/iaftfc/",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonArmorGameTests.java",
+        "tests/e2e/dragon-armor.mjs",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M10",
+      "features": [
+        "F-013"
+      ],
+      "dependsOn": [
+        "M07",
+        "M08",
+        "M09"
+      ],
+      "approach": "datagen/TfcCompatDataで、TFC 4.2.14のデータ形式に沿って生成する。entity_damage_resistanceは3属性DragonをPiercing/Slashing/Crushing各30とする。item_damage_resistanceは、Dragon Scale Armor 48品をBlack Steel相当、プレイヤー用Dragonsteel ArmorとCE Dragonsteel Dragon Armorを70/60/70、M09の新Dragon Armorを各金属相当(値はTFC実データから取得)とする。ドラゴン関連の武器・工具(Dragonbone/Dragonsteel/M07のパーツから作るCE工具等)はTFCのdeals_piercing/slashing/crushing系タグへ追加する。item_sizeは、Egg=very_large/very_heavy、Skull=huge/very_heavy、プレイヤーDragonsteel Armor=large/very_heavy、Dragon Armor=very_large/very_heavy、Dragonsteel Anvil=huge/very_heavy、Forge Brick/Core/InputとPlated Block=small/light、Slab=small/very_light、Stairs=small/lightとし、その他のドラゴン関連品はTFCの対応カテゴリに従う。対象はID列挙かiaftfcタグで限定し、非ドラゴン品やCE全体への一括指定はしない。検証はTfcCompatGameTestsで行い、物理ダメージの軽減量、二重処理がないこと、非ドラゴン装備に変更がないこと、収納・携行制限を見る。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/datagen/TfcCompatData.java",
+        "src/generated/resources/data/iaftfc/tfc/entity_damage_resistance/",
+        "src/generated/resources/data/iaftfc/tfc/item_damage_resistance/",
+        "src/generated/resources/data/iaftfc/tfc/item_size/",
+        "src/generated/resources/data/tfc/tags/item/",
+        "src/test/java/net/claustra01/iaftfc/gametest/TfcCompatGameTests.java",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    },
+    {
+      "id": "M11",
+      "features": [
+        "F-014",
+        "F-015"
+      ],
+      "dependsOn": [
+        "M02",
+        "M03",
+        "M06",
+        "M07",
+        "M08",
+        "M09"
+      ],
+      "approach": "どちらもCEの入手経路・レシピ入力をTFC素材に整理する作業で、無効化対象の一覧(iaftfc:disabledタグ)とレシピ上書きを共有するため、まとめて扱う。F-014では、CE 2.2の実データから、Silver Ingot/Nugget/Block/Raw/Ore/Tool/Armor、Sapphire Ore/Gem/Block、CE元Dragonsteel Ingot/Block等のすべての入手経路を洗い出す(crafting/smelting/blasting/圧縮・解体/Block Loot/chest・entity Loot/交易/鉱脈Biome Modifier/特殊装置)。それぞれを無効化レシピ、Loot上書き、neoforge:none、狭いイベント処理で停止する。Pile、Dragon Scaleの色名、CE完成Dragonsteel装備は除外する。代わりのTFC/iaftfc素材が入手できる状態は保つ。[DISABLED]表示はclient専用クラスのItemTooltipEventでiaftfc:disabledタグに基づいて出す(en_us)。IaFTFCCreativeTabではiaftfc製品を表示し、無効化品を除外する。F-015では、Dragon Horn、Dragon Staff、Dragon Seeker、Summoning Crystal、Dragon Meal(肉入力はM06で接続済みのため、それ以外の入力)など、飼育・呼び出しに必要なCE道具のレシピを上書きする。無効化したSilver/Sapphireや入手できないVanilla素材の代わりに、TFCのgem・金属・加工品を使い、出力はCE元IDのままとする。上書きIDはoverride_manifestへ登録する。検証はDisabledItemsGameTests(各経路の停止、代替素材、誤って禁止しないこと)とDragonToolRecipeGameTests(補助道具のTFC製作経路)、Tooltipを撮影するtests/e2e/disabled-tooltip.mjs(AC-F014-002)で行う。最後にrunGameTestServerで、全AC対応・datagenの再現性・保存の検証を通す。",
+      "scope": [
+        "src/main/java/net/claustra01/iaftfc/IaFTFCCreativeTab.java",
+        "src/main/java/net/claustra01/iaftfc/client/DisabledTooltipHandler.java",
+        "src/main/java/net/claustra01/iaftfc/disable/",
+        "src/main/java/net/claustra01/iaftfc/datagen/DisabledContentData.java",
+        "src/main/java/net/claustra01/iaftfc/datagen/DragonToolRecipeData.java",
+        "src/generated/resources/data/iceandfire/recipe/",
+        "src/generated/resources/data/iceandfire/loot_table/",
+        "src/generated/resources/data/iceandfire/neoforge/biome_modifier/",
+        "src/generated/resources/data/iaftfc/tags/item/",
+        "src/generated/resources/assets/iaftfc/lang/en_us.json",
+        "src/test/java/net/claustra01/iaftfc/gametest/DisabledItemsGameTests.java",
+        "src/test/java/net/claustra01/iaftfc/gametest/DragonToolRecipeGameTests.java",
+        "tests/e2e/disabled-tooltip.mjs",
+        "src/test/resources/iaftfc/gametest/override_manifest.json",
+        "tests/acceptance.json",
+        "AGENTS.md"
+      ]
+    }
+  ]
+}

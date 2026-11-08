@@ -1,0 +1,20 @@
+{
+  "feature": "iaftfc:lightning_lily",
+  "placement": [
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "tfc:air_or_empty_fluid"
+      }
+    },
+    {
+      "type": "minecraft:block_predicate_filter",
+      "predicate": {
+        "type": "minecraft:would_survive",
+        "state": {
+          "Name": "iaftfc:plant/lightning_lily"
+        }
+      }
+    }
+  ]
+}

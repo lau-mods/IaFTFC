@@ -1,0 +1,79 @@
+{
+  "crushing": 70.0,
+  "ingredient": [
+    {
+      "item": "iceandfire:dragonsteel_fire_helmet"
+    },
+    {
+      "item": "iceandfire:dragonsteel_fire_chestplate"
+    },
+    {
+      "item": "iceandfire:dragonsteel_fire_leggings"
+    },
+    {
+      "item": "iceandfire:dragonsteel_fire_boots"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_tail"
+    },
+    {
+      "item": "iceandfire:dragonsteel_ice_helmet"
+    },
+    {
+      "item": "iceandfire:dragonsteel_ice_chestplate"
+    },
+    {
+      "item": "iceandfire:dragonsteel_ice_leggings"
+    },
+    {
+      "item": "iceandfire:dragonsteel_ice_boots"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_tail"
+    },
+    {
+      "item": "iceandfire:dragonsteel_lightning_helmet"
+    },
+    {
+      "item": "iceandfire:dragonsteel_lightning_chestplate"
+    },
+    {
+      "item": "iceandfire:dragonsteel_lightning_leggings"
+    },
+    {
+      "item": "iceandfire:dragonsteel_lightning_boots"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_tail"
+    }
+  ],
+  "piercing": 70.0,
+  "slashing": 60.0
+}

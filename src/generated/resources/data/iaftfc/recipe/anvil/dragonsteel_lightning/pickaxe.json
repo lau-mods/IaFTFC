@@ -1,0 +1,17 @@
+{
+  "type": "tfc:anvil",
+  "apply_bonus": true,
+  "ingredient": {
+    "tag": "c:ingots/dragonsteel_lightning"
+  },
+  "result": {
+    "count": 1,
+    "id": "iaftfc:metal/pickaxe_head/dragonsteel_lightning"
+  },
+  "rules": [
+    "punch_last",
+    "draw_not_last",
+    "bend_not_last"
+  ],
+  "tier": 7
+}

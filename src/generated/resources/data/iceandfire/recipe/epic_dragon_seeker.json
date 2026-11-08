@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "iceandfire:dragon_seeker"
+    },
+    {
+      "tag": "c:ingots/red_steel"
+    },
+    {
+      "tag": "c:ingots/blue_steel"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:epic_dragon_seeker"
+  }
+}
