@@ -6,6 +6,7 @@ import net.claustra01.iaftfc.datagen.DragonLootData;
 import net.claustra01.iaftfc.datagen.DragonStructureSets;
 import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
+import net.claustra01.iaftfc.datagen.TfcCompatData;
 import net.claustra01.iaftfc.plant.IaFTFCPlants;
 import net.claustra01.iaftfc.worldgen.StructureSpacingResolver;
 import net.neoforged.bus.api.IEventBus;
@@ -35,6 +36,7 @@ public final class IaFTFC {
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
             event.createProvider(ElementalWorldgenData::new);
+            event.createProvider(TfcCompatData::new);
         }
         if (event.includeClient()) {
             event.createProvider(ElementalPlantAssets::new);

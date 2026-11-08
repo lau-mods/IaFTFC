@@ -31,6 +31,18 @@
       "name": "pilelayersdropmatchingsmallore"
     },
     {
+      "acId": "AC-F003-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcterrainconvertsaftercegriefingchecks"
+    },
+    {
+      "acId": "AC-F003-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "convertedterrainusestfcphysics"
+    },
+    {
       "acId": "AC-F005-001",
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",

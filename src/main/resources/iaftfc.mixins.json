@@ -4,6 +4,7 @@
   "package": "net.claustra01.iaftfc.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "DragonBreathTerrainMixin",
     "DragonCaveChestMixin",
     "DragonCaveOresMixin",
     "DragonClimateStructureMixin",
