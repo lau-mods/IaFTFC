@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "M": {
+      "type": "tfc:and",
+      "children": [
+        {
+          "type": "neoforge:difference",
+          "base": {
+            "tag": "c:foods/meat"
+          },
+          "subtracted": {
+            "tag": "c:foods/fish"
+          }
+        },
+        {
+          "type": "tfc:not_rotten"
+        }
+      ]
+    }
+  },
+  "pattern": [
+    "BMB",
+    "MBM",
+    "BMB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iceandfire:dragon_meal"
+  },
+  "show_notification": true
+}

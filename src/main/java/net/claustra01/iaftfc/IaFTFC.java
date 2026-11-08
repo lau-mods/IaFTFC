@@ -2,6 +2,7 @@ package net.claustra01.iaftfc;
 
 import net.claustra01.iaftfc.config.IaFTFCConfig;
 import net.claustra01.iaftfc.datagen.DragonBiomeTags;
+import net.claustra01.iaftfc.datagen.DragonFoodData;
 import net.claustra01.iaftfc.datagen.DragonLootData;
 import net.claustra01.iaftfc.datagen.DragonStructureSets;
 import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
@@ -33,6 +34,7 @@ public final class IaFTFC {
     private static void gatherData(GatherDataEvent event) {
         if (event.includeServer()) {
             event.createProvider((output, lookup) -> new DragonBiomeTags(output, lookup, event.getExistingFileHelper()));
+            event.createProvider(DragonFoodData::new);
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
             event.createProvider(ElementalWorldgenData::new);

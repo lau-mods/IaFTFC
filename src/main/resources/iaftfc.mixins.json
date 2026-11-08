@@ -5,13 +5,15 @@
   "compatibilityLevel": "JAVA_21",
   "mixins": [
     "DragonBreathTerrainMixin",
+    "DragonAITargetItemsGoalFoodMixin",
     "DragonCaveChestMixin",
     "DragonCaveOresMixin",
     "DragonClimateStructureMixin",
     "DragonEggConditionsMixin",
     "DragonRoostChestMixin",
     "DragonStructureSpacingAccessor",
-    "StructurePlacementAccessor"
+    "StructurePlacementAccessor",
+    "UranusFoodUtilsMixin"
   ],
   "injectors": {
     "defaultRequire": 1

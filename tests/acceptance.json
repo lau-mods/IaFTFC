@@ -43,6 +43,24 @@
       "name": "convertedterrainusestfcphysics"
     },
     {
+      "acId": "AC-F004-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcnonrottenmeatfeedsdragons"
+    },
+    {
+      "acId": "AC-F004-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonmealusesfreshtfcmeat"
+    },
+    {
+      "acId": "AC-F004-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "groundmeatsearchrejectsrottenfood"
+    },
+    {
       "acId": "AC-F005-001",
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
@@ -59,6 +77,12 @@
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
       "name": "elementalliliescraftcestews"
+    },
+    {
+      "acId": "AC-F006-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "sixdragonfoodsusetfcnutritionanddecay"
     },
     {
       "acId": "AC-F007-001",

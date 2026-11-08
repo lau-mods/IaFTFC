@@ -31,6 +31,7 @@
     "iceandfire:loot_table/blocks/lightning_lily.json",
     "iceandfire:recipe/fire_stew.json",
     "iceandfire:recipe/frost_stew.json",
-    "iceandfire:recipe/lightning_lily_mixture.json"
+    "iceandfire:recipe/lightning_lily_mixture.json",
+    "iceandfire:recipe/dragon_meal.json"
   ]
 }
