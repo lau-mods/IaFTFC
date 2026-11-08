@@ -1,6 +1,9 @@
 {
   "type": "tfc:knapping",
-  "knapping_type": "iaftfc:dragonscales_red",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_red"
+  },
+  "knapping_type": "iaftfc:dragon_scale",
   "pattern": [
     "#####",
     "#####",

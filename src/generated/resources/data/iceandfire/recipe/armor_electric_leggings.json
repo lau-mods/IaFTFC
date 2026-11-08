@@ -1,6 +1,9 @@
 {
   "type": "tfc:knapping",
-  "knapping_type": "iaftfc:dragonscales_electric",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_electric"
+  },
+  "knapping_type": "iaftfc:dragon_scale",
   "pattern": [
     "#####",
     "#####",

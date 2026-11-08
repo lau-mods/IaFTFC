@@ -61,27 +61,28 @@ public final class KnappingGameTests {
     @GameTest(template = EMPTY_TEMPLATE, timeoutTicks = 400)
     public static void dragonScaleColorsConsumeFiveAndReplaceCrafting(GameTestHelper helper) {
         FakePlayer player = player(helper);
+        KnappingType type = type("iaftfc:dragon_scale");
         for (int colorIndex = 0; colorIndex < SCALE_COLORS.size(); colorIndex++) {
             ScaleColor color = SCALE_COLORS.get(colorIndex);
             ScaleColor other = SCALE_COLORS.get((colorIndex + 1) % SCALE_COLORS.size());
-            KnappingType type = type("iaftfc:dragonscales_" + color.id());
             helper.assertValueEqual(type.inputItem().count(), 5, "Scale knapping must require five scales");
             helper.assertValueEqual(type.amountToConsume(), 5, "Scale knapping must consume five scales");
             helper.assertTrue(type.consumeAfterComplete(), "Scale knapping must consume only after completion");
             helper.assertTrue(type.matches(stack(color.scale(), 5)), "The matching scale color must start knapping");
-            helper.assertTrue(!type.matches(stack(other.scale(), 5)), "A different scale color must use another type");
+            helper.assertTrue(!type.matches(stack("iceandfire:sea_serpent_scales_blue", 5)),
+                "Only dragon scales may start scale knapping");
 
             for (PatternResult armor : ARMOR) {
                 String recipeId = "iceandfire:armor_" + color.recipeId() + "_" + armor.id();
                 KnappingRecipe recipe = knappingRecipe(helper, recipeId);
                 helper.assertValueEqual(recipe.getType(), TFCRecipeTypes.KNAPPING.get(),
                     "All scale armor must share the TFC knapping recipe category");
-                helper.assertValueEqual(recipe.knappingType().id(),
-                    ResourceLocation.parse("iaftfc:dragonscales_" + color.id()),
-                    "Armor must use its scale color's knapping type");
-                helper.assertTrue(!recipe.knappingType().id().equals(
-                    ResourceLocation.parse("iaftfc:dragonscales_" + other.id())),
-                    "Another scale color must use a different knapping type");
+                helper.assertValueEqual(recipe.knappingType().id(), ResourceLocation.parse("iaftfc:dragon_scale"),
+                    "All scale armor must use the shared dragon scale knapping type");
+                helper.assertTrue(recipe.matchesItem(stack(color.scale(), 5)),
+                    "Armor must accept its own scale color");
+                helper.assertTrue(!recipe.matchesItem(stack(other.scale(), 5)),
+                    "Armor must reject another scale color");
                 assertPattern(helper, recipe.getPattern(), armor.pattern());
 
                 ItemStack scales = stack(color.scale(), 5);

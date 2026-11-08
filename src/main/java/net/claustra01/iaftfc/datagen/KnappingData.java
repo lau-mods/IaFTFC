@@ -51,8 +51,8 @@ public final class KnappingData implements DataProvider {
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
         List<CompletableFuture<?>> writes = new ArrayList<>();
+        addScaleType(writes, output);
         for (ScaleColor color : SCALE_COLORS) {
-            addScaleType(writes, output, color);
             for (ArmorPart part : ARMOR_PARTS) {
                 addScaleArmor(writes, output, color, part);
             }
@@ -67,24 +67,25 @@ public final class KnappingData implements DataProvider {
         return CompletableFuture.allOf(writes.toArray(CompletableFuture[]::new));
     }
 
-    private void addScaleType(List<CompletableFuture<?>> writes, CachedOutput output, ScaleColor color) {
+    private void addScaleType(List<CompletableFuture<?>> writes, CachedOutput output) {
         JsonObject type = new JsonObject();
         JsonObject input = new JsonObject();
         input.addProperty("count", 5);
-        input.addProperty("item", color.scaleItem());
+        input.addProperty("tag", "iceandfire:scales/dragon");
         type.add("input", input);
         type.addProperty("amount_to_consume", 5);
         type.addProperty("click_sound", "tfc:item.knapping.leather");
         type.addProperty("consume_after_complete", true);
         type.addProperty("has_off_texture", false);
         type.addProperty("spawns_particles", false);
-        type.add("icon", stack(color.scaleItem()));
-        save(writes, output, knappingTypes, "iaftfc", color.knappingType(), type);
+        type.add("icon", stack("iceandfire:dragonscales_red"));
+        save(writes, output, knappingTypes, "iaftfc", "dragon_scale", type);
     }
 
     private void addScaleArmor(List<CompletableFuture<?>> writes, CachedOutput output, ScaleColor color,
         ArmorPart part) {
-        JsonObject recipe = knappingRecipe("iaftfc:" + color.knappingType(), part.pattern(), color.armor(part.id()));
+        JsonObject recipe = knappingRecipe("iaftfc:dragon_scale", part.pattern(), color.armor(part.id()));
+        recipe.add("ingredient", ingredient(color.scaleItem()));
         if (part.requiresDefaultOff()) {
             recipe.addProperty("default_on", false);
         }
@@ -183,10 +184,6 @@ public final class KnappingData implements DataProvider {
     private record ScaleColor(String id, String recipeId) {
         String scaleItem() {
             return "iceandfire:dragonscales_" + id;
-        }
-
-        String knappingType() {
-            return "dragonscales_" + id;
         }
 
         String armor(String part) {

@@ -1,6 +1,9 @@
 {
   "type": "tfc:knapping",
-  "knapping_type": "iaftfc:dragonscales_amethyst",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_amethyst"
+  },
+  "knapping_type": "iaftfc:dragon_scale",
   "pattern": [
     "#   #",
     "#####",

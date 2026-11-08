@@ -5,11 +5,11 @@
   "has_off_texture": false,
   "icon": {
     "count": 1,
-    "id": "iceandfire:dragonscales_blue"
+    "id": "iceandfire:dragonscales_red"
   },
   "input": {
     "count": 5,
-    "item": "iceandfire:dragonscales_blue"
+    "tag": "iceandfire:scales/dragon"
   },
   "spawns_particles": false
 }

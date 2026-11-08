@@ -1,7 +1,10 @@
 {
   "type": "tfc:knapping",
   "default_on": false,
-  "knapping_type": "iaftfc:dragonscales_gray",
+  "ingredient": {
+    "item": "iceandfire:dragonscales_gray"
+  },
+  "knapping_type": "iaftfc:dragon_scale",
   "pattern": [
     "#####",
     "#   #",
