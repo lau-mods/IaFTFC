@@ -49,11 +49,6 @@ public final class TfcCompatData implements DataProvider {
     }
 
     private void addTerrainTags(List<CompletableFuture<?>> writes, CachedOutput output) {
-        List<String> stones = terrainBlocks("stone");
-        saveTag(writes, output, blockTags, "tfc", "can_collapse", stones);
-        saveTag(writes, output, blockTags, "tfc", "can_trigger_collapse", stones);
-        saveTag(writes, output, blockTags, "tfc", "can_start_collapse", stones);
-
         List<String> looseTerrain = new ArrayList<>(terrainBlocks("cobblestone"));
         looseTerrain.addAll(terrainBlocks("gravel"));
         saveTag(writes, output, blockTags, "tfc", "can_landslide", looseTerrain);

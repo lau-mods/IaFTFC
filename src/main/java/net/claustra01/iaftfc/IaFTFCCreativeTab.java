@@ -20,9 +20,9 @@ public final class IaFTFCCreativeTab {
         () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.iaftfc.main"))
             .icon(() -> new ItemStack(Dragonsteel.item(Dragonsteel.FIRE, Metal.ItemType.INGOT).get()))
-            .displayItems((parameters, output) -> BuiltInRegistries.ITEM.entrySet().stream()
-                .filter(entry -> entry.getKey().location().getNamespace().equals(IaFTFC.MOD_ID))
-                .map(entry -> new ItemStack(entry.getValue()))
+            .displayItems((parameters, output) -> BuiltInRegistries.ITEM.stream()
+                .filter(item -> BuiltInRegistries.ITEM.getKey(item).getNamespace().equals(IaFTFC.MOD_ID))
+                .map(item -> new ItemStack(item))
                 .filter(stack -> !DisabledContent.isDisabled(stack))
                 .forEach(output::accept))
             .build());

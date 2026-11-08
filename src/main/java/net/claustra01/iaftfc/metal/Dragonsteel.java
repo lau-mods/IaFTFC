@@ -50,7 +50,7 @@ public enum Dragonsteel implements RegistryMetal {
     public static final float MELT_TEMPERATURE = 2000;
     public static final float FORGING_TEMPERATURE = 1200;
     public static final float WELDING_TEMPERATURE = 1600;
-    public static final float FORGE_OUTPUT_TEMPERATURE = 1750;
+    public static final float FORGE_OUTPUT_TEMPERATURE = 1800;
     public static final int ANVIL_TIER = 7;
 
     public static final List<Metal.ItemType> ITEM_TYPES = List.of(

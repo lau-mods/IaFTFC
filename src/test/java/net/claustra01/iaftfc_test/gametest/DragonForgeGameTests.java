@@ -98,7 +98,7 @@ public final class DragonForgeGameTests {
             stage + " must use the IaFTFC Dragonsteel ingot");
         helper.assertTrue(Math.abs(HeatCapability.getTemperature(stack)
             - Dragonsteel.FORGE_OUTPUT_TEMPERATURE) < 0.01F,
-            stage + " must retain 1750 C");
+            stage + " must retain 1800 C");
     }
 
     private static DragonForgeRecipe dragonForgeRecipe(GameTestHelper helper, String id) {

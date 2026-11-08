@@ -90,13 +90,13 @@ public final class DragonBreathGameTests {
     public static void convertedTerrainUsesTfcPhysics(GameTestHelper helper) {
         for (Element element : Element.values()) {
             BlockState stone = block("iceandfire:" + element.prefix + "_stone").defaultBlockState();
-            helper.assertTrue(stone.is(TFCTags.Blocks.CAN_COLLAPSE), "Converted stone must collapse");
-            helper.assertTrue(stone.is(TFCTags.Blocks.CAN_TRIGGER_COLLAPSE),
-                "Converted stone must trigger collapse checks");
-            helper.assertTrue(stone.is(TFCTags.Blocks.CAN_START_COLLAPSE),
-                "Converted stone must start a collapse");
-            helper.assertTrue(CollapseRecipe.canCollapse(stone),
-                "Converted stone must resolve through TFC's collapse recipe");
+            helper.assertTrue(!stone.is(TFCTags.Blocks.CAN_COLLAPSE), "Converted stone must not collapse");
+            helper.assertTrue(!stone.is(TFCTags.Blocks.CAN_TRIGGER_COLLAPSE),
+                "Converted stone must not trigger collapse checks");
+            helper.assertTrue(!stone.is(TFCTags.Blocks.CAN_START_COLLAPSE),
+                "Converted stone must not start a collapse");
+            helper.assertTrue(!CollapseRecipe.canCollapse(stone),
+                "Converted stone must not resolve through TFC's collapse recipe");
 
             for (String terrain : List.of("cobblestone", "gravel")) {
                 BlockState loose = block("iceandfire:" + element.prefix + "_" + terrain).defaultBlockState();
@@ -118,25 +118,8 @@ public final class DragonBreathGameTests {
                 helper.setBlock(new BlockPos(x, 5, z), stone);
             }
         }
-        helper.assertTrue(CollapseRecipe.canStartCollapse(helper.getLevel(), helper.absolutePos(collapsePos)),
-            "Unsupported converted stone must pass TFC's collapse start check");
-        BlockPos absoluteCollapsePos = helper.absolutePos(collapsePos);
-        for (int chunkX = (absoluteCollapsePos.getX() - 32) >> 4;
-            chunkX <= (absoluteCollapsePos.getX() + 32) >> 4; chunkX++) {
-            for (int chunkZ = (absoluteCollapsePos.getZ() - 32) >> 4;
-                chunkZ <= (absoluteCollapsePos.getZ() + 32) >> 4; chunkZ++) {
-                helper.getLevel().getChunk(chunkX, chunkZ);
-            }
-        }
-        helper.assertTrue(helper.getLevel().isAreaLoaded(absoluteCollapsePos, 32),
-            "TFC collapse needs its surrounding chunks loaded");
-        AABB collapseArea = new AABB(helper.absolutePos(collapsePos)).inflate(4);
-        for (int attempt = 0; attempt < 200
-            && helper.getLevel().getEntitiesOfClass(TFCFallingBlockEntity.class, collapseArea).isEmpty(); attempt++) {
-            CollapseRecipe.tryTriggerCollapse(helper.getLevel(), helper.absolutePos(collapsePos));
-        }
-        helper.assertTrue(!helper.getLevel().getEntitiesOfClass(TFCFallingBlockEntity.class, collapseArea).isEmpty(),
-            "Triggered TFC collapse must create a falling converted stone");
+        helper.assertTrue(!CollapseRecipe.canStartCollapse(helper.getLevel(), helper.absolutePos(collapsePos)),
+            "Unsupported converted stone must not pass TFC's collapse start check");
 
         for (String terrain : List.of("cobblestone", "gravel")) {
             BlockState loose = block("iceandfire:frozen_" + terrain).defaultBlockState();

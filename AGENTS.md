@@ -51,7 +51,7 @@
 - 元 Mod のデータを上書きする場合、`src/test/resources/iaftfc/gametest/override_manifest.json` の許可リストへ対象 ID を追加し、GameTestで実際の上書きと照合する。
 - Dragon構造物の気候選択とCave鉱石選択は `src/main/java/net/claustra01/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/net/claustra01/iaftfc/mixin/`、検証入口は `src/test/java/net/claustra01/iaftfc_test/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
 - Dragon構造物の属性別TFCチェストと岩石適合鉱石は `worldgen/DragonChests` と `worldgen/DragonCaveOres`、9種のチェストLoot・装備profileの共有Loot・3種のPile Lootは `datagen/DragonLootData`、検証入口は `gametest/DragonStructureLootGameTests` とする。
-- Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。
+- Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。3属性が重なるドラゴン骨格Placed Featureの抽選率補正は `datagen/DragonStructureSets` から生成する。
 - 属性LilyのRegistryPlant・PlantBlock登録は `plant/IaFTFCPlant` と `plant/IaFTFCPlants`、クライアントの透過描画層登録は `plant/ElementalPlantClient`、TFC気候配置は `worldgen/ElementalPlacement`、元IaFのLily生成・Loot・Stewの限定上書きとTFC花タグは `datagen/ElementalWorldgenData`、植物モデルと表示名は `datagen/ElementalPlantAssets` と `LanguageProvider` から `runData` で生成する。TFC土壌で不足する場合だけ `mixin/ElementalFlowerSoilMixin` で補い、検証入口は `gametest/ElementalGameTests` と `tests/e2e/lilies.mjs` とする。
 - GameTestは固定シード0のTFC Overworldで実行し、`src/test/java/net/claustra01/iaftfc_test/mixin/GameTestWorldPresetMixin.java` をテスト用ワールド生成の入口とする。
 - Dragonsteelの指定部品・Fluid・金床登録は `metal/Dragonsteel`、金属加工データと表示素材の生成は `datagen/DragonsteelData`、GameTest入口は `gametest/DragonsteelGameTests` とする。生成と検証には `./gradlew runData`、`./gradlew runGameTestServer` を使う。

@@ -33,7 +33,7 @@ CEのFire・Ice・Lightning Dragonの既存構造物を、TFCの陸地と実際�
 
 巣・洞窟それぞれの生成確率はCE 2.2の属性別Configを使用する。6項目の既定値はいずれも0.5である。配置間隔はCEに該当Configがあればそれを優先し、存在しない場合はIaFTFC側の `dragonRoostSpacing`（既定24チャンク）と `dragonCaveSpacing`（既定30チャンク）を使用する。CE 2.2には配置間隔Configがなく、JSONに書かれたspacingとIaFTFCの設定値を接続する仕組みが必要である。CEの `dangerousDistanceLimit`（既定1000ブロック）を尊重する。
 
-CEのドラゴン骨格は巣・洞窟と別のPlaced Featureであり、旧IaFTFCでは骨格に属性別のTFC気候制限を追加していない。したがって、巣・洞窟の空白地帯に骨格が存在する可能性は維持する。骨格の生成確率を独自に変更しない。
+CEのドラゴン骨格は巣・洞窟と別のPlaced Featureであり、旧IaFTFCでは骨格に属性別のTFC気候制限を追加していない。したがって、巣・洞窟の空白地帯に骨格が存在する可能性は維持する。ただしTFC陸上バイオームは3属性すべての `structure_gen` タグに属し、3属性の骨格Featureが同じチャンクで重ねて抽選されるため、CEの `iceandfire:spawn_dragon_skeleton_fire`、`_ice`、`_lightning` の各Placed Featureへ `minecraft:rarity_filter` chance=3を追加し、チャンクあたりの合計生成確率をCEの `generateSkeletonChance`（既定1/300）相当に抑える。CEの骨格Config自体は変更しない。
 
 #### Acceptance Criteria
 
@@ -116,7 +116,7 @@ CEの移動時接触破壊、引っ掛かり時の掘削、ブレス・チャー
 
 旧IaFTFCのTFC地形変換を再現する。Grass→grass、Dirt／Coarse Dirt／Rooted Dirt／Mud／Farmland→dirt、Grass Path→dirt_path、Raw／Hardened Rock→stone、Cobblestone／Mossy Cobblestone→cobblestone、Rock Gravel→gravelという分類を用い、FireはCEのchared系列、Iceはfrozen系列、Lightningはcrackled系列へ変換する。TFCから変換したCEブロックのrevert属性はfalseとし、元のTFC岩石種は保持しない。
 
-属性変換後のStoneをTFCの崩落系タグ、CobblestoneとGravelを土砂移動系タグ、Dirt Pathを支持系タグに接続する。CEの標準破壊や属性効果が処理されるブロックを重複して変換しない。
+属性変換後のStoneはTFCの崩落系タグへ接続せず、崩落させない。CobblestoneとGravelを土砂移動系タグ、Dirt Pathを支持系タグに接続する。CEの標準破壊や属性効果が処理されるブロックを重複して変換しない。
 
 #### Acceptance Criteria
 
@@ -140,7 +140,7 @@ Action:
 TFCの崩落・土砂移動判定を起こす。
 
 Expected Result:
-Stone、Cobblestone、Gravel、Dirt Pathがそれぞれ定義したTFC物理タグに従って処理される。通常のGrassやDirtを不要な崩落対象に追加していない。
+Stoneは崩落せず、Cobblestone、Gravel、Dirt Pathがそれぞれ定義したTFC物理タグに従って処理される。通常のGrassやDirtを不要な崩落対象に追加していない。
 
 ### F-004: TFC肉によるドラゴン給餌
 
@@ -179,6 +179,8 @@ Expected Result:
 #### Description
 
 CEのFire Lily、Frost Lily、Lightning Lilyに相当する植物を、新しい `iaftfc` 名前空間のTFC PlantBlockとして実装する。TFC 4.2.14のRegistryPlantとPlantBlockの仕組みに従い、季節、年齢、土壌、花の採取、見た目、移動速度の設定を行う。原則としてTFCの花の収穫ルールを継承し、独自の開花時限定収穫や新農耕機構は設けない。
+
+植物のTFC4段階テクスチャはTFCのLilyではなくCEの各Lilyテクスチャから作成する。blooming=CE原画、seeding=花弁を除き萎れた色の花芯、dying／dormant／sprouting=茎のみ、budding=閉じた花芯とする。
 
 各植物の気候分布は対応するドラゴンの巣・洞窟の適格気候に概ね一致させる。CEの元Lilyはrarity_filter chance=32でBiome Modifierから生成されるが、この元Featureは停止し、IaFTFCの新しいTFC PlantのConfigured／Placed Featureに置換する。TFCの気候空白地帯に対応するLilyが存在しなくてもよい。
 
@@ -332,7 +334,7 @@ Expected Result:
 
 #### Description
 
-Fire・Ice・Lightningの3属性Dragonsteelを新規のTFC RegistryMetalとして登録する。FireはRed Steel、IceはBlue Steel、LightningはBlack Steelのインゴットと、対応するCE Dragon BloodをDragon Forgeへ投入して作る。CE元のDragon Forgeの属性判定とcookTime=1000を維持する。出力は新規IaFTFCのDragonsteel Ingotであり、完成直後のTFC温度は1750℃とする。
+Fire・Ice・Lightningの3属性Dragonsteelを新規のTFC RegistryMetalとして登録する。FireはRed Steel、IceはBlue Steel、LightningはBlack Steelのインゴットと、対応するCE Dragon BloodをDragon Forgeへ投入して作る。CE元のDragon Forgeの属性判定とcookTime=1000を維持する。出力は新規IaFTFCのDragonsteel Ingotであり、完成直後のTFC温度は1800℃とする。
 
 各金属にIngot、Double Ingot、Sheet、Double Sheet、Rod、各Tool Head、Sword Blade、Unfinished Armor、Plated Block／Slab／Stairs、Anvil、Molten Fluidを実装する。溶融温度は2000℃、鍛造可能温度は1200℃、溶接可能温度は1600℃とする。旧レジストリIDを維持するため、流体だけは例外的に `tfc:metal/dragonsteel_fire`、`tfc:metal/dragonsteel_ice`、`tfc:metal/dragonsteel_lightning` のIDを使用し、対応するTFC・共通タグ、熱データ、鋳造・加熱レシピへ接続する。
 
@@ -349,7 +351,7 @@ Action:
 CEのDragon Forgeで各属性のDragonsteel Ingotを製作する。
 
 Expected Result:
-各Forgeから属性の一致するIaFTFC Ingotが生成され、TFCの熱データに1750℃が反映される。ForgeのRecipe保存・読込・ネットワーク同期により出力温度が欠落しない。
+各Forgeから属性の一致するIaFTFC Ingotが生成され、TFCの熱データに1800℃が反映される。ForgeのRecipe保存・読込・ネットワーク同期により出力温度が欠落しない。
 
 ##### AC-F010-002: TFC金属と溶融流体の加工経路
 
@@ -543,7 +545,7 @@ CE元IDの補助道具へ到達するサバイバル製作経路が存在し、C
 - 新規コードベースはNeoForge公式Minecraft 1.21.1用MDKから構築する。Harnessの新規Workspace作成時は、既定のNeoForge MDKテンプレートを利用する。旧IaFTFC v0.0.1〜v0.0.3のGit履歴・アセットは調査対象であるが、Java／Mixin／JSON／PNG／Gradle設定を旧ソースツリーから一括移植しない。
 - 公開API、Tag、Recipe、Worldgen JSONを優先し、MixinはCE構造物pieceの置換、ブレス対象のTFC分類、Uranusを介した給餌評価、卵孵化、Dragon Forge温度など、データ設定のみでは成立しない箇所へ限定する。旧Mixinのターゲット名を無条件に再利用しない。
 - CE・TFC双方のリソースIDを扱う場合は、正しい名前空間、Recipe ID、Tag IDを使用する。CEの元JSONを直接コピーせず、現在のCE 2.2の実データから必要な差分だけを新規記述する。
-- 新規に作る金属・植物・防具のモデルやテクスチャは新たに制作する。元CEの属性別の配色およびTFCの資源形態を参照する。Dragon Armorのエンティティ表示に使用するリソースはCEが要求する形式へ合わせる。
+- 新規に作る金属・防具のモデルやテクスチャは新たに制作する。元CEの属性別の配色およびTFCの資源形態を参照する。属性植物のテクスチャはCEの各Lilyテクスチャから作成する。Dragon Armorのエンティティ表示に使用するリソースはCEが要求する形式へ合わせる。
 - サーバー側とクライアント側の処理を分離する。新しいデータ駆動の登録・同期・Worldgenは専用サーバーの実行環境でも成立する設計にする。
 
 ### 受入基準の所有と検証範囲

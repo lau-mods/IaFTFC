@@ -12,10 +12,14 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 
 public final class DragonStructureSets implements DataProvider {
+    private static final int SKELETON_RARITY = 3;
+
     private final PackOutput.PathProvider path;
+    private final PackOutput.PathProvider placedFeatures;
 
     public DragonStructureSets(PackOutput output) {
         path = output.createPathProvider(PackOutput.Target.DATA_PACK, "worldgen/structure_set");
+        placedFeatures = output.createPathProvider(PackOutput.Target.DATA_PACK, "worldgen/placed_feature");
     }
 
     @Override
@@ -33,6 +37,9 @@ public final class DragonStructureSets implements DataProvider {
             StructureSpacingResolver.ICE_CAVE_SALT);
         add(writes, output, "iaftfc", "lightning_dragon_cave", "lightning_dragon_cave", 30, 20,
             StructureSpacingResolver.LIGHTNING_CAVE_SALT);
+        for (String element : new String[] {"fire", "ice", "lightning"}) {
+            addSkeleton(writes, output, element);
+        }
         return CompletableFuture.allOf(writes.toArray(CompletableFuture[]::new));
     }
 
@@ -60,6 +67,27 @@ public final class DragonStructureSets implements DataProvider {
 
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(namespace, setName);
         writes.add(DataProvider.saveStable(output, root, path.json(id)));
+    }
+
+    private void addSkeleton(List<CompletableFuture<?>> writes, CachedOutput output, String element) {
+        String feature = "spawn_dragon_skeleton_" + element;
+        JsonObject root = new JsonObject();
+        root.addProperty("feature", "iceandfire:" + feature);
+        JsonArray placement = new JsonArray();
+        JsonObject rarity = new JsonObject();
+        rarity.addProperty("type", "minecraft:rarity_filter");
+        rarity.addProperty("chance", SKELETON_RARITY);
+        placement.add(rarity);
+        JsonObject heightmap = new JsonObject();
+        heightmap.addProperty("type", "minecraft:heightmap");
+        heightmap.addProperty("heightmap", "WORLD_SURFACE_WG");
+        placement.add(heightmap);
+        JsonObject biome = new JsonObject();
+        biome.addProperty("type", "minecraft:biome");
+        placement.add(biome);
+        root.add("placement", placement);
+        writes.add(DataProvider.saveStable(output, root,
+            placedFeatures.json(ResourceLocation.fromNamespaceAndPath("iceandfire", feature))));
     }
 
     @Override
