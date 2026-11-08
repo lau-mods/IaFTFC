@@ -16,6 +16,21 @@
     "iceandfire:loot_table/chest/lightning_dragon_male_cave.json",
     "iceandfire:loot_table/blocks/gold_pile.json",
     "iceandfire:loot_table/blocks/silver_pile.json",
-    "iceandfire:loot_table/blocks/copper_pile.json"
+    "iceandfire:loot_table/blocks/copper_pile.json",
+    "iceandfire:neoforge/biome_modifier/fire_lily.json",
+    "iceandfire:neoforge/biome_modifier/frost_lily.json",
+    "iceandfire:neoforge/biome_modifier/lightning_lily.json",
+    "iceandfire:worldgen/configured_feature/fire_lily.json",
+    "iceandfire:worldgen/configured_feature/frost_lily.json",
+    "iceandfire:worldgen/configured_feature/lightning_lily.json",
+    "iceandfire:worldgen/placed_feature/fire_lily.json",
+    "iceandfire:worldgen/placed_feature/frost_lily.json",
+    "iceandfire:worldgen/placed_feature/lightning_lily.json",
+    "iceandfire:loot_table/blocks/fire_lily.json",
+    "iceandfire:loot_table/blocks/frost_lily.json",
+    "iceandfire:loot_table/blocks/lightning_lily.json",
+    "iceandfire:recipe/fire_stew.json",
+    "iceandfire:recipe/frost_stew.json",
+    "iceandfire:recipe/lightning_lily_mixture.json"
   ]
 }

@@ -1,0 +1,39 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "conditions": [
+            {
+              "condition": "minecraft:any_of",
+              "terms": [
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#tfc:tools/sharp"
+                  }
+                },
+                {
+                  "condition": "minecraft:match_tool",
+                  "predicate": {
+                    "items": "#c:tools/shear"
+                  }
+                }
+              ]
+            }
+          ],
+          "name": "iaftfc:plant/fire_lily"
+        }
+      ],
+      "name": "loot_pool",
+      "rolls": 1
+    }
+  ]
+}

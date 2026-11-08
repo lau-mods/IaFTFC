@@ -4,13 +4,16 @@ import net.claustra01.iaftfc.config.IaFTFCConfig;
 import net.claustra01.iaftfc.datagen.DragonBiomeTags;
 import net.claustra01.iaftfc.datagen.DragonLootData;
 import net.claustra01.iaftfc.datagen.DragonStructureSets;
+import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
+import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
+import net.claustra01.iaftfc.plant.IaFTFCPlants;
 import net.claustra01.iaftfc.worldgen.StructureSpacingResolver;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 
@@ -19,6 +22,7 @@ public final class IaFTFC {
     public static final String MOD_ID = "iaftfc";
 
     public IaFTFC(IEventBus modBus, ModContainer container) {
+        IaFTFCPlants.register(modBus);
         container.registerConfig(ModConfig.Type.COMMON, IaFTFCConfig.SPEC);
         modBus.addListener(IaFTFC::gatherData);
         NeoForge.EVENT_BUS.addListener((ServerAboutToStartEvent event) ->
@@ -30,13 +34,18 @@ public final class IaFTFC {
             event.createProvider((output, lookup) -> new DragonBiomeTags(output, lookup, event.getExistingFileHelper()));
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
+            event.createProvider(ElementalWorldgenData::new);
         }
         if (event.includeClient()) {
+            event.createProvider(ElementalPlantAssets::new);
             event.createProvider(output -> new LanguageProvider(output, MOD_ID, "en_us") {
                 @Override
                 protected void addTranslations() {
                     add("iaftfc.configuration.dragonRoostSpacing", "Dragon roost spacing");
                     add("iaftfc.configuration.dragonCaveSpacing", "Dragon cave spacing");
+                    add("block.iaftfc.plant.fire_lily", "Fire Lily");
+                    add("block.iaftfc.plant.frost_lily", "Frost Lily");
+                    add("block.iaftfc.plant.lightning_lily", "Lightning Lily");
                 }
             });
         }

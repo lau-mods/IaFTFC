@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "iaftfc:plant/fire_lily",
+    "iaftfc:plant/frost_lily",
+    "iaftfc:plant/lightning_lily"
+  ]
+}

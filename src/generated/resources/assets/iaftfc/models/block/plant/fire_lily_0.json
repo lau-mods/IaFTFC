@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "iaftfc:block/plant/fire_lily/fire_lily_0"
+  }
+}

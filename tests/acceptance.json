@@ -29,7 +29,30 @@
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
       "name": "pilelayersdropmatchingsmallore"
+    },
+    {
+      "acId": "AC-F005-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "elementalliliesreplaceceworldgen"
+    },
+    {
+      "acId": "AC-F005-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "elementalliliesfollowtfcflowerrules"
+    },
+    {
+      "acId": "AC-F005-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "elementalliliescraftcestews"
     }
   ],
-  "e2e": []
+  "e2e": [
+    {
+      "acId": "AC-F005-004",
+      "scenario": "tests/e2e/lilies.mjs"
+    }
+  ]
 }

@@ -1,4 +1,7 @@
 {
+  "block.iaftfc.plant.fire_lily": "Fire Lily",
+  "block.iaftfc.plant.frost_lily": "Frost Lily",
+  "block.iaftfc.plant.lightning_lily": "Lightning Lily",
   "iaftfc.configuration.dragonCaveSpacing": "Dragon cave spacing",
   "iaftfc.configuration.dragonRoostSpacing": "Dragon roost spacing"
 }

@@ -1,0 +1,21 @@
+{
+  "blooming": {
+    "parent": "iaftfc:block/plant/frost_lily_0"
+  },
+  "budding": {
+    "parent": "iaftfc:block/plant/frost_lily_3"
+  },
+  "dormant": {
+    "parent": "iaftfc:block/plant/frost_lily_2"
+  },
+  "dying": {
+    "parent": "iaftfc:block/plant/frost_lily_2"
+  },
+  "loader": "tfc:plant",
+  "seeding": {
+    "parent": "iaftfc:block/plant/frost_lily_1"
+  },
+  "sprouting": {
+    "parent": "iaftfc:block/plant/frost_lily_2"
+  }
+}

@@ -52,7 +52,7 @@
 - Dragon構造物の気候選択とCave鉱石選択は `src/main/java/net/claustra01/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/net/claustra01/iaftfc/mixin/`、検証入口は `src/test/java/net/claustra01/iaftfc_test/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
 - Dragon構造物の属性別TFCチェストと岩石適合鉱石は `worldgen/DragonChests` と `worldgen/DragonCaveOres`、9種のチェストLoot・装備profileの共有Loot・3種のPile Lootは `datagen/DragonLootData`、検証入口は `gametest/DragonStructureLootGameTests` とする。
 - Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。
-- Lily・SkeletonのTFC気候配置は `worldgen/ElementalPlacement`、元IaFのBiomeタグ追加・Lily地面タグ・元Configured/Placed Featureの限定上書きは `datagen/ElementalWorldgenData` から `runData` で生成する。LilyのTFC土壌での生存判定は `mixin/ElementalFlowerSoilMixin`、鉱脈Biome Modifierの無効化は `ElementalWorldgenData` を入口とする。
+- 属性LilyのRegistryPlant・PlantBlock登録は `plant/IaFTFCPlant` と `plant/IaFTFCPlants`、クライアントの透過描画層登録は `plant/ElementalPlantClient`、TFC気候配置は `worldgen/ElementalPlacement`、元IaFのLily生成・Loot・Stewの限定上書きとTFC花タグは `datagen/ElementalWorldgenData`、植物モデルと表示名は `datagen/ElementalPlantAssets` と `LanguageProvider` から `runData` で生成する。TFC土壌で不足する場合だけ `mixin/ElementalFlowerSoilMixin` で補い、検証入口は `gametest/ElementalGameTests` と `tests/e2e/lilies.mjs` とする。
 - GameTestは固定シード0のTFC Overworldで実行し、`src/test/java/net/claustra01/iaftfc_test/mixin/GameTestWorldPresetMixin.java` をテスト用ワールド生成の入口とする。
 - Dragonsteelの指定部品・Fluid・金床登録は `metal/Dragonsteel`、金属加工データと表示素材の生成は `datagen/DragonsteelData`、GameTest入口は `gametest/DragonsteelGameTests` とする。生成と検証には `./gradlew runData`、`./gradlew runGameTestServer` を使う。
 - DragonsteelのBlock Loot、採掘・金床タグ、2種のIngot Mold鋳造レシピは `DragonsteelData` から生成し、描画は `tests/e2e/dragonsteel.mjs` で確認する。

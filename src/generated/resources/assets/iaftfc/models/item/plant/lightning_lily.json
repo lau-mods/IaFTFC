@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "iaftfc:block/plant/lightning_lily/lightning_lily_0"
+  }
+}
