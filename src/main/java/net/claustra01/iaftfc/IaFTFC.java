@@ -12,6 +12,7 @@ import net.claustra01.iaftfc.datagen.DisabledContentData;
 import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
 import net.claustra01.iaftfc.datagen.KnappingData;
+import net.claustra01.iaftfc.datagen.NonDragonWorldgenData;
 import net.claustra01.iaftfc.datagen.TfcCompatData;
 import net.claustra01.iaftfc.dragonarmor.DragonArmor;
 import net.claustra01.iaftfc.knapping.DragonboneParts;
@@ -56,6 +57,7 @@ public final class IaFTFC {
             event.createProvider(DragonsteelData::new);
             event.createProvider(ElementalWorldgenData::new);
             event.createProvider(KnappingData::new);
+            event.createProvider(NonDragonWorldgenData::new);
             event.createProvider(TfcCompatData::new);
         }
         if (event.includeClient()) {

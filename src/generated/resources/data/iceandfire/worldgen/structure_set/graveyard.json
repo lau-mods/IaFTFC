@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.0,
+    "salt": 44712661,
+    "separation": 14,
+    "spacing": 28
+  },
+  "structures": [
+    {
+      "structure": "iceandfire:graveyard",
+      "weight": 1
+    }
+  ]
+}

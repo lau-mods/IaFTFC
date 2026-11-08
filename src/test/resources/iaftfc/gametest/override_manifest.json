@@ -213,6 +213,24 @@
     "iceandfire:recipe/silver_sword.json",
     "iceandfire:recipe/summoning_crystal_fire.json",
     "iceandfire:recipe/summoning_crystal_ice.json",
-    "iceandfire:recipe/summoning_crystal_lightning.json"
+    "iceandfire:recipe/summoning_crystal_lightning.json",
+    "iceandfire:worldgen/structure_set/cyclops_cave.json",
+    "iceandfire:worldgen/structure_set/gorgon_temple.json",
+    "iceandfire:worldgen/structure_set/graveyard.json",
+    "iceandfire:worldgen/structure_set/hydra_cave.json",
+    "iceandfire:worldgen/structure_set/mausoleum.json",
+    "iceandfire:worldgen/structure_set/pixie_village.json",
+    "iceandfire:worldgen/structure_set/siren_island.json",
+    "iceandfire:neoforge/biome_modifier/amphithere.json",
+    "iceandfire:neoforge/biome_modifier/cockatrice.json",
+    "iceandfire:neoforge/biome_modifier/hippogryphs.json",
+    "iceandfire:neoforge/biome_modifier/lich.json",
+    "iceandfire:neoforge/biome_modifier/siren_beach_night.json",
+    "iceandfire:neoforge/biome_modifier/troll.json",
+    "iceandfire:neoforge/biome_modifier/spawn_death_worm.json",
+    "iceandfire:neoforge/biome_modifier/spawn_hippocampus.json",
+    "iceandfire:neoforge/biome_modifier/spawn_sea_serpent.json",
+    "iceandfire:neoforge/biome_modifier/spawn_stymphalian_bird.json",
+    "iceandfire:neoforge/biome_modifier/spawn_wandering_cyclops.json"
   ]
 }

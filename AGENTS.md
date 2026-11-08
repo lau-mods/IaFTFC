@@ -53,6 +53,7 @@
 - Dragon構造物の属性別TFCチェストと岩石適合鉱石は `worldgen/DragonChests` と `worldgen/DragonCaveOres`、9種のチェストLoot・装備profileの共有Loot・3種のPile Lootは `datagen/DragonLootData`、検証入口は `gametest/DragonStructureLootGameTests` とする。
 - Dragon構造物のTFC地表Biomeタグは `DragonBiomeTags` から `runData` で生成し、元IaF構造物タグへの追加として管理する。3属性が重なるドラゴン骨格Placed Featureの抽選率補正は `datagen/DragonStructureSets` から生成する。
 - 属性LilyのRegistryPlant・PlantBlock登録は `plant/IaFTFCPlant` と `plant/IaFTFCPlants`、クライアントの透過描画層登録は `plant/ElementalPlantClient`、TFC気候配置は `worldgen/ElementalPlacement`、元IaFのLily生成・Loot・Stewの限定上書きとTFC花タグは `datagen/ElementalWorldgenData`、植物モデルと表示名は `datagen/ElementalPlantAssets` と `LanguageProvider` から `runData` で生成する。TFC土壌で不足する場合だけ `mixin/ElementalFlowerSoilMixin` で補い、検証入口は `gametest/ElementalGameTests` と `tests/e2e/lilies.mjs` とする。
+- CE非ドラゴン構造物・Mobの自然生成無効化は `datagen/NonDragonWorldgenData` から `runData` で生成する。構造物Setのfrequency=0とBiome Modifierの `neoforge:none` 上書きを用い、許可リストと `gametest/NonDragonWorldgenGameTests` で配置候補・Biomeスポーン表・生成Feature・Dragon経路の維持を検証する。プレイヤー死亡時のGhost自動生成は `mixin/GhostDeathSpawnMixin` で抑止し、CEの死亡イベント内のドロップ処理とConfig値を維持する。
 - GameTestは固定シード0のTFC Overworldで実行し、`src/test/java/net/claustra01/iaftfc_test/mixin/GameTestWorldPresetMixin.java` をテスト用ワールド生成の入口とする。
 - Dragonsteelの指定部品・Fluid・金床登録は `metal/Dragonsteel`、金属加工データと表示素材の生成は `datagen/DragonsteelData`、GameTest入口は `gametest/DragonsteelGameTests` とする。生成と検証には `./gradlew runData`、`./gradlew runGameTestServer` を使う。
 - DragonsteelのBlock Loot、採掘・金床タグ、2種のIngot Mold鋳造レシピは `DragonsteelData` から生成し、描画は `tests/e2e/dragonsteel.mjs` で確認する。

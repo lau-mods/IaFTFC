@@ -1,0 +1,15 @@
+{
+  "placement": {
+    "type": "minecraft:random_spread",
+    "frequency": 0.0,
+    "salt": 8903243,
+    "separation": 6,
+    "spacing": 16
+  },
+  "structures": [
+    {
+      "structure": "iceandfire:hydra_cave",
+      "weight": 1
+    }
+  ]
+}

@@ -13,6 +13,18 @@
       "name": "probabilityandspacingsettingsreachgeneration"
     },
     {
+      "acId": "AC-F001-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "nondragonnaturalgenerationisdisabled"
+    },
+    {
+      "acId": "AC-F001-003",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "playerdeathsdonotcreateghosts"
+    },
+    {
       "acId": "AC-F002-001",
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
