@@ -59,7 +59,7 @@
 - Dragon Forgeの既存レシピ上書き、旧Dragonsteel製法の無効化、完成装備の組み立て・加熱データは `DragonsteelData` から生成する。Forge本体は `gametest/DragonForgeGameTests`、完成装備は `gametest/DragonsteelGameTests`、Forge表示は `tests/e2e/dragon-forge.mjs` で検証する。
 - Dragonbone部品の登録は `knapping/DragonboneParts`、Knapping Type・レシピ・旧製法の無効化・表示素材の生成は `datagen/KnappingData` を入口とする。生成物は `./gradlew runData` で更新する。
 - DragonboneとDragonscaleのメニュー処理、組み立て、旧レシピの検証入口は `gametest/KnappingGameTests` とする。
-- Dragon Armorの登録は `dragonarmor/DragonArmor`、レシピ・レシピ無効化・TFC item_size・モデルとitems JSONの生成は `datagen/DragonArmorData` とする。PNGは `src/main/resources/assets/iaftfc/textures/item/` と `src/main/resources/assets/iceandfire/textures/entity/dragon_armor/` に置く。装着と防御制限は専用Mixin、検証入口は `gametest/DragonArmorGameTests` と `tests/e2e/dragon-armor.mjs` とする。
+- Dragon Armorの登録は `dragonarmor/DragonArmor`、レシピ・レシピ無効化・TFC item_size・モデルの生成は `datagen/DragonArmorData` とする。PNGは `src/main/resources/assets/iaftfc/textures/item/` と `src/main/resources/assets/iceandfire/textures/entity/dragon_armor/` に置く。装着・防御・エンティティテクスチャは新しい `DragonArmorMaterial` を持つCEの `DragonArmorItem` に接続し、Mixinは使わない。検証入口は `gametest/DragonArmorGameTests` と `tests/e2e/dragon-armor.mjs` とする。
 - Dragonのブレス・チャージによるTFC地形変換は `mixin/DragonBreathTerrainMixin` と `dragon/BreathTerrainConversion`、変換後のTFC物理タグは `datagen/TfcCompatData`、変換・griefing・崩落・地滑りの検証は `gametest/DragonBreathGameTests` を入口とする。TFCの既存カテゴリタグを参照し、CEのWorldEventと破壊判定は維持する。
 - 卵のTFC熱源・淡水条件は `mixin/DragonEggConditionsMixin` と `dragon/EggHeatSources`、検証入口は `gametest/DragonEggGameTests` とする。
 - Dragon Mealの非腐敗肉入力とDragon Flesh・ドラゴン肉炒飯のFoodDataは `datagen/DragonFoodData` から生成する。TFC肉の給餌処理は `dragon/TfcDragonFood` と専用Mixin、検証入口は `gametest/DragonFeedingGameTests` と `gametest/DragonFoodGameTests` とする。

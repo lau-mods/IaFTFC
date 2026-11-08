@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "tfc:metal/double_sheet/steel"
+    }
+  },
+  "pattern": [
+    "   ",
+    "  #",
+    "## "
+  ],
+  "result": {
+    "count": 1,
+    "id": "iaftfc:dragonarmor_steel_tail"
+  },
+  "show_notification": true
+}

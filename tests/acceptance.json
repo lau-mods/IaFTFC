@@ -137,6 +137,18 @@
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
       "name": "forgedpartsassembleceequipmentwithbonus"
+    },
+    {
+      "acId": "AC-F012-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "tfcdragonarmorusesceslotsandprotectiononce"
+    },
+    {
+      "acId": "AC-F012-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonarmorrecipesusetfcdoublesheets"
     }
   ],
   "e2e": [
@@ -147,6 +159,10 @@
     {
       "acId": "AC-F010-003",
       "scenario": "tests/e2e/dragonsteel.mjs"
+    },
+    {
+      "acId": "AC-F012-002",
+      "scenario": "tests/e2e/dragon-armor.mjs"
     }
   ]
 }

@@ -1,6 +1,7 @@
 package net.claustra01.iaftfc;
 
 import net.claustra01.iaftfc.config.IaFTFCConfig;
+import net.claustra01.iaftfc.datagen.DragonArmorData;
 import net.claustra01.iaftfc.datagen.DragonBiomeTags;
 import net.claustra01.iaftfc.datagen.DragonFoodData;
 import net.claustra01.iaftfc.datagen.DragonLootData;
@@ -10,6 +11,7 @@ import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
 import net.claustra01.iaftfc.datagen.KnappingData;
 import net.claustra01.iaftfc.datagen.TfcCompatData;
+import net.claustra01.iaftfc.dragonarmor.DragonArmor;
 import net.claustra01.iaftfc.knapping.DragonboneParts;
 import net.claustra01.iaftfc.metal.Dragonsteel;
 import net.claustra01.iaftfc.plant.IaFTFCPlants;
@@ -30,6 +32,7 @@ public final class IaFTFC {
     public IaFTFC(IEventBus modBus, ModContainer container) {
         Dragonsteel.register(modBus);
         DragonboneParts.register(modBus);
+        DragonArmor.register(modBus);
         IaFTFCPlants.register(modBus);
         container.registerConfig(ModConfig.Type.COMMON, IaFTFCConfig.SPEC);
         modBus.addListener(IaFTFC::gatherData);
@@ -40,6 +43,7 @@ public final class IaFTFC {
     private static void gatherData(GatherDataEvent event) {
         if (event.includeServer()) {
             event.createProvider((output, lookup) -> new DragonBiomeTags(output, lookup, event.getExistingFileHelper()));
+            event.createProvider(DragonArmorData::new);
             event.createProvider(DragonFoodData::new);
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
@@ -63,6 +67,18 @@ public final class IaFTFC {
                     add("item.iaftfc.dragonbone.pickaxe_head", "Dragon Bone Pickaxe Head");
                     add("item.iaftfc.dragonbone.shovel_head", "Dragon Bone Shovel Head");
                     add("item.iaftfc.dragonbone.sword_blade", "Dragon Bone Sword Blade");
+                    for (DragonArmor.Metal metal : DragonArmor.METALS) {
+                        for (var part : com.iafenvoy.iceandfire.data.DragonArmorPart.values()) {
+                            String partName = switch (part) {
+                                case HEAD -> "Head";
+                                case NECK -> "Neck";
+                                case BODY -> "Body";
+                                case TAIL -> "Tail";
+                            };
+                            add("item.iaftfc." + DragonArmor.id(metal.id(), part),
+                                metal.displayName() + " Dragon Armor " + partName);
+                        }
+                    }
                     for (Dragonsteel metal : Dragonsteel.values()) {
                         String metalName = switch (metal) {
                             case FIRE -> "Fire Dragonsteel";

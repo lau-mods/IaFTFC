@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": {
+      "item": "tfc:metal/double_sheet/red_steel"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "# #"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iaftfc:dragonarmor_red_steel_body"
+  },
+  "show_notification": true
+}

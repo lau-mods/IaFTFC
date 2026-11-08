@@ -1,0 +1,45 @@
+{
+  "ingredient": [
+    {
+      "item": "iaftfc:dragonarmor_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_iron_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_copper_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_gold_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_silver_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_diamond_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_netherite_head"
+    }
+  ],
+  "size": "very_large",
+  "weight": "very_heavy"
+}
