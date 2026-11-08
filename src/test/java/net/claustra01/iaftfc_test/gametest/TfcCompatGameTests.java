@@ -171,7 +171,7 @@ public final class TfcCompatGameTests {
                 Metal.ItemType.UNFINISHED_HELMET, Metal.ItemType.UNFINISHED_CHESTPLATE,
                 Metal.ItemType.UNFINISHED_GREAVES, Metal.ItemType.UNFINISHED_BOOTS)) {
                 assertSize(helper, new ItemStack(Dragonsteel.item(metal, type).get()),
-                    Size.VERY_SMALL, Weight.VERY_LIGHT);
+                    Size.LARGE, Weight.MEDIUM);
             }
             assertSize(helper, "iaftfc:metal/bucket/" + metal.getSerializedName(),
                 Size.LARGE, Weight.MEDIUM);
@@ -184,6 +184,16 @@ public final class TfcCompatGameTests {
             assertSize(helper, new ItemStack(Dragonsteel.block(metal, Metal.BlockType.ANVIL).get()),
                 Size.HUGE, Weight.VERY_HEAVY);
         }
+
+        assertSize(helper, "iceandfire:dragonbone", Size.VERY_LARGE, Weight.MEDIUM);
+        assertSize(helper, "iceandfire:dragonscales_red", Size.LARGE, Weight.MEDIUM);
+        assertSize(helper, "iaftfc:dragonbone/axe_head", Size.LARGE, Weight.MEDIUM);
+        assertSize(helper, "iceandfire:dragonbone_sword_fire", Size.VERY_LARGE, Weight.VERY_HEAVY);
+        assertSize(helper, "iceandfire:dragonsteel_ice_axe", Size.VERY_LARGE, Weight.VERY_HEAVY);
+        assertSize(helper, "iceandfire:dragon_flute", Size.LARGE, Weight.MEDIUM);
+        assertSize(helper, "iceandfire:dragon_horn", Size.NORMAL, Weight.LIGHT);
+        assertSize(helper, "iceandfire:lightning_dragon_blood", Size.NORMAL, Weight.MEDIUM);
+        assertSize(helper, "iceandfire:fire_dragon_flesh", Size.SMALL, Weight.LIGHT);
 
         BlockPos chestPos = new BlockPos(1, 2, 6);
         helper.setBlock(chestPos, block("tfc:wood/chest/chestnut"));

@@ -139,6 +139,54 @@ public final class TfcCompatData implements DataProvider {
             platedSlabs.add("iaftfc:metal/block/dragonsteel_" + element + "_slab");
         }
         saveSize(writes, output, "dragonsteel_plated_slabs", platedSlabs, "small", "very_light");
+
+        saveSize(writes, output, "dragon_bones", List.of("iceandfire:dragonbone"), "very_large", "medium");
+
+        List<String> scales = new ArrayList<>();
+        for (String color : SCALE_COLORS) {
+            scales.add("iceandfire:dragonscales_" + color);
+        }
+        saveSize(writes, output, "dragon_scales", scales, "large", "medium");
+
+        List<String> parts = new ArrayList<>();
+        for (String part : List.of("axe_head", "hoe_head", "pickaxe_head", "shovel_head", "sword_blade")) {
+            parts.add("iaftfc:dragonbone/" + part);
+        }
+        for (String element : DRAGON_ELEMENTS) {
+            for (String part : List.of("axe_head", "hoe_head", "pickaxe_head", "shovel_head", "sword_blade",
+                "unfinished_helmet", "unfinished_chestplate", "unfinished_greaves", "unfinished_boots")) {
+                parts.add("iaftfc:metal/" + part + "/dragonsteel_" + element);
+            }
+        }
+        saveSize(writes, output, "dragon_tool_parts", parts, "large", "medium");
+
+        List<String> weapons = new ArrayList<>(List.of("iceandfire:dragonbone_axe", "iceandfire:dragonbone_sword"));
+        for (String element : DRAGON_ELEMENTS) {
+            weapons.add("iceandfire:dragonbone_sword_" + element);
+            weapons.add("iceandfire:dragonsteel_" + element + "_axe");
+            weapons.add("iceandfire:dragonsteel_" + element + "_sword");
+        }
+        saveSize(writes, output, "dragon_weapons", weapons, "very_large", "very_heavy");
+
+        saveSize(writes, output, "dragon_small_tools", List.of(
+            "iceandfire:dragon_flute", "iceandfire:dragon_seeker", "iceandfire:epic_dragon_seeker",
+            "iceandfire:legendary_dragon_seeker", "iceandfire:godly_dragon_seeker"), "large", "medium");
+        saveSize(writes, output, "dragon_rods", List.of(
+            "iceandfire:dragon_horn", "iceandfire:dragon_stick", "iceandfire:dragonbone_arrow"), "normal", "light");
+        saveSize(writes, output, "dragon_blood", DRAGON_ELEMENTS.stream()
+            .map(element -> "iceandfire:" + element + "_dragon_blood")
+            .toList(), "normal", "medium");
+
+        List<String> smallLight = new ArrayList<>(List.of(
+            "iceandfire:dragon_meal", "iceandfire:sickly_dragon_meal", "iceandfire:creative_dragon_meal",
+            "iceandfire:fire_stew", "iceandfire:frost_stew", "iceandfire:lightning_stew"));
+        for (String element : DRAGON_ELEMENTS) {
+            smallLight.add("iceandfire:" + element + "_dragon_flesh");
+            smallLight.add("iceandfire:cooked_rice_with_" + element + "_dragon_meat");
+            smallLight.add("iceandfire:" + element + "_dragon_heart");
+            smallLight.add("iceandfire:spawn_egg_" + element + "_dragon");
+        }
+        saveSize(writes, output, "dragon_small_items", smallLight, "small", "light");
     }
 
     private void saveSize(List<CompletableFuture<?>> writes, CachedOutput output, String name,

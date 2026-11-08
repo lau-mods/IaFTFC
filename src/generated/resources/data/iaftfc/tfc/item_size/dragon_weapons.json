@@ -1,0 +1,39 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragonbone_axe"
+    },
+    {
+      "item": "iceandfire:dragonbone_sword"
+    },
+    {
+      "item": "iceandfire:dragonbone_sword_fire"
+    },
+    {
+      "item": "iceandfire:dragonsteel_fire_axe"
+    },
+    {
+      "item": "iceandfire:dragonsteel_fire_sword"
+    },
+    {
+      "item": "iceandfire:dragonbone_sword_ice"
+    },
+    {
+      "item": "iceandfire:dragonsteel_ice_axe"
+    },
+    {
+      "item": "iceandfire:dragonsteel_ice_sword"
+    },
+    {
+      "item": "iceandfire:dragonbone_sword_lightning"
+    },
+    {
+      "item": "iceandfire:dragonsteel_lightning_axe"
+    },
+    {
+      "item": "iceandfire:dragonsteel_lightning_sword"
+    }
+  ],
+  "size": "very_large",
+  "weight": "very_heavy"
+}

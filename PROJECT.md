@@ -456,7 +456,7 @@ Expected Result:
 
 Fire・Ice・Lightning DragonのTFC物理ダメージ耐性をPiercing／Slashing／Crushing各30とする。Dragon Scale ArmorにはBlack Steel相当、プレイヤー用Dragonsteel Armorと既存CE Dragonsteel Dragon ArmorにはPiercing70／Slashing60／Crushing70の耐性を設定する。新TFC金属製Dragon Armorは対応するSteel／Black Steel／Red Steel／Blue Steel相当の耐性を持つ。ドラゴン関連武器・工具の攻撃属性はTFCのPiercing／Slashing／Crushing系へ対応させ、非ドラゴン装備を一括改変しない。
 
-CEのDragon Egg、Dragon Skull、Dragon Armor、Dragonsteel Armor、Forge設備、新Dragonsteel素材・建材へTFCのSize・Weightを設定する。Eggはvery_large／very_heavy、Skullはhuge／very_heavy、プレイヤー用Dragonsteel Armorはlarge／very_heavy、ドラゴン用Armorはvery_large／very_heavy、Dragonsteel Anvilはhuge／very_heavy、Forge Brick／Core／InputとPlated Blockはsmall／light、Plated Slabはsmall／very_light、Plated Stairsはsmall／lightを基準とする。その他のDragon関連品はTFCの対応カテゴリに従う。
+CEのDragon Egg、Dragon Skull、Dragon Armor、Dragonsteel Armor、Forge設備、新Dragonsteel素材・建材へTFCのSize・Weightを設定する。Eggはvery_large／very_heavy、Skullはhuge／very_heavy、プレイヤー用Dragonsteel Armorはlarge／very_heavy、ドラゴン用Armorはvery_large／very_heavy、Dragonsteel Anvilはhuge／very_heavy、Forge Brick／Core／InputとPlated Blockはsmall／light、Plated Slabはsmall／very_light、Plated Stairsはsmall／lightを基準とする。TFCの標準分類と異なる以下のDragon関連品は旧IaFTFCの値を継承する。Dragon Boneはvery_large／medium、Dragon Scale 12色・Dragonbone部品5種・Dragonsteelの工具頭5種と未完成防具4種（各3属性）・Dragon Flute・Dragon Seeker 4種はlarge／medium、DragonboneのAxe・Sword・属性Sword 3種とDragonsteelのAxe・Sword（各3属性）はvery_large／very_heavy、Dragon Horn・Dragon Stick・Dragonbone Arrowはnormal／light、Dragon Blood 3種はnormal／medium、Dragon Meal 3種・属性Stew 3種・Dragon Flesh 3種・ドラゴン肉炒飯3種・Dragon Heart 3種・ドラゴンのSpawn Egg 3種はsmall／lightとする。その他のDragon関連品はTFCの対応カテゴリに従う。
 
 #### Acceptance Criteria
 

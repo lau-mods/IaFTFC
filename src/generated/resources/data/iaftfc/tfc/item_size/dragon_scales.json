@@ -1,0 +1,42 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragonscales_amethyst"
+    },
+    {
+      "item": "iceandfire:dragonscales_black"
+    },
+    {
+      "item": "iceandfire:dragonscales_blue"
+    },
+    {
+      "item": "iceandfire:dragonscales_bronze"
+    },
+    {
+      "item": "iceandfire:dragonscales_copper"
+    },
+    {
+      "item": "iceandfire:dragonscales_electric"
+    },
+    {
+      "item": "iceandfire:dragonscales_gray"
+    },
+    {
+      "item": "iceandfire:dragonscales_green"
+    },
+    {
+      "item": "iceandfire:dragonscales_red"
+    },
+    {
+      "item": "iceandfire:dragonscales_sapphire"
+    },
+    {
+      "item": "iceandfire:dragonscales_silver"
+    },
+    {
+      "item": "iceandfire:dragonscales_white"
+    }
+  ],
+  "size": "large",
+  "weight": "medium"
+}

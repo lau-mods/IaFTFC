@@ -1,0 +1,21 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragon_flute"
+    },
+    {
+      "item": "iceandfire:dragon_seeker"
+    },
+    {
+      "item": "iceandfire:epic_dragon_seeker"
+    },
+    {
+      "item": "iceandfire:legendary_dragon_seeker"
+    },
+    {
+      "item": "iceandfire:godly_dragon_seeker"
+    }
+  ],
+  "size": "large",
+  "weight": "medium"
+}
