@@ -25,12 +25,10 @@ public final class DragonArmorData implements DataProvider {
         new ExistingMetal("dragon_steel_lightning", "iaftfc:metal/double_sheet/dragonsteel_lightning"));
 
     private final PackOutput.PathProvider recipes;
-    private final PackOutput.PathProvider itemSizes;
     private final PackOutput.PathProvider models;
 
     public DragonArmorData(PackOutput output) {
         recipes = output.createPathProvider(PackOutput.Target.DATA_PACK, "recipe");
-        itemSizes = output.createPathProvider(PackOutput.Target.DATA_PACK, "tfc/item_size");
         models = output.createPathProvider(PackOutput.Target.RESOURCE_PACK, "models/item");
     }
 
@@ -49,7 +47,6 @@ public final class DragonArmorData implements DataProvider {
             for (String metal : DragonArmor.DISABLED_METALS) {
                 disableRecipe(writes, output, metal, part);
             }
-            addItemSize(writes, output, part);
         }
         return CompletableFuture.allOf(writes.toArray(CompletableFuture[]::new));
     }
@@ -78,24 +75,6 @@ public final class DragonArmorData implements DataProvider {
         conditions.add(condition);
         recipe.add("neoforge:conditions", conditions);
         save(writes, output, recipes, "iceandfire", DragonArmor.id(metal, part), recipe);
-    }
-
-    private void addItemSize(List<CompletableFuture<?>> writes, CachedOutput output, DragonArmorPart part) {
-        JsonArray ingredients = new JsonArray();
-        for (DragonArmor.Metal metal : DragonArmor.METALS) {
-            ingredients.add(item("iaftfc:" + DragonArmor.id(metal.id(), part)));
-        }
-        for (ExistingMetal metal : EXISTING_METALS) {
-            ingredients.add(item("iceandfire:" + DragonArmor.id(metal.id(), part)));
-        }
-        for (String metal : DragonArmor.DISABLED_METALS) {
-            ingredients.add(item("iceandfire:" + DragonArmor.id(metal, part)));
-        }
-        JsonObject size = new JsonObject();
-        size.add("ingredient", ingredients);
-        size.addProperty("size", "very_large");
-        size.addProperty("weight", "very_heavy");
-        save(writes, output, itemSizes, "iaftfc", "dragonarmor_" + part.getId(), size);
     }
 
     private void addModel(List<CompletableFuture<?>> writes, CachedOutput output, String metal,

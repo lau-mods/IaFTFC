@@ -1,0 +1,15 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragon_skull_fire"
+    },
+    {
+      "item": "iceandfire:dragon_skull_ice"
+    },
+    {
+      "item": "iceandfire:dragon_skull_lightning"
+    }
+  ],
+  "size": "huge",
+  "weight": "very_heavy"
+}

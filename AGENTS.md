@@ -59,12 +59,12 @@
 - Dragon Forgeの既存レシピ上書き、旧Dragonsteel製法の無効化、完成装備の組み立て・加熱データは `DragonsteelData` から生成する。Forge本体は `gametest/DragonForgeGameTests`、完成装備は `gametest/DragonsteelGameTests`、Forge表示は `tests/e2e/dragon-forge.mjs` で検証する。
 - Dragonbone部品の登録は `knapping/DragonboneParts`、Knapping Type・レシピ・旧製法の無効化・表示素材の生成は `datagen/KnappingData` を入口とする。生成物は `./gradlew runData` で更新する。
 - DragonboneとDragonscaleのメニュー処理、組み立て、旧レシピの検証入口は `gametest/KnappingGameTests` とする。
-- Dragon Armorの登録は `dragonarmor/DragonArmor`、レシピ・レシピ無効化・TFC item_size・モデルの生成は `datagen/DragonArmorData` とする。PNGは `src/main/resources/assets/iaftfc/textures/item/` と `src/main/resources/assets/iceandfire/textures/entity/dragon_armor/` に置く。装着・防御・エンティティテクスチャは新しい `DragonArmorMaterial` を持つCEの `DragonArmorItem` に接続し、Mixinは使わない。検証入口は `gametest/DragonArmorGameTests` と `tests/e2e/dragon-armor.mjs` とする。
+- Dragon Armorの登録は `dragonarmor/DragonArmor`、レシピ・レシピ無効化・モデルの生成は `datagen/DragonArmorData` とする。PNGは `src/main/resources/assets/iaftfc/textures/item/` と `src/main/resources/assets/iceandfire/textures/entity/dragon_armor/` に置く。装着・防御・エンティティテクスチャは新しい `DragonArmorMaterial` を持つCEの `DragonArmorItem` に接続し、Mixinは使わない。検証入口は `gametest/DragonArmorGameTests` と `tests/e2e/dragon-armor.mjs` とする。
 - Dragonのブレス・チャージによるTFC地形変換は `mixin/DragonBreathTerrainMixin` と `dragon/BreathTerrainConversion`、変換後のTFC物理タグは `datagen/TfcCompatData`、変換・griefing・崩落・地滑りの検証は `gametest/DragonBreathGameTests` を入口とする。TFCの既存カテゴリタグを参照し、CEのWorldEventと破壊判定は維持する。
 - 卵のTFC熱源・淡水条件は `mixin/DragonEggConditionsMixin` と `dragon/EggHeatSources`、検証入口は `gametest/DragonEggGameTests` とする。
 - Dragon Mealの非腐敗肉入力とDragon Flesh・ドラゴン肉炒飯のFoodDataは `datagen/DragonFoodData` から生成する。TFC肉の給餌処理は `dragon/TfcDragonFood` と専用Mixin、検証入口は `gametest/DragonFeedingGameTests` と `gametest/DragonFoodGameTests` とする。
 - iaftfc専用クリエイティブタブと無効化アイテムの表示除外は `IaFTFCCreativeTab` を入口とする。
-- IaF属性ブロックのTFC落盤・地滑り、IaF武器・DragonのTFCダメージ種別と耐性、IaF Silver/Sapphire系レシピの無効化は `datagen/TfcCompatData` から `runData` で生成し、`gametest/TfcCompatGameTests` で検証する。
+- IaF属性ブロックのTFC落盤・地滑り、Dragonと関連装備の物理耐性、Dragonbone Bowの攻撃属性、既存分類と異なるDragon関連品のitem_sizeは `datagen/TfcCompatData` から `runData` で生成する。その他のDragonbone・Dragonsteel武器とアイテムサイズはTFCの既存タグ・標準分類に従う。CE専用Dragon Armorスロットの耐性参照は `mixin/DragonPhysicalResistanceMixin`、検証入口は `gametest/TfcCompatGameTests` とする。対象は列挙したDragon関連IDに限定し、非Dragon品へ一括適用しない。
 - Bestiaryの新製法ページは `src/main/resources/assets/iceandfire/lang/bestiary/<locale>_0/` で上書きし、`gametest/BestiaryGameTests` と `tests/e2e/bestiary.mjs` で検証する。
 - M13の進行連結は `gametest/ProgressionGameTests`、完全停止を挟む保存検証は `PersistenceFixtureGameTests` と `PersistenceVerifyGameTests` を入口とする。`runGameTestServer` は2段階の保存検証、独立2出力のdata比較、AC対応検査を実行し、結果を `build/test-results/gametest/` に記録する。再接続表示は `tests/e2e/integration-reconnect.mjs` で確認する。
 

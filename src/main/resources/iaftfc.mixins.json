@@ -11,6 +11,7 @@
     "DragonClimateStructureMixin",
     "DragonEggConditionsMixin",
     "DragonForgeRecipeHeatMixin",
+    "DragonPhysicalResistanceMixin",
     "DragonRoostChestMixin",
     "DragonStructureSpacingAccessor",
     "StructurePlacementAccessor",

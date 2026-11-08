@@ -1,0 +1,151 @@
+{
+  "crushing": 50.0,
+  "ingredient": [
+    {
+      "item": "iceandfire:armor_amethyst_helmet"
+    },
+    {
+      "item": "iceandfire:armor_amethyst_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_amethyst_leggings"
+    },
+    {
+      "item": "iceandfire:armor_amethyst_boots"
+    },
+    {
+      "item": "iceandfire:armor_black_helmet"
+    },
+    {
+      "item": "iceandfire:armor_black_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_black_leggings"
+    },
+    {
+      "item": "iceandfire:armor_black_boots"
+    },
+    {
+      "item": "iceandfire:armor_blue_helmet"
+    },
+    {
+      "item": "iceandfire:armor_blue_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_blue_leggings"
+    },
+    {
+      "item": "iceandfire:armor_blue_boots"
+    },
+    {
+      "item": "iceandfire:armor_bronze_helmet"
+    },
+    {
+      "item": "iceandfire:armor_bronze_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_bronze_leggings"
+    },
+    {
+      "item": "iceandfire:armor_bronze_boots"
+    },
+    {
+      "item": "iceandfire:armor_copper_helmet"
+    },
+    {
+      "item": "iceandfire:armor_copper_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_copper_leggings"
+    },
+    {
+      "item": "iceandfire:armor_copper_boots"
+    },
+    {
+      "item": "iceandfire:armor_electric_helmet"
+    },
+    {
+      "item": "iceandfire:armor_electric_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_electric_leggings"
+    },
+    {
+      "item": "iceandfire:armor_electric_boots"
+    },
+    {
+      "item": "iceandfire:armor_gray_helmet"
+    },
+    {
+      "item": "iceandfire:armor_gray_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_gray_leggings"
+    },
+    {
+      "item": "iceandfire:armor_gray_boots"
+    },
+    {
+      "item": "iceandfire:armor_green_helmet"
+    },
+    {
+      "item": "iceandfire:armor_green_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_green_leggings"
+    },
+    {
+      "item": "iceandfire:armor_green_boots"
+    },
+    {
+      "item": "iceandfire:armor_red_helmet"
+    },
+    {
+      "item": "iceandfire:armor_red_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_red_leggings"
+    },
+    {
+      "item": "iceandfire:armor_red_boots"
+    },
+    {
+      "item": "iceandfire:armor_sapphire_helmet"
+    },
+    {
+      "item": "iceandfire:armor_sapphire_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_sapphire_leggings"
+    },
+    {
+      "item": "iceandfire:armor_sapphire_boots"
+    },
+    {
+      "item": "iceandfire:armor_silver_helmet"
+    },
+    {
+      "item": "iceandfire:armor_silver_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_silver_leggings"
+    },
+    {
+      "item": "iceandfire:armor_silver_boots"
+    },
+    {
+      "item": "iceandfire:armor_white_helmet"
+    },
+    {
+      "item": "iceandfire:armor_white_chestplate"
+    },
+    {
+      "item": "iceandfire:armor_white_leggings"
+    },
+    {
+      "item": "iceandfire:armor_white_boots"
+    }
+  ],
+  "piercing": 45.0,
+  "slashing": 33.0
+}

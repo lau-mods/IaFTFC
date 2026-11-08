@@ -149,6 +149,18 @@
       "report": "build/test-results/gametest/TEST-iaftfc.xml",
       "classname": "iaftfc:empty",
       "name": "dragonarmorrecipesusetfcdoublesheets"
+    },
+    {
+      "acId": "AC-F013-001",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonphysicalresistanceusestfconce"
+    },
+    {
+      "acId": "AC-F013-002",
+      "report": "build/test-results/gametest/TEST-iaftfc.xml",
+      "classname": "iaftfc:empty",
+      "name": "dragonitemsfollowtfccarrylimits"
     }
   ],
   "e2e": [

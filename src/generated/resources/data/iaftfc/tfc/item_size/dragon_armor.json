@@ -1,0 +1,162 @@
+{
+  "ingredient": [
+    {
+      "item": "iceandfire:dragonarmor_copper_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_copper_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_copper_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_copper_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_gold_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_gold_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_gold_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_gold_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_silver_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_silver_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_silver_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_silver_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_diamond_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_diamond_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_diamond_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_diamond_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_netherite_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_netherite_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_netherite_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_netherite_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_iron_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_iron_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_iron_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_iron_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_fire_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_ice_tail"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_head"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_neck"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_body"
+    },
+    {
+      "item": "iceandfire:dragonarmor_dragon_steel_lightning_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_steel_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_black_steel_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_red_steel_tail"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_head"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_neck"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_body"
+    },
+    {
+      "item": "iaftfc:dragonarmor_blue_steel_tail"
+    }
+  ],
+  "size": "very_large",
+  "weight": "very_heavy"
+}
