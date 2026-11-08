@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": {
+      "tag": "c:storage_blocks/dragonsteel_lightning"
+    }
+  },
+  "pattern": [
+    "B  ",
+    "BB ",
+    "BBB"
+  ],
+  "result": {
+    "count": 8,
+    "id": "iaftfc:metal/block/dragonsteel_lightning_stairs"
+  }
+}

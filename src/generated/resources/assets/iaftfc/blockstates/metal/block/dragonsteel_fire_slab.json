@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "iaftfc:block/metal/block/dragonsteel_fire_slab"
+    },
+    "type=double": {
+      "model": "iaftfc:block/metal/block/dragonsteel_fire"
+    },
+    "type=top": {
+      "model": "iaftfc:block/metal/block/dragonsteel_fire_slab_top"
+    }
+  }
+}

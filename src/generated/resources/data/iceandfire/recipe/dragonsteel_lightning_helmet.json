@@ -1,0 +1,15 @@
+{
+  "type": "tfc:welding",
+  "bonus": "copy_best",
+  "first_input": {
+    "item": "iaftfc:metal/unfinished_helmet/dragonsteel_lightning"
+  },
+  "result": {
+    "count": 1,
+    "id": "iceandfire:dragonsteel_lightning_helmet"
+  },
+  "second_input": {
+    "tag": "c:sheets/dragonsteel_lightning"
+  },
+  "tier": 7
+}

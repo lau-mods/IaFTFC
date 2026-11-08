@@ -1,0 +1,8 @@
+{
+  "forging_temperature": 1200.0,
+  "heat_capacity": 2.857143,
+  "ingredient": {
+    "item": "iceandfire:dragonsteel_lightning_hoe"
+  },
+  "welding_temperature": 1600.0
+}

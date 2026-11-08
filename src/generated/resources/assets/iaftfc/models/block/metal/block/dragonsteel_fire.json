@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "iaftfc:block/metal/block/dragonsteel_fire"
+  }
+}

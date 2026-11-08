@@ -5,11 +5,13 @@ import net.claustra01.iaftfc.datagen.DragonBiomeTags;
 import net.claustra01.iaftfc.datagen.DragonFoodData;
 import net.claustra01.iaftfc.datagen.DragonLootData;
 import net.claustra01.iaftfc.datagen.DragonStructureSets;
+import net.claustra01.iaftfc.datagen.DragonsteelData;
 import net.claustra01.iaftfc.datagen.ElementalWorldgenData;
 import net.claustra01.iaftfc.datagen.ElementalPlantAssets;
 import net.claustra01.iaftfc.datagen.KnappingData;
 import net.claustra01.iaftfc.datagen.TfcCompatData;
 import net.claustra01.iaftfc.knapping.DragonboneParts;
+import net.claustra01.iaftfc.metal.Dragonsteel;
 import net.claustra01.iaftfc.plant.IaFTFCPlants;
 import net.claustra01.iaftfc.worldgen.StructureSpacingResolver;
 import net.neoforged.bus.api.IEventBus;
@@ -26,6 +28,7 @@ public final class IaFTFC {
     public static final String MOD_ID = "iaftfc";
 
     public IaFTFC(IEventBus modBus, ModContainer container) {
+        Dragonsteel.register(modBus);
         DragonboneParts.register(modBus);
         IaFTFCPlants.register(modBus);
         container.registerConfig(ModConfig.Type.COMMON, IaFTFCConfig.SPEC);
@@ -40,6 +43,7 @@ public final class IaFTFC {
             event.createProvider(DragonFoodData::new);
             event.createProvider(DragonLootData::new);
             event.createProvider(DragonStructureSets::new);
+            event.createProvider(DragonsteelData::new);
             event.createProvider(ElementalWorldgenData::new);
             event.createProvider(KnappingData::new);
             event.createProvider(TfcCompatData::new);
@@ -59,6 +63,42 @@ public final class IaFTFC {
                     add("item.iaftfc.dragonbone.pickaxe_head", "Dragon Bone Pickaxe Head");
                     add("item.iaftfc.dragonbone.shovel_head", "Dragon Bone Shovel Head");
                     add("item.iaftfc.dragonbone.sword_blade", "Dragon Bone Sword Blade");
+                    for (Dragonsteel metal : Dragonsteel.values()) {
+                        String metalName = switch (metal) {
+                            case FIRE -> "Fire Dragonsteel";
+                            case ICE -> "Ice Dragonsteel";
+                            case LIGHTNING -> "Lightning Dragonsteel";
+                        };
+                        for (var type : Dragonsteel.ITEM_TYPES) {
+                            String form = type.name();
+                            switch (type) {
+                                case INGOT -> form = "Ingot";
+                                case DOUBLE_INGOT -> form = "Double Ingot";
+                                case SHEET -> form = "Sheet";
+                                case DOUBLE_SHEET -> form = "Double Sheet";
+                                case ROD -> form = "Rod";
+                                case AXE_HEAD -> form = "Axe Head";
+                                case HOE_HEAD -> form = "Hoe Head";
+                                case PICKAXE_HEAD -> form = "Pickaxe Head";
+                                case SHOVEL_HEAD -> form = "Shovel Head";
+                                case SWORD_BLADE -> form = "Sword Blade";
+                                case UNFINISHED_HELMET -> form = "Unfinished Helmet";
+                                case UNFINISHED_CHESTPLATE -> form = "Unfinished Chestplate";
+                                case UNFINISHED_GREAVES -> form = "Unfinished Leggings";
+                                case UNFINISHED_BOOTS -> form = "Unfinished Boots";
+                            }
+                            add("item.iaftfc.metal." + type.name().toLowerCase(java.util.Locale.ROOT) + "."
+                                + metal.getSerializedName(), metalName + " " + form);
+                        }
+                        add("block.iaftfc.metal.block." + metal.getSerializedName(), metalName + " Plated Block");
+                        add("block.iaftfc.metal.block." + metal.getSerializedName() + "_slab",
+                            metalName + " Plated Slab");
+                        add("block.iaftfc.metal.block." + metal.getSerializedName() + "_stairs",
+                            metalName + " Plated Stairs");
+                        add("block.iaftfc.metal.anvil." + metal.getSerializedName(), metalName + " Anvil");
+                        add("item.iaftfc.metal.bucket." + metal.getSerializedName(), "Molten " + metalName + " Bucket");
+                        add("fluid.tfc.metal." + metal.getSerializedName(), "Molten " + metalName);
+                    }
                 }
             });
         }

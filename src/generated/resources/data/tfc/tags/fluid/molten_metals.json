@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "tfc:metal/dragonsteel_fire",
+    "tfc:metal/dragonsteel_ice",
+    "tfc:metal/dragonsteel_lightning"
+  ]
+}

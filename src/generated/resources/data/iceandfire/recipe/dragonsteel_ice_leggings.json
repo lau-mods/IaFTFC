@@ -1,0 +1,15 @@
+{
+  "type": "tfc:welding",
+  "bonus": "copy_best",
+  "first_input": {
+    "item": "iaftfc:metal/unfinished_greaves/dragonsteel_ice"
+  },
+  "result": {
+    "count": 1,
+    "id": "iceandfire:dragonsteel_ice_leggings"
+  },
+  "second_input": {
+    "tag": "c:sheets/dragonsteel_ice"
+  },
+  "tier": 7
+}

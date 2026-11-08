@@ -1,0 +1,22 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "iaftfc:block/metal/anvil/dragonsteel_ice",
+      "uvlock": true,
+      "y": 180
+    },
+    "facing=north": {
+      "model": "iaftfc:block/metal/anvil/dragonsteel_ice",
+      "uvlock": true,
+      "y": 90
+    },
+    "facing=south": {
+      "model": "iaftfc:block/metal/anvil/dragonsteel_ice",
+      "uvlock": true,
+      "y": 270
+    },
+    "facing=west": {
+      "model": "iaftfc:block/metal/anvil/dragonsteel_ice"
+    }
+  }
+}

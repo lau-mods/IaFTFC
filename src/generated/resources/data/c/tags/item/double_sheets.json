@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "#c:double_sheets/dragonsteel_fire",
+    "#c:double_sheets/dragonsteel_ice",
+    "#c:double_sheets/dragonsteel_lightning"
+  ]
+}

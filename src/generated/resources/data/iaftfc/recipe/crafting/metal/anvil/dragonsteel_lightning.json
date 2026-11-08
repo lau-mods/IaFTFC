@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "#": {
+      "tag": "c:double_ingots/dragonsteel_lightning"
+    }
+  },
+  "pattern": [
+    "###",
+    " # ",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "iaftfc:metal/anvil/dragonsteel_lightning"
+  }
+}
