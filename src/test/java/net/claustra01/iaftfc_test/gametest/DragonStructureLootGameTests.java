@@ -61,7 +61,7 @@ public final class DragonStructureLootGameTests {
     private static final Set<String> KEPT_REWARDS = Set.of("minecraft:bone", "minecraft:book",
         "minecraft:enchanted_book", "iceandfire:manuscript", "minecraft:skeleton_skull", "minecraft:cobweb",
         "minecraft:packed_ice", "iceandfire:crackled_gravel", "minecraft:experience_bottle", "minecraft:flint",
-        "iceandfire:cannoli", "minecraft:golden_apple", "minecraft:enchanted_golden_apple");
+        "iceandfire:cannoli", "minecraft:golden_apple", "minecraft:enchanted_golden_apple", "minecraft:obsidian");
 
     @GameTest(template = EMPTY_TEMPLATE, timeoutTicks = 200)
     public static void dragonChestsAndLootProfiles(GameTestHelper helper) {
@@ -335,9 +335,6 @@ public final class DragonStructureLootGameTests {
                 ingots.forEach(metal -> values.add("tfc:metal/ingot/" + metal));
             case "minecraft:gold_nugget" -> values.add("tfc:ore/small_native_gold");
             case "minecraft:chain" -> values.add("tfc:metal/chain/wrought_iron");
-            case "minecraft:obsidian" -> values.addAll(List.of("tfc:powder/flux", "minecraft:glass",
-                "minecraft:glass_pane", "tfc:kaolin_clay", "tfc:powder/wood_ash", "tfc:powder/saltpeter",
-                "tfc:powder/sylvite"));
             default -> {
                 List<String> shapes = equipmentShapes(source);
                 if (shapes != null) {
@@ -379,7 +376,7 @@ public final class DragonStructureLootGameTests {
             }
             filled = true;
             String id = id(stack);
-            helper.assertTrue(KEPT_REWARDS.contains(id) || id.startsWith("tfc:") || id.startsWith("minecraft:glass"),
+            helper.assertTrue(KEPT_REWARDS.contains(id) || id.startsWith("tfc:"),
                 "Chest fill must pass CE rewards through the TFC replacement: " + id + " in " + element);
         }
         helper.assertTrue(filled, "Dragon chest must be filled from its CE loot table");

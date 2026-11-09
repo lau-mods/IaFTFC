@@ -47,8 +47,7 @@ public final class TfcLootRules {
         GROUPS.put("minecraft:gold_nugget", Group.GOLD_NUGGET);
         GROUPS.put("minecraft:coal", Group.COAL_LIKE);
         GROUPS.put("minecraft:charcoal", Group.COAL_LIKE);
-        for (String id : List.of("minecraft:obsidian", "minecraft:crying_obsidian", "minecraft:quartz",
-            "minecraft:glowstone_dust")) {
+        for (String id : List.of("minecraft:crying_obsidian", "minecraft:quartz")) {
             GROUPS.put(id, Group.UTILITY);
         }
 
