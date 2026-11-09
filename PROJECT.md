@@ -80,9 +80,9 @@ CEの巣3種、雌洞窟3種、雄洞窟3種の計9つのチェストLoot Table�
 
 属性固有の資源はFire=Ruby／Gold、Ice=Sapphire／Silver、Lightning=Topaz／Copperとする。Vanilla Nuggetは対応するTFC Small Oreへ、Chainは `tfc:metal/chain/wrought_iron` へ置換する。汎用レア報酬にRed／Blue Steelを追加しない。
 
-洞窟内の鉱石を、周囲のTFC岩石に適合するTFC鉱石へ置換する。CommonはNative Copper／Malachite／Tetrahedrite／Hematite／Magnetite／Limonite、UncommonはCassiterite／Bismuthinite／Sphalerite、RareはNative Gold／Native Silver／Garnierite、属性固有宝石はRuby／Sapphire／Topazとする。旧版では一部にRich等の等級を用い、近傍岩石を探索していた。存在しない岩石・鉱石の組合せを生成しない。
+洞窟外殻の鉱石を、周囲のTFC岩石に適合する属性固有のTFC鉱石へ置換する。外殻ブロックが鉱石になる確率はCEの `generateOreRatio` を維持し、鉱石枠の50%を属性宝石、50%を属性金属のRich鉱石とする。属性宝石はFire=Ruby、Ice=Sapphire、Lightning=Topaz、属性金属はFire=Rich Native Gold、Ice=Rich Native Silver、Lightning=Rich Native Copperとする。CEのCommon／Uncommon／Rare鉱石枠とその他の金属鉱石は生成しない。近傍岩石を探索し、存在しない岩石・鉱石の組合せを生成しない。
 
-CEのGold／Silver／Copper Pileは装飾として残し、layers=1〜8に対して対応するTFC Small Native Oreを1〜8個ドロップする。
+CEのGold／Silver／Copper Pileは装飾として残し、layers=1〜8に対して対応するTFC Small Native Oreをlayersの1/2（端数切り上げ）、すなわち1〜4個ドロップする。
 
 #### Acceptance Criteria
 
@@ -106,18 +106,18 @@ Action:
 洞窟装飾の鉱石・宝石ブロックを調べる。
 
 Expected Result:
-鉱石はTFCで登録された岩石種・鉱石の組合せとして生成される。属性別宝石はFire=Ruby、Ice=Sapphire、Lightning=Topazとなる。未登録の組合せやCE旧鉱石を正規資源として生成しない。
+鉱石はTFCで登録された岩石種・鉱石の組合せとして生成される。鉱石は属性別宝石（Fire=Ruby、Ice=Sapphire、Lightning=Topaz）または属性別Rich金属鉱石（Fire=Native Gold、Ice=Native Silver、Lightning=Native Copper）のみで、両方が出現する。他属性の資源、その他の金属鉱石、未登録の組合せ、CE旧鉱石を生成しない。
 
 ##### AC-F002-003: PileからのTFC鉱石回収
 
 Preconditions:
-CEのGold／Silver／Copper Pileがlayers=1および8の状態で存在する。
+CEのGold／Silver／Copper Pileがlayers=1〜8の各状態で存在する。
 
 Action:
 各Pileを通常採掘する。
 
 Expected Result:
-対応するTFC Small Native Oreがそれぞれ1個および8個得られる。CE元Nugget等が重複してドロップしない。
+対応するTFC Small Native Oreがlayersの1/2（端数切り上げ）個、すなわちlayers=1で1個、8で4個得られる。CE元Nugget等が重複してドロップしない。
 
 ### F-003: ドラゴンブレスとTFC地形の変化
 

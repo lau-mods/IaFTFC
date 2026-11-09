@@ -140,7 +140,7 @@ public final class DragonLootData implements DataProvider {
             JsonObject entry = item("tfc:ore/small_" + ore);
             JsonObject count = new JsonObject();
             count.addProperty("function", "minecraft:set_count");
-            count.addProperty("count", layers);
+            count.addProperty("count", (layers + 1) / 2);
             JsonArray functions = new JsonArray();
             functions.add(count);
             entry.add("functions", functions);

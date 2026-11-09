@@ -109,20 +109,10 @@ public final class DragonStructureLootGameTests {
         for (Rock rock : Rock.values()) {
             String rockName = rock.getSerializedName();
             for (DragonClimate.Element element : DragonClimate.Element.values()) {
-                BlockState gem = DragonCaveOres.select(rockName, element, DragonCaveOres.Category.ELEMENT,
-                    RandomSource.create(0L)).orElseThrow();
-                String expected = switch (element) {
-                    case FIRE -> "ruby";
-                    case ICE -> "sapphire";
-                    case LIGHTNING -> "topaz";
-                };
-                assertTfcOre(helper, gem, expected, rockName);
-            }
-            for (DragonCaveOres.Category category : List.of(DragonCaveOres.Category.COMMON,
-                DragonCaveOres.Category.UNCOMMON, DragonCaveOres.Category.RARE)) {
-                BlockState ore = DragonCaveOres.select(rockName, DragonClimate.Element.FIRE, category,
-                    RandomSource.create(rock.ordinal() * 31L + category.ordinal())).orElseThrow();
-                assertTfcOre(helper, ore, null, rockName);
+                assertTfcOre(helper, DragonCaveOres.select(rockName, element, DragonCaveOres.Category.GEM)
+                    .orElseThrow(), elementGem(element), rockName);
+                assertTfcOre(helper, DragonCaveOres.select(rockName, element, DragonCaveOres.Category.METAL)
+                    .orElseThrow(), elementMetal(element), rockName);
             }
         }
         double previousRatio = IafCommonConfig.INSTANCE.dragon.generateOreRatio.getValue();
@@ -146,8 +136,11 @@ public final class DragonStructureLootGameTests {
                         }
                     }
                     piece.createShell(helper.getLevel(), RandomSource.create(41L), shell);
-                    String gem = List.of("ruby", "sapphire", "topaz").get(index);
+                    DragonClimate.Element element = DragonClimate.Element.values()[index];
+                    String gem = elementGem(element);
+                    String metal = elementMetal(element);
                     int gemCount = 0;
+                    int metalCount = 0;
                     for (BlockPos pos : shell) {
                         BlockState state = helper.getLevel().getBlockState(pos);
                         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
@@ -158,6 +151,10 @@ public final class DragonStructureLootGameTests {
                             assertTfcOre(helper, state, null, rock);
                             if (id.getPath().startsWith("ore/" + gem + "/")) {
                                 gemCount++;
+                            } else if (id.getPath().startsWith("ore/" + metal + "/")) {
+                                metalCount++;
+                            } else {
+                                helper.fail("Shell ore must be the element gem or rich element metal: " + id);
                             }
                         } else {
                             helper.assertTrue(id.getNamespace().equals("iceandfire")
@@ -166,6 +163,7 @@ public final class DragonStructureLootGameTests {
                         }
                     }
                     helper.assertTrue(gemCount > 0, "Element gem must appear in the generated shell");
+                    helper.assertTrue(metalCount > 0, "Rich element metal must appear in the generated shell");
                 }
             }
         } finally {
@@ -181,13 +179,14 @@ public final class DragonStructureLootGameTests {
         for (int index = 0; index < metals.size(); index++) {
             Block pile = BuiltInRegistries.BLOCK.get(ResourceLocation.parse("iceandfire:" + metals.get(index) + "_pile"));
             Item expected = BuiltInRegistries.ITEM.get(ResourceLocation.parse("tfc:ore/small_" + ores.get(index)));
-            for (int layers : List.of(1, 8)) {
+            for (int layers = 1; layers <= 8; layers++) {
+                int expectedCount = (layers + 1) / 2;
                 BlockState state = pile.defaultBlockState().setValue(PileBlock.LAYERS, layers);
                 List<ItemStack> drops = Block.getDrops(state, helper.getLevel(), helper.absolutePos(new BlockPos(1, 2, 1)),
                     null);
                 helper.assertValueEqual(drops.stream().filter(stack -> stack.is(expected)).mapToInt(ItemStack::getCount).sum(),
-                    layers, "Pile layers must equal the TFC small ore count");
-                helper.assertValueEqual(drops.stream().mapToInt(ItemStack::getCount).sum(), layers,
+                    expectedCount, "Pile must drop half its layers, rounded up, as TFC small ore");
+                helper.assertValueEqual(drops.stream().mapToInt(ItemStack::getCount).sum(), expectedCount,
                     "Pile must not retain a second nugget drop");
             }
         }
@@ -453,13 +452,29 @@ public final class DragonStructureLootGameTests {
         return false;
     }
 
+    private static String elementGem(DragonClimate.Element element) {
+        return switch (element) {
+            case FIRE -> "ruby";
+            case ICE -> "sapphire";
+            case LIGHTNING -> "topaz";
+        };
+    }
+
+    private static String elementMetal(DragonClimate.Element element) {
+        return switch (element) {
+            case FIRE -> "rich_native_gold";
+            case ICE -> "rich_native_silver";
+            case LIGHTNING -> "rich_native_copper";
+        };
+    }
+
     private static void assertTfcOre(GameTestHelper helper, BlockState state, String ore, String rock) {
         ResourceLocation id = BuiltInRegistries.BLOCK.getKey(state.getBlock());
         helper.assertValueEqual(id.getNamespace(), "tfc", "Cave resources must be registered TFC blocks");
         helper.assertTrue(id.getPath().startsWith("ore/") && id.getPath().endsWith("/" + rock),
             "Cave ore must match its nearby rock");
         if (ore != null) {
-            helper.assertTrue(id.getPath().startsWith("ore/" + ore + "/"), "Element gem must match its dragon");
+            helper.assertTrue(id.getPath().startsWith("ore/" + ore + "/"), "Element ore must match its dragon");
         }
     }
 

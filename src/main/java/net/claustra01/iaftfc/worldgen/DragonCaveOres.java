@@ -2,7 +2,6 @@ package net.claustra01.iaftfc.worldgen;
 
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -17,17 +16,9 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public final class DragonCaveOres {
     public enum Category {
-        COMMON,
-        UNCOMMON,
-        RARE,
-        ELEMENT
+        GEM,
+        METAL
     }
-
-    private static final List<String> COMMON = List.of("native_copper", "malachite", "tetrahedrite",
-        "hematite", "magnetite", "limonite");
-    private static final List<String> UNCOMMON = List.of("cassiterite", "bismuthinite", "sphalerite");
-    private static final List<String> RARE = List.of("native_gold", "native_silver", "garnierite");
-    private static final List<String> GRADES = List.of("rich", "normal", "poor");
 
     public static void replaceShell(LevelAccessor level, RandomSource random, Set<BlockPos> shell,
         DragonClimate.Element element, Function<RandomSource, BlockState> palette) {
@@ -44,7 +35,8 @@ public final class DragonCaveOres {
             if (random.nextDouble() < IafCommonConfig.INSTANCE.dragon.generateOreRatio.getValue()) {
                 Optional<String> rock = rocks.get(pos);
                 if (rock.isPresent()) {
-                    replacement = select(rock.get(), element, category(random), random);
+                    replacement = select(rock.get(), element,
+                        random.nextBoolean() ? Category.GEM : Category.METAL);
                 }
             }
             level.setBlock(pos, replacement.orElseGet(() -> palette.apply(random)), 2);
@@ -71,31 +63,19 @@ public final class DragonCaveOres {
         return Optional.empty();
     }
 
-    public static Optional<BlockState> select(String rock, DragonClimate.Element element, Category category,
-        RandomSource random) {
-        if (category == Category.ELEMENT) {
-            String gem = switch (element) {
+    public static Optional<BlockState> select(String rock, DragonClimate.Element element, Category category) {
+        String ore = category == Category.GEM
+            ? switch (element) {
                 case FIRE -> "ruby";
                 case ICE -> "sapphire";
                 case LIGHTNING -> "topaz";
+            }
+            : switch (element) {
+                case FIRE -> "rich_native_gold";
+                case ICE -> "rich_native_silver";
+                case LIGHTNING -> "rich_native_copper";
             };
-            return block("ore/" + gem + "/" + rock);
-        }
-        List<String> ores = category == Category.COMMON ? COMMON
-            : category == Category.UNCOMMON ? UNCOMMON : RARE;
-        return block("ore/" + GRADES.get(random.nextInt(GRADES.size())) + "_"
-            + ores.get(random.nextInt(ores.size())) + "/" + rock);
-    }
-
-    private static Category category(RandomSource random) {
-        if (random.nextBoolean()) {
-            return Category.ELEMENT;
-        }
-        double value = random.nextDouble();
-        if (value <= 0.15D) {
-            return Category.RARE;
-        }
-        return value <= 0.45D ? Category.UNCOMMON : Category.COMMON;
+        return block("ore/" + ore + "/" + rock);
     }
 
     private static Optional<BlockState> block(String path) {
