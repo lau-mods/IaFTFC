@@ -8,6 +8,7 @@ import net.dries007.tfc.common.component.food.FoodCapability;
 import net.dries007.tfc.common.component.food.FoodData;
 import net.dries007.tfc.common.component.food.IFood;
 import net.dries007.tfc.common.component.food.Nutrient;
+import net.dries007.tfc.common.component.size.Weight;
 import net.dries007.tfc.common.player.IPlayerInfo;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -47,6 +48,8 @@ public final class DragonFoodGameTests {
                 "TFC food data must not replace CE Dragon Flesh nutrition components");
             helper.assertValueEqual(fleshProperties.saturation(), 12.8F,
                 "TFC food data must not replace CE Dragon Flesh saturation components");
+            helper.assertValueEqual(flesh.getMaxStackSize(), Weight.LIGHT.stackSize,
+                "TFC must still apply the small/light stack size to Dragon Flesh");
             eatAndCheck(helper, player, flesh, 8, Nutrient.PROTEIN);
             if (element.equals("fire")) {
                 helper.assertTrue(player.getRemainingFireTicks() > 0, "Fire flesh must retain CE's ignition");
@@ -72,6 +75,8 @@ public final class DragonFoodGameTests {
                 "CE fried-rice special effects must remain registered");
             helper.assertTrue(riceProperties.usingConvertsTo().orElse(ItemStack.EMPTY).is(Items.BOWL),
                 "CE fried rice must retain its bowl remainder");
+            helper.assertTrue(rice.getMaxStackSize() == 1 || rice.getMaxStackSize() == Weight.LIGHT.stackSize,
+                "TFC must still apply the small/light stack size to dragon fried rice");
             eatAndCheck(helper, player, rice, 4, Nutrient.GRAIN);
             helper.assertTrue(player.hasEffect(switch (element) {
                 case "fire" -> MobEffects.FIRE_RESISTANCE;

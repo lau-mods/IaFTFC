@@ -10,6 +10,7 @@
     "DragonCaveOresMixin",
     "DragonClimateStructureMixin",
     "DragonEggConditionsMixin",
+    "DragonFoodComponentMixin",
     "DragonForgeRecipeHeatMixin",
     "DragonPhysicalResistanceMixin",
     "DragonRoostChestMixin",

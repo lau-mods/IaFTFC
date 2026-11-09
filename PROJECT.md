@@ -247,7 +247,7 @@ Expected Result:
 
 #### Description
 
-CEのFire・Ice・Lightning Dragon Fleshの3品および各属性のドラゴン肉入り炒飯3品を、TFC Foodとして登録する。腐敗、栄養、満腹度、保存条件に対応させる。旧IaFTFCの数値を基準とし、肉はhunger=8、protein=3.0、saturation=2.0、decay_modifier=2.0、炒飯はhunger=4、water=20.0、saturation=1.5、grain=1.7、vegetables=2.0、protein=3.0、decay_modifier=3.5とする。非ドラゴン食品のTFC化は行わない。
+CEのFire・Ice・Lightning Dragon Fleshの3品および各属性のドラゴン肉入り炒飯3品を、TFC Foodとして登録する。腐敗、栄養、満腹度、保存条件に対応させる。旧IaFTFCの数値を基準とし、肉はhunger=8、protein=3.0、saturation=2.0、decay_modifier=2.0、炒飯はhunger=4、water=20.0、saturation=1.5、grain=1.7、vegetables=2.0、protein=3.0、decay_modifier=3.5とする。6品のCE元の `minecraft:food` component（満腹度・満腹度回復量・効果・容器返却）は維持する。TFCはリソース再読込時に、Size・Weightのスタック数と既定スタック数が異なるTFC Foodの `minecraft:food` を空の値へ置き換えるため、6品に限りこの置換を抑止し、Weightによるスタック数の変更は適用する。非ドラゴン食品のTFC化は行わない。
 
 #### Acceptance Criteria
 
@@ -260,7 +260,7 @@ Action:
 TFCのFoodデータと腐敗処理を適用し、摂食時の栄養と腐敗状態を確認する。
 
 Expected Result:
-6品に上記の食品値が適用され、TFCの栄養・腐敗が作用する。CEが元々持つ食品の特殊効果を変更せず、非ドラゴン食品には追加変更がない。
+6品に上記の食品値が適用され、TFCの栄養・腐敗が作用する。CEが元々持つ `minecraft:food` component と食品の特殊効果を変更せず、スタック数はsmall／lightのWeightに従う。非ドラゴン食品には追加変更がない。
 
 ### F-007: ドラゴンの卵とTFC熱源・淡水
 
