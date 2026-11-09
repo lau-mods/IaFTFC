@@ -1,0 +1,12 @@
+{
+  "type": "iaftfc:tfc_loot_replacement",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "iceandfire:chest/lightning_dragon_male_cave"
+    }
+  ],
+  "element": "lightning",
+  "finished_enchant_levels": 25,
+  "profile": "lategame"
+}

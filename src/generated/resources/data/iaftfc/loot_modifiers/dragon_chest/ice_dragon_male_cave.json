@@ -1,0 +1,16 @@
+{
+  "type": "iaftfc:tfc_loot_replacement",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "iceandfire:chest/ice_dragon_male_cave"
+    }
+  ],
+  "element": "ice",
+  "finished_enchant_levels": 25,
+  "item_overrides": {
+    "minecraft:gold_ingot": "tfc:metal/ingot/silver",
+    "minecraft:gold_nugget": "tfc:ore/small_native_silver"
+  },
+  "profile": "lategame"
+}

@@ -1,0 +1,11 @@
+{
+  "type": "iaftfc:tfc_loot_replacement",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "iceandfire:chest/fire_dragon_female_cave"
+    }
+  ],
+  "element": "fire",
+  "profile": "dangerous"
+}

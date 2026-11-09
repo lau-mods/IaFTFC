@@ -1,9 +1,5 @@
 package net.claustra01.iaftfc_test.gametest;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.iafenvoy.iceandfire.item.block.PileBlock;
 import com.iafenvoy.iceandfire.config.IafCommonConfig;
 import com.iafenvoy.iceandfire.registry.tag.IafBlockTags;
@@ -13,12 +9,11 @@ import com.iafenvoy.iceandfire.world.structure.LightningDragonRoostStructure;
 import com.iafenvoy.iceandfire.world.structure.FireDragonCaveStructure;
 import com.iafenvoy.iceandfire.world.structure.IceDragonCaveStructure;
 import com.iafenvoy.iceandfire.world.structure.LightningDragonCaveStructure;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import net.claustra01.iaftfc.worldgen.DragonCaveOres;
 import net.claustra01.iaftfc.worldgen.DragonChests;
@@ -44,6 +39,7 @@ import net.minecraft.world.level.block.entity.ChestBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
@@ -55,6 +51,17 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @PrefixGameTestTemplate(false)
 public final class DragonStructureLootGameTests {
     private static final String EMPTY_TEMPLATE = "empty";
+    private static final List<String> ORDINARY_INGOTS = List.of("copper", "bronze", "bismuth_bronze", "black_bronze",
+        "wrought_iron");
+    private static final List<String> ORDINARY_EQUIPMENT = List.of("copper", "bronze", "bismuth_bronze",
+        "black_bronze");
+    private static final Set<String> UNFINISHED_SHAPES = Set.of("sword_blade", "javelin_head", "mace_head",
+        "unfinished_helmet", "unfinished_chestplate", "unfinished_greaves", "unfinished_boots");
+    /** CE dragon rewards without a replacement rule, kept as rolled. */
+    private static final Set<String> KEPT_REWARDS = Set.of("minecraft:bone", "minecraft:book",
+        "minecraft:enchanted_book", "iceandfire:manuscript", "minecraft:skeleton_skull", "minecraft:cobweb",
+        "minecraft:packed_ice", "iceandfire:crackled_gravel", "minecraft:experience_bottle", "minecraft:flint",
+        "iceandfire:cannoli", "minecraft:golden_apple", "minecraft:enchanted_golden_apple");
 
     @GameTest(template = EMPTY_TEMPLATE, timeoutTicks = 200)
     public static void dragonChestsAndLootProfiles(GameTestHelper helper) {
@@ -88,10 +95,10 @@ public final class DragonStructureLootGameTests {
         verifyRoostChest(helper, new TestLightningRoost(), "lightning", new BlockPos(160, 3, 0));
 
         for (String element : elements) {
-            verifyTable(helper, element, "roost", List.of("copper", "bronze", "bismuth_bronze", "black_bronze"),
+            verifyTable(helper, element, "roost", ORDINARY_INGOTS, ORDINARY_EQUIPMENT, false);
+            verifyTable(helper, element, "female_cave", List.of("wrought_iron", "steel"), List.of("wrought_iron"),
                 false);
-            verifyTable(helper, element, "female_cave", List.of("wrought_iron"), false);
-            verifyTable(helper, element, "male_cave", List.of("steel"), true);
+            verifyTable(helper, element, "male_cave", List.of("steel", "black_steel"), List.of("steel"), true);
         }
         helper.succeed();
     }
@@ -193,159 +200,193 @@ public final class DragonStructureLootGameTests {
         helper.succeed();
     }
 
-    private static void verifyTable(GameTestHelper helper, String element, String variant, List<String> metals,
-        boolean enchanted) {
+    /**
+     * Compares the unmodified CE roll ({@code getRandomItemsRaw} skips GLMs) with the GLM result of the same seed.
+     * Both pass through the vanilla max-stack splitter, which already uses TFC stack sizes before GLMs run.
+     */
+    @SuppressWarnings("deprecation")
+    private static void verifyTable(GameTestHelper helper, String element, String variant, List<String> ingots,
+        List<String> equipmentMetals, boolean male) {
         String tableName = element + "_dragon_" + variant;
-        JsonObject root = resource(helper, "iceandfire:loot_table/chest/" + tableName + ".json");
-        String sourcePath = "/data/iceandfire/loot_table/chest/" + tableName + ".json";
-        JsonObject original;
-        try (var stream = FireDragonCaveStructure.class.getResourceAsStream(sourcePath)) {
-            if (stream == null) {
-                throw new IllegalStateException("Missing CE loot table " + sourcePath);
-            }
-            original = JsonParser.parseReader(new InputStreamReader(stream, StandardCharsets.UTF_8)).getAsJsonObject();
-        } catch (IOException exception) {
-            throw new IllegalStateException("Unable to read CE loot table " + sourcePath, exception);
-        }
-        JsonObject pool = root.getAsJsonArray("pools").get(0).getAsJsonObject();
-        JsonObject originalPool = original.getAsJsonArray("pools").get(0).getAsJsonObject();
-        helper.assertValueEqual(root.getAsJsonArray("pools").size(), original.getAsJsonArray("pools").size(),
-            "CE pool count must be retained");
-        helper.assertValueEqual(pool.get("name").getAsString(), originalPool.get("name").getAsString(),
-            "CE pool name must be retained");
-        helper.assertValueEqual(pool.getAsJsonObject("rolls").get("min").getAsInt(),
-            originalPool.getAsJsonObject("rolls").get("min").getAsInt(), "CE minimum rolls must be retained");
-        helper.assertValueEqual(pool.getAsJsonObject("rolls").get("max").getAsInt(), enchanted ? 6 : 4,
-            "CE roll range must be retained");
-        JsonArray entries = pool.getAsJsonArray("entries");
-        int originalWeight = 0;
-        for (JsonElement value : originalPool.getAsJsonArray("entries")) {
-            originalWeight += value.getAsJsonObject().get("weight").getAsInt();
-        }
-        int actualWeight = 0;
-        for (JsonElement value : entries) {
-            actualWeight += value.getAsJsonObject().get("weight").getAsInt();
-        }
-        helper.assertValueEqual(actualWeight, originalWeight, "CE total entry weight must be retained");
-        helper.assertValueEqual(actualWeight, switch (element) {
-            case "fire" -> enchanted ? 212 : 165;
-            case "ice" -> enchanted ? 212 : 175;
-            default -> enchanted ? 226 : 192;
-        }, "CE 2.2 table weight must be retained");
-        for (JsonElement value : originalPool.getAsJsonArray("entries")) {
-            JsonObject source = value.getAsJsonObject();
-            String name = source.get("name").getAsString();
-            if (name.endsWith("_sword") || name.endsWith("_helmet") || name.endsWith("_chestplate")
-                || name.endsWith("_leggings") || name.endsWith("_boots")) {
-                continue;
-            }
-            String mapped = switch (name) {
-                case "minecraft:diamond" -> "tfc:gem/diamond";
-                case "minecraft:emerald", "iceandfire:sapphire_gem", "minecraft:amethyst_shard" ->
-                    "tfc:gem/" + switch (element) {
-                        case "fire" -> "ruby";
-                        case "ice" -> "sapphire";
-                        default -> "topaz";
-                    };
-                case "minecraft:chain" -> "tfc:metal/chain/wrought_iron";
-                case "minecraft:gold_nugget", "iceandfire:silver_nugget", "iceandfire:copper_nugget" ->
-                    "tfc:ore/small_native_" + switch (element) {
-                        case "fire" -> "gold";
-                        case "ice" -> "silver";
-                        default -> "copper";
-                    };
-                default -> name;
-            };
-            if (name.endsWith("_ingot")) {
-                continue;
-            }
-            JsonObject actual = null;
-            for (JsonElement candidate : entries) {
-                JsonObject entry = candidate.getAsJsonObject();
-                if (entry.has("name") && entry.get("name").getAsString().equals(mapped)) {
-                    actual = entry;
-                    break;
+        ResourceLocation tableId = ResourceLocation.parse("iceandfire:chest/" + tableName);
+        ResourceLocation file = ResourceLocation.parse("iceandfire:loot_table/chest/" + tableName + ".json");
+        helper.assertTrue(helper.getLevel().getServer().getResourceManager().getResourceStack(file).stream()
+            .noneMatch(resource -> resource.sourcePackId().contains("iaftfc")), "CE loot table must not be overridden");
+        LootTable loaded = helper.getLevel().getServer().reloadableRegistries()
+            .getLootTable(ResourceKey.create(Registries.LOOT_TABLE, tableId));
+        helper.assertTrue(loaded != LootTable.EMPTY, "CE loot table must be loaded by the server");
+        LootParams params = new LootParams.Builder(helper.getLevel())
+            .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(new BlockPos(1, 2, 1))))
+            .create(LootContextParamSets.CHEST);
+        Set<String> seenIngots = new HashSet<>();
+        Set<String> seenOutputs = new HashSet<>();
+        Set<String> seenEquipmentMetals = new HashSet<>();
+        Set<String> seenSwordShapes = new HashSet<>();
+        Set<String> enchantedFinished = new HashSet<>();
+        int unfinished = 0;
+        int finished = 0;
+        for (long seed = 1; seed <= 1500; seed++) {
+            List<ItemStack> raw = new ArrayList<>();
+            loaded.getRandomItemsRaw(new LootContext.Builder(params).withOptionalRandomSeed(seed)
+                .create(Optional.empty()), LootTable.createStackSplitter(helper.getLevel(), raw::add));
+            List<ItemStack> modified = loaded.getRandomItems(params, seed);
+            int index = 0;
+            for (ItemStack source : raw) {
+                String sourceId = id(source);
+                Set<String> allowed = allowedOutputs(sourceId, element, variant, ingots, equipmentMetals);
+                helper.assertTrue(index < modified.size(), "Replacement must keep every rolled stack: " + sourceId);
+                ItemStack first = modified.get(index);
+                if (allowed.isEmpty()) {
+                    helper.assertTrue(ItemStack.matches(source, first), "Unmapped CE reward must remain: " + sourceId);
+                    index++;
+                    continue;
                 }
-            }
-            helper.assertTrue(actual != null, "CE reward must remain: " + name);
-            helper.assertValueEqual(actual.get("weight").getAsInt(), source.get("weight").getAsInt(),
-                "CE reward weight must remain: " + name);
-            JsonArray sourceFunctions = source.has("functions") ? source.getAsJsonArray("functions") : new JsonArray();
-            JsonArray actualFunctions = actual.has("functions") ? actual.getAsJsonArray("functions") : new JsonArray();
-            helper.assertValueEqual(actualFunctions.size(), sourceFunctions.size(),
-                "CE reward function count must remain: " + name);
-            for (int index = 0; index < sourceFunctions.size(); index++) {
-                JsonObject originalFunction = sourceFunctions.get(index).getAsJsonObject();
-                JsonObject generatedFunction = actualFunctions.get(index).getAsJsonObject();
-                helper.assertValueEqual(generatedFunction.get("function").getAsString().replace("minecraft:", ""),
-                    originalFunction.get("function").getAsString().replace("minecraft:", ""),
-                    "CE reward function must remain: " + name);
-                if (originalFunction.has("count")) {
-                    JsonObject sourceCount = originalFunction.getAsJsonObject("count");
-                    JsonObject actualCount = generatedFunction.getAsJsonObject("count");
-                    for (String part : List.of("min", "max", "value")) {
-                        if (sourceCount.has(part)) {
-                            helper.assertValueEqual(actualCount.get(part).getAsInt(), sourceCount.get(part).getAsInt(),
-                                "CE reward count provider must remain: " + name);
+                String output = id(first);
+                helper.assertTrue(allowed.contains(output), sourceId + " must not become " + output);
+                seenOutputs.add(output);
+                int total = 0;
+                while (total < source.getCount()) {
+                    helper.assertTrue(index < modified.size() && modified.get(index).is(first.getItem()),
+                        "A replaced stack must be split into the same item: " + sourceId);
+                    ItemStack part = modified.get(index++);
+                    helper.assertTrue(part.getCount() <= part.getMaxStackSize(), "Split stack exceeds its maximum");
+                    total += part.getCount();
+                }
+                helper.assertValueEqual(total, source.getCount(), "Replacement must keep the rolled count: " + sourceId);
+                String path = output.substring(output.indexOf(':') + 1);
+                if (path.startsWith("metal/ingot/")) {
+                    seenIngots.add(path.substring("metal/ingot/".length()));
+                }
+                if (isEquipmentSource(sourceId)) {
+                    String[] parts = path.split("/");
+                    seenEquipmentMetals.add(parts[2]);
+                    boolean isUnfinished = UNFINISHED_SHAPES.contains(parts[1]);
+                    boolean enchanted = !first.getEnchantments().isEmpty();
+                    if (isUnfinished) {
+                        unfinished++;
+                        helper.assertTrue(!enchanted, "Work-in-progress equipment must not be enchanted");
+                    } else {
+                        finished++;
+                        if (!male) {
+                            helper.assertTrue(!enchanted, "Only male cave finished equipment is enchanted");
+                        } else if (!enchanted) {
+                            // TFC javelins and maces have no primary enchantments, as with CE's own roll.
+                            helper.assertTrue(helper.getLevel().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+                                .holders().noneMatch(first::isPrimaryItemFor),
+                                "Enchantable male cave equipment must be re-enchanted: " + output);
+                        } else {
+                            enchantedFinished.add(parts[1]);
                         }
+                    }
+                    if (sourceId.endsWith("_sword")) {
+                        seenSwordShapes.add(parts[1]);
                     }
                 }
             }
+            helper.assertValueEqual(index, modified.size(), "Replacement must not add extra stacks");
         }
-        Set<String> names = new HashSet<>();
-        Set<String> sharedTables = new HashSet<>();
-        for (JsonElement value : entries) {
-            JsonObject entry = value.getAsJsonObject();
-            if (entry.has("name")) {
-                String name = entry.get("name").getAsString();
-                helper.assertTrue(names.add(name), "A reward entry must not be counted twice in one table: " + name);
-                helper.assertTrue(!name.contains("red_steel") && !name.contains("blue_steel"),
-                    "Generic loot must not include Red or Blue Steel");
-            } else {
-                String valueName = entry.get("value").getAsString();
-                helper.assertTrue(sharedTables.add(valueName),
-                    "A shared reward table must not be counted twice: " + valueName);
-                helper.assertValueEqual(entry.get("weight").getAsInt(), enchanted ? 10 : 5,
-                    "CE equipment entry weight must be retained");
-            }
-        }
-        helper.assertTrue(names.contains("iceandfire:manuscript"), "CE manuscript reward must remain");
-        helper.assertTrue(names.contains("tfc:metal/chain/wrought_iron"), "Chain must use TFC Wrought Iron");
-        String gem = switch (element) {
-            case "fire" -> "ruby";
-            case "ice" -> "sapphire";
-            default -> "topaz";
-        };
-        String nativeOre = switch (element) {
+        helper.assertTrue(seenIngots.containsAll(ingots), "Every profile ingot must be rolled: " + tableName);
+        String elementMetal = switch (element) {
             case "fire" -> "gold";
             case "ice" -> "silver";
             default -> "copper";
         };
-        helper.assertTrue(names.contains("tfc:gem/" + gem), "Element gem must use the TFC reward");
-        helper.assertTrue(names.contains("tfc:ore/small_native_" + nativeOre), "Nugget must become a TFC small ore");
-        String profile = variant.equals("roost") ? "ordinary" : enchanted ? "lategame" : "dangerous";
-        verifyEquipmentProfile(helper, profile, metals, enchanted, sharedTables);
-        for (String metal : metals) {
-            helper.assertTrue(names.contains("tfc:metal/ingot/" + metal), "Profile ingot is missing");
+        helper.assertTrue(seenIngots.contains(elementMetal), "Element ingot must be rolled: " + tableName);
+        helper.assertTrue(seenOutputs.contains("tfc:ore/small_native_" + elementMetal),
+            "Element small ore must be rolled: " + tableName);
+        helper.assertTrue(seenEquipmentMetals.equals(Set.copyOf(equipmentMetals)),
+            "Equipment must use exactly the profile metals: " + tableName);
+        helper.assertTrue(seenSwordShapes.equals(Set.of("sword_blade", "javelin_head", "mace_head", "sword",
+            "javelin", "mace")), "Sword family must use every TFC weapon shape: " + tableName);
+        if (male) {
+            helper.assertTrue(enchantedFinished.containsAll(Set.of("sword", "helmet", "chestplate", "greaves", "boots")),
+                "Male cave finished swords and armor must be re-enchanted: " + tableName);
         }
-        ResourceKey<LootTable> key = ResourceKey.create(Registries.LOOT_TABLE,
-            ResourceLocation.parse("iceandfire:chest/" + tableName));
-        LootTable loaded = helper.getLevel().getServer().reloadableRegistries().getLootTable(key);
-        helper.assertTrue(loaded != LootTable.EMPTY, "Generated loot table must be loaded by the server");
-        LootParams params = new LootParams.Builder(helper.getLevel())
-            .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(new BlockPos(1, 2, 1))))
-            .create(LootContextParamSets.CHEST);
-        boolean foundProfile = false;
-        for (long seed = 0; seed < 200 && !foundProfile; seed++) {
-            for (ItemStack stack : loaded.getRandomItems(params, seed)) {
-                String itemId = BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
-                if (metals.stream().anyMatch(metal -> itemId.equals("tfc:metal/ingot/" + metal)
-                    || itemId.endsWith("/" + metal) && itemId.startsWith("tfc:metal/"))) {
-                    foundProfile = true;
+        double ratio = (double) unfinished / (unfinished + finished);
+        helper.assertTrue(ratio > 0.6 && ratio < 0.73,
+            "Work-in-progress and finished equipment must follow 2:1, was " + ratio + " in " + tableName);
+    }
+
+    private static Set<String> allowedOutputs(String source, String element, String variant, List<String> ingots,
+        List<String> equipmentMetals) {
+        String fixed = switch (element + "|" + source) {
+            // CE 2.2's ice male cave rolls Gold in place of the ice element Silver.
+            case "ice|minecraft:gold_ingot" -> variant.equals("male_cave") ? "tfc:metal/ingot/silver" : null;
+            case "ice|minecraft:gold_nugget" -> variant.equals("male_cave") ? "tfc:ore/small_native_silver" : null;
+            case "fire|minecraft:emerald" -> "tfc:gem/ruby";
+            case "fire|minecraft:gold_ingot" -> "tfc:metal/ingot/gold";
+            case "ice|iceandfire:sapphire_gem" -> "tfc:gem/sapphire";
+            case "ice|iceandfire:silver_ingot" -> "tfc:metal/ingot/silver";
+            case "ice|iceandfire:silver_nugget" -> "tfc:ore/small_native_silver";
+            case "lightning|minecraft:amethyst_shard" -> "tfc:gem/topaz";
+            case "lightning|minecraft:copper_ingot" -> "tfc:metal/ingot/copper";
+            case "lightning|iceandfire:copper_nugget" -> "tfc:ore/small_native_copper";
+            default -> null;
+        };
+        if (fixed != null) {
+            return Set.of(fixed);
+        }
+        Set<String> values = new HashSet<>();
+        switch (source) {
+            case "minecraft:diamond", "minecraft:emerald", "minecraft:amethyst_shard", "iceandfire:sapphire_gem" ->
+                List.of("amethyst", "diamond", "emerald", "lapis_lazuli", "opal", "pyrite", "ruby", "sapphire", "topaz")
+                    .forEach(gem -> values.add("tfc:gem/" + gem));
+            case "minecraft:iron_ingot", "minecraft:gold_ingot", "minecraft:copper_ingot", "iceandfire:silver_ingot" ->
+                ingots.forEach(metal -> values.add("tfc:metal/ingot/" + metal));
+            case "minecraft:gold_nugget" -> values.add("tfc:ore/small_native_gold");
+            case "minecraft:chain" -> values.add("tfc:metal/chain/wrought_iron");
+            case "minecraft:obsidian" -> values.addAll(List.of("tfc:powder/flux", "minecraft:glass",
+                "minecraft:glass_pane", "tfc:kaolin_clay", "tfc:powder/wood_ash", "tfc:powder/saltpeter",
+                "tfc:powder/sylvite"));
+            default -> {
+                List<String> shapes = equipmentShapes(source);
+                if (shapes != null) {
+                    shapes.forEach(shape -> equipmentMetals.forEach(metal ->
+                        values.add("tfc:metal/" + shape + "/" + metal)));
+                } else if (!KEPT_REWARDS.contains(source)) {
+                    throw new IllegalStateException("CE dragon reward has no replacement rule: " + source);
                 }
             }
         }
-        helper.assertTrue(foundProfile, "Loaded loot table must yield its TFC equipment profile");
+        return values;
+    }
+
+    private static List<String> equipmentShapes(String source) {
+        if (!isEquipmentSource(source)) {
+            return null;
+        }
+        if (source.endsWith("_sword")) {
+            return List.of("sword_blade", "javelin_head", "mace_head", "sword", "javelin", "mace");
+        }
+        String part = source.substring(source.lastIndexOf('_') + 1);
+        String tfcPart = part.equals("leggings") ? "greaves" : part;
+        return List.of("unfinished_" + tfcPart, tfcPart);
+    }
+
+    private static boolean isEquipmentSource(String source) {
+        return source.matches("minecraft:(iron|diamond)_(sword|helmet|chestplate|leggings|boots)")
+            || source.matches("iceandfire:(silver|copper)_sword")
+            || source.matches("iceandfire:armor_(silver|copper)_metal_(helmet|chestplate|leggings|boots)");
+    }
+
+    private static void verifyFilledChest(GameTestHelper helper, ChestBlockEntity chest, String element) {
+        chest.unpackLootTable(null);
+        boolean filled = false;
+        for (int slot = 0; slot < chest.getContainerSize(); slot++) {
+            ItemStack stack = chest.getItem(slot);
+            if (stack.isEmpty()) {
+                continue;
+            }
+            filled = true;
+            String id = id(stack);
+            helper.assertTrue(KEPT_REWARDS.contains(id) || id.startsWith("tfc:") || id.startsWith("minecraft:glass"),
+                "Chest fill must pass CE rewards through the TFC replacement: " + id + " in " + element);
+        }
+        helper.assertTrue(filled, "Dragon chest must be filled from its CE loot table");
+    }
+
+    private static String id(ItemStack stack) {
+        return BuiltInRegistries.ITEM.getKey(stack.getItem()).toString();
     }
 
     private static void verifyRoostChest(GameTestHelper helper, Object piece, String element, BlockPos relativeOrigin) {
@@ -374,48 +415,11 @@ public final class DragonStructureLootGameTests {
                 helper.assertValueEqual(chest.getLootTable().location(),
                     ResourceLocation.parse("iceandfire:chest/" + element + "_dragon_roost"),
                     "Roost chest must retain the CE loot table ID");
+                verifyFilledChest(helper, chest, element);
                 found++;
             }
         }
         helper.assertTrue(found > 0, "Roost decoration must place a chest");
-    }
-
-    private static void verifyEquipmentProfile(GameTestHelper helper, String profile, List<String> metals,
-        boolean enchanted, Set<String> parentTables) {
-        for (String equipment : List.of("sword", "helmet", "chestplate", "greaves", "boots")) {
-            String table = "iaftfc:shared/equipment/" + profile + "/" + equipment;
-            helper.assertTrue(parentTables.contains(table), "Profile equipment table is missing");
-            JsonArray entries = resource(helper, "iaftfc:loot_table/shared/equipment/" + profile + "/"
-                + equipment + ".json")
-                .getAsJsonArray("pools").get(0).getAsJsonObject().getAsJsonArray("entries");
-            Set<String> names = new HashSet<>();
-            int unfinishedWeight = 0;
-            int finishedWeight = 0;
-            for (JsonElement value : entries) {
-                JsonObject entry = value.getAsJsonObject();
-                String name = entry.get("name").getAsString();
-                helper.assertTrue(names.add(name), "Shared equipment entry must be unique");
-                if (name.contains("unfinished_") || name.contains("sword_blade")) {
-                    unfinishedWeight += entry.get("weight").getAsInt();
-                    helper.assertTrue(!hasEnchant(entry), "Work-in-progress equipment must not be enchanted");
-                } else {
-                    finishedWeight += entry.get("weight").getAsInt();
-                    helper.assertValueEqual(hasEnchant(entry), enchanted,
-                        "Only lategame finished equipment may be enchanted");
-                }
-                helper.assertTrue(!name.contains("red_steel") && !name.contains("blue_steel"),
-                    "Generic loot must not include Red or Blue Steel");
-            }
-            helper.assertValueEqual(unfinishedWeight, finishedWeight * 2,
-                "Work-in-progress and finished equipment weights must have a 2:1 ratio");
-            for (String metal : metals) {
-                String unfinished = equipment.equals("sword") ? "sword_blade" : "unfinished_" + equipment;
-                helper.assertTrue(names.contains("tfc:metal/" + unfinished + "/" + metal),
-                    "Profile work-in-progress equipment is missing");
-                helper.assertTrue(names.contains("tfc:metal/" + equipment + "/" + metal),
-                    "Profile finished equipment is missing");
-            }
-        }
     }
 
     private static void verifyCaveChest(GameTestHelper helper, CavePiece piece,
@@ -429,6 +433,7 @@ public final class DragonStructureLootGameTests {
         ChestBlockEntity chest = (ChestBlockEntity)helper.getBlockEntity(pos);
         helper.assertValueEqual(chest.getLootTable().location(), ResourceLocation.parse("iceandfire:chest/" + element
             + "_dragon_" + (male ? "male_cave" : "female_cave")), "Cave chest must retain its CE loot table ID");
+        verifyFilledChest(helper, chest, element);
     }
 
     private static RandomSource chestRandom() {
@@ -438,18 +443,6 @@ public final class DragonStructureLootGameTests {
                 return RandomSource.create(seed);
             }
         }
-    }
-
-    private static boolean hasEnchant(JsonObject entry) {
-        if (!entry.has("functions")) {
-            return false;
-        }
-        for (JsonElement function : entry.getAsJsonArray("functions")) {
-            if (function.getAsJsonObject().get("function").getAsString().equals("minecraft:enchant_with_levels")) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private static String elementGem(DragonClimate.Element element) {
@@ -475,15 +468,6 @@ public final class DragonStructureLootGameTests {
             "Cave ore must match its nearby rock");
         if (ore != null) {
             helper.assertTrue(id.getPath().startsWith("ore/" + ore + "/"), "Element ore must match its dragon");
-        }
-    }
-
-    private static JsonObject resource(GameTestHelper helper, String id) {
-        try (var reader = new InputStreamReader(helper.getLevel().getServer().getResourceManager()
-            .getResource(ResourceLocation.parse(id)).orElseThrow().open(), StandardCharsets.UTF_8)) {
-            return JsonParser.parseReader(reader).getAsJsonObject();
-        } catch (IOException exception) {
-            throw new IllegalStateException("Unable to read generated loot table " + id, exception);
         }
     }
 

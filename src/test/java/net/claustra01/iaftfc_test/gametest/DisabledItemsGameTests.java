@@ -8,6 +8,12 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import net.claustra01.iaftfc.datagen.DisabledContentData;
 import net.claustra01.iaftfc.disable.DisabledContent;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -29,6 +35,9 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 @GameTestHolder("iaftfc")
 @PrefixGameTestTemplate(false)
 public final class DisabledItemsGameTests {
+    private static final Pattern GLM_REPLACED_TABLE =
+        Pattern.compile("loot_table/chest/(fire|ice|lightning)_dragon_(roost|female_cave|male_cave)\\.json");
+
     @GameTest(template = "empty", batch = "m11", timeoutTicks = 200)
     public static void duplicateSurvivalSourcesAreStopped(GameTestHelper helper) {
         Set<String> expected = new HashSet<>(DisabledContentData.DISABLED_ITEMS);
@@ -82,6 +91,10 @@ public final class DisabledItemsGameTests {
         var resources = helper.getLevel().getServer().getResourceManager().listResources("loot_table",
             id -> id.getNamespace().equals("iceandfire") && id.getPath().endsWith(".json"));
         resources.forEach((id, resource) -> {
+            if (GLM_REPLACED_TABLE.matcher(id.getPath()).matches()) {
+                assertRolledLootHasNoDisabledItems(helper, id);
+                return;
+            }
             try (var reader = new InputStreamReader(resource.open(), StandardCharsets.UTF_8)) {
                 JsonElement json = JsonParser.parseReader(reader);
                 for (String item : disabled) {
@@ -92,6 +105,24 @@ public final class DisabledItemsGameTests {
                 throw new IllegalStateException("Unable to inspect loot table " + id, exception);
             }
         });
+    }
+
+    /** The CE dragon chest tables keep CE items in JSON; the TFC replacement GLM must remove them when rolled. */
+    private static void assertRolledLootHasNoDisabledItems(GameTestHelper helper, ResourceLocation file) {
+        String path = file.getPath();
+        ResourceLocation table = ResourceLocation.fromNamespaceAndPath(file.getNamespace(),
+            path.substring("loot_table/".length(), path.length() - ".json".length()));
+        LootTable loot = helper.getLevel().getServer().reloadableRegistries()
+            .getLootTable(ResourceKey.create(Registries.LOOT_TABLE, table));
+        LootParams params = new LootParams.Builder(helper.getLevel())
+            .withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(helper.absolutePos(BlockPos.ZERO)))
+            .create(LootContextParamSets.CHEST);
+        for (long seed = 1; seed <= 500; seed++) {
+            for (ItemStack stack : loot.getRandomItems(params, seed)) {
+                helper.assertTrue(!stack.is(DisabledContent.ITEMS),
+                    "Rolled loot still contains disabled content: " + table + " -> " + stack.getItem());
+            }
+        }
     }
 
     private static boolean contains(JsonElement element, String value) {

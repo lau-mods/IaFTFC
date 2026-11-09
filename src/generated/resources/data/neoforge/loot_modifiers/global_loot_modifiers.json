@@ -1,0 +1,14 @@
+{
+  "entries": [
+    "iaftfc:dragon_chest/fire_dragon_roost",
+    "iaftfc:dragon_chest/fire_dragon_female_cave",
+    "iaftfc:dragon_chest/fire_dragon_male_cave",
+    "iaftfc:dragon_chest/ice_dragon_roost",
+    "iaftfc:dragon_chest/ice_dragon_female_cave",
+    "iaftfc:dragon_chest/ice_dragon_male_cave",
+    "iaftfc:dragon_chest/lightning_dragon_roost",
+    "iaftfc:dragon_chest/lightning_dragon_female_cave",
+    "iaftfc:dragon_chest/lightning_dragon_male_cave"
+  ],
+  "replace": false
+}
