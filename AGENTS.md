@@ -47,7 +47,7 @@
 
 - 製品仕様の正本は `PROJECT.md`。この文書は共通開発規約と実装入口だけを示し、製品仕様を重複して定義しない。
 - 固定版は Minecraft 1.21.1、NeoForge 21.1.248、TFC 4.2.14、IaF CE 2.2。版の変更は `PROJECT.md` に基づく検証を伴う。
-- レシピ、Loot、model等の正式generatorは `./gradlew runData` とし、出力を `src/generated/resources` に置く。DragonsteelのPNGだけは正式generator `tools/generate_assets.py`（Python 3 + Pillow）で生成し、`src/main/resources/assets/iaftfc/textures/` に保存する。その他の補助scriptは `.tmp/` に置く。
+- レシピ、Loot、model等の正式generatorは `./gradlew runData` とし、出力を `src/generated/resources` に置く。DragonsteelのPNGだけは正式generator `tools/generate_assets.py`（Python 3 + Pillow）で生成し、`src/main/resources/assets/iaftfc/textures/` とPile互換用の `src/main/resources/assets/tfc/textures/` に保存する。その他の補助scriptは `.tmp/` に置く。
 - 元 Mod のデータを上書きする場合、`src/test/resources/iaftfc/gametest/override_manifest.json` の許可リストへ対象 ID を追加し、GameTestで実際の上書きと照合する。
 - Dragon構造物の気候選択とCave鉱石選択は `src/main/java/net/claustra01/iaftfc/worldgen/`、元生成処理への限定差分は `src/main/java/net/claustra01/iaftfc/mixin/`、検証入口は `src/test/java/net/claustra01/iaftfc_test/gametest/WorldgenGameTests.java` と `tests/e2e/dragon-structures.mjs` とする。
 - Dragon構造物の属性別TFCチェストと岩石適合鉱石は `worldgen/DragonChests` と `worldgen/DragonCaveOres`、3種のPile Lootは `datagen/DragonLootData` とする。9種のCEチェストLoot Tableは上書きせず、抽選後のTFC置換を `loot/TfcLootRules` とGLM `loot/TfcLootReplacementModifier`（`iaftfc:tfc_loot_replacement`）で行い、テーブルごとのprofile・属性・エンチャント設定を `datagen/DragonLootModifiers` から `runData` で生成する。検証入口は `gametest/DragonStructureLootGameTests`、無効化アイテムの非出現は `gametest/DisabledItemsGameTests` とする。
@@ -73,10 +73,10 @@
 ## Dragonsteel texture generator
 
 - 再生成入口は `python3 tools/generate_assets.py`。既存iaftfcの形状、Ice and FireのIngot配色、TFC Wrought Ironの同形状のL範囲を参照する。変換方式と対象形状は同scriptに定義する。
-- 対象はFire・Ice・Lightningの素材・工具頭・Block・Smooth各12形状、計36画像。未完成防具12画像は生成対象に含めない。
+- 対象はFire・Ice・Lightningの素材・工具頭・Block・Smooth各12形状、計36画像と、Ingot Pile／Double Ingot Pile用のSmooth 3画像。Pile用はTFCのMetalItem参照に合わせて `src/main/resources/assets/tfc/textures/block/metal/smooth/` に同じ生成画像を保存する。未完成防具12画像は生成対象に含めない。
 - 原画像は `tools/texture_sources/` に無加工で保持する。入力の出典と権利表示は `LICENCE` に集約する。ハッシュ対応表や比較画像は追加しない。
 - 画像の参照先は既存 `DragonsteelData` のmodelと同じ。金属itemへの乗算着色はなく、`DragonsteelClient` は溶融流体とBucketの描画を担当する。
-- 再生成のバイト一致、原形状のalpha一致、未完成防具が不変であること、modelの画像参照を検証し、`./gradlew build` で同梱を確認する。
+- 再生成のバイト一致、原形状のalpha一致、未完成防具が不変であること、modelの画像参照とPile用Smoothがiaftfc側と一致することを検証し、`./gradlew build` で同梱を確認する。
 
 ## 依存バージョンの許容範囲
 

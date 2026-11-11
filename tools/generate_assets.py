@@ -138,6 +138,13 @@ def main():
                 target.parent.mkdir(parents=True, exist_ok=True)
                 image.save(target)
                 count += 1
+                # TFC MetalItem resolves both ingot piles in its own namespace,
+                # using the metal name inferred from c:ingots / c:double_ingots.
+                if kind == 'block' and form == 'smooth':
+                    pile_target = ROOT / 'src/main/resources/assets/tfc/textures' / relative
+                    pile_target.parent.mkdir(parents=True, exist_ok=True)
+                    image.save(pile_target)
+                    count += 1
     armor_count = generate_dragon_armor()
     print(f'Generated {count} Dragonsteel and {armor_count} Dragon Armor textures; unfinished armor excluded.')
 
