@@ -100,6 +100,39 @@ def recolor(shape, colors, fixed=()):
     assert all(pixels(out)[i] == old[i] for i in fixed)
     return out
 
+def recolor_smooth(shape, source, base_ingot, tone):
+    """D: source ingot interior mean color with the base smooth's shading."""
+    from collections import Counter
+
+    data = pixels(source)
+    w, h = source.size
+    interior = Counter(p[:3] for i, p in enumerate(data) if p[3] and
+                       0 < i % w < w-1 and 0 < i // w < h-1 and
+                       all(data[j][3] for j in (i-1, i+1, i-w, i+w)))
+    if not interior:
+        interior = Counter(p[:3] for p in data if p[3])
+    mean = tuple(sum(lab(c)[j]*n for c, n in interior.items())/sum(interior.values())
+                 for j in range(3))
+    levels = {c: lab(c)[0] for c in palette(shape)}
+    lo, hi = min(levels.values()), max(levels.values())
+    tone_l = [lab(p[:3])[0] for p in pixels(tone) if p[3]]
+    tone_mean = sum(tone_l)/len(tone_l)
+    def span(image):
+        values = [lab(c)[0] for c in palette(image)]
+        return max(values)-min(values)
+    base_span = span(base_ingot)
+    ratio = span(source)/base_span if base_span > 1e-7 else 0.
+    lookup = {}
+    for c, lightness in levels.items():
+        t = (lightness-lo)/(hi-lo) if hi > lo else .5
+        base_l = min(tone_l)+t*(max(tone_l)-min(tone_l))
+        target_l = max(0, min(1, mean[0]+(base_l-tone_mean)*ratio))
+        lookup[c] = rgb(target_l, mean[1], mean[2])
+    out = Image.new('RGBA', shape.size)
+    out.putdata([(*lookup[p[:3]], p[3]) if p[3] else p for p in pixels(shape)])
+    return out
+
+
 def load(path):
     return Image.open(path).convert('RGBA')
 
@@ -133,7 +166,11 @@ def main():
                 relative = f'{kind}/metal/{form}/{metal}.png'
                 shape = load(SOURCES / 'iaftfc' / relative)
                 tone = load(SOURCES / f'tfc/{kind}/metal/{form}/wrought_iron.png')
-                image = recolor(shape, normalize(palette(original), palette(tone)))
+                if kind == 'block' and form == 'smooth':
+                    base_ingot = load(SOURCES / 'tfc/item/metal/ingot/wrought_iron.png')
+                    image = recolor_smooth(shape, original, base_ingot, tone)
+                else:
+                    image = recolor(shape, normalize(palette(original), palette(tone)))
                 target = ROOT / 'src/main/resources/assets/iaftfc/textures' / relative
                 target.parent.mkdir(parents=True, exist_ok=True)
                 image.save(target)
